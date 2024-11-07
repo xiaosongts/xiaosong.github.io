@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+<title>Git</title>
+
+
+
+
+<meta charset="utf-8">
+<meta name="X-UA-Compatible" content="IE=edge">
+<meta name="google-site-verification" content="G-XXXXXXXXXX">
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+<meta content="telephone=no" name="format-detection">
+<meta name="description" content="">
+<meta name="renderer" content="webkit">
+<meta name="theme-color" content="#ffffff">
+
+
+
+<meta property="og:url" content="http://localhost:1313/essay/git/">
+  <meta property="og:site_name" content="小宋小宋?">
+  <meta property="og:title" content="Git">
+  <meta property="og:description" content="简介 需求：若是编辑一个文件时，想去保留每次修改的版本，以便当想去回滚版本的时候，也就是这次修改的不行，想要去使用以前的版本，所以，最常见的就是每次修改都另存为一个新文件，这种方法简单，但是繁琐
+发展历史
+本地化版本控制系统 集中式版本控制系统：多个主机使用一个中央服务器的版本数据库，容易单点故障，出现故障的时候，多个主机无法工作 分布式版本控制系统 Git （分布式版本控制系统）
+Git由Linus Torvalds开发，用于在linux系统项目中使用。Git是建立一个仓库，这个仓库可以存储好多文件并进行管理，而且是直接存储文件快照，也就是每个主机都有文件的备份，可以解决集中式版本控制系统的单点故障问题。
+也就是说，当文件被更改的时候，新的版本记录的是最新的全量文件，而不是记录修改的差异，而且没有修改的文件则是链接，链接到上个版本文件。
+仓库中文件状态 仓库中有很多文件，每种文件都有不同的状态，有新建的、修改的、完成的，在Git中，可以理解为仓库中有箱子将这些不同状态的文件区分出来，需要人工手动地将文件移动到其他箱子，从而改变文件的状态。
+状态：
+已修改：是指目前文件内容和仓库记录该文件的内容不一样 已暂存：是指记录了文件可以更新了，以便更新到仓库中记录的最新内容 已提交：是指文件在仓库中已经是最新内容，安全的保存成功 总的来分，所有的文件都是两个状态未跟踪和已跟踪，未跟踪的文件是不属于仓库管理的文件，比如你新建一个文件的时候，这个文件就属于未跟踪状态，只有在使用命令git add将文件移动到暂存区，才会变成已跟踪状态。已跟踪状态则是已经提交和已经修改，已提交的文件是安全的保存在仓库中，已修改的文件是修改了，但是还没有提交（commit）到仓库中。
+所以，根据文件的状态可以将仓库划分三个区域，工作区、暂存区、git仓库；
+工作区：是Git仓库压缩出来的一部分，以便用户可以修改这些文件 暂存区：是一个文件，记录需要提交的修改后的文件 Git仓库：是最终的数据库，保存的都是最新的内容 安装和配置 官网：Git下载
+配置
+配置用户名和邮箱，因为在提交代码的时候，需要记录提交者的信息 git config --global user.name &#34;yushan song&#34; git config --global user.email &#34;yushan.song@gmail.com&#34; --global，这个是全局配置，如果只对当前仓库生效，则不需要加
+基础 仓库：将整个文件夹变为一个仓库进行管理文件
+本地仓库：如果仅仅个人使用，利用Git的优点管理自己的文件，可以将文件夹变为一个仓库，然后自己进行操作 git init 远程仓库：一般用于多人协作开发一个工程，或者自己推送到软件项目托管平台，以供别人访问及使用 git push origin master git clone &lt;url&gt; 本地仓库内文件操作：
+状态：
+git status 可以查看当前仓库的文件状态，比如你修改了什么，新增了什么，删除了什么 添加至暂存区(stage)：
+git add &lt;file&gt;/&lt;path&gt; 将未跟踪的文件进行跟踪，将已跟踪且修改的文件添加到暂存区 将文件添加到暂存区，精确的说：“是将文件添加到下一个版本中”，每次add都是创建一个新版本，但是暂存区中只有一个版本，所以每次add都是覆盖之前的版本。 比如，当出现Untracked files这个信息，就表示有未跟踪文件（新增的），就可以使用这个命令将其添加到暂存区，交由git管理。 提交到仓库：
+git commit -m &#34;message&#34; 将暂存区的文件提交到仓库中，提交之后，这个文件就变成了已提交状态，可以理解为这个文件是安全的保存在仓库中，可以提交到远程仓库中。 分支 主分支和其他分支">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="essay">
+    <meta property="article:published_time" content="2024-07-10T00:00:00+00:00">
+    <meta property="article:modified_time" content="2024-07-10T00:00:00+00:00">
+
+
+
+
+
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Git">
+  <meta name="twitter:description" content="简介 需求：若是编辑一个文件时，想去保留每次修改的版本，以便当想去回滚版本的时候，也就是这次修改的不行，想要去使用以前的版本，所以，最常见的就是每次修改都另存为一个新文件，这种方法简单，但是繁琐
+发展历史
+本地化版本控制系统 集中式版本控制系统：多个主机使用一个中央服务器的版本数据库，容易单点故障，出现故障的时候，多个主机无法工作 分布式版本控制系统 Git （分布式版本控制系统）
+Git由Linus Torvalds开发，用于在linux系统项目中使用。Git是建立一个仓库，这个仓库可以存储好多文件并进行管理，而且是直接存储文件快照，也就是每个主机都有文件的备份，可以解决集中式版本控制系统的单点故障问题。
+也就是说，当文件被更改的时候，新的版本记录的是最新的全量文件，而不是记录修改的差异，而且没有修改的文件则是链接，链接到上个版本文件。
+仓库中文件状态 仓库中有很多文件，每种文件都有不同的状态，有新建的、修改的、完成的，在Git中，可以理解为仓库中有箱子将这些不同状态的文件区分出来，需要人工手动地将文件移动到其他箱子，从而改变文件的状态。
+状态：
+已修改：是指目前文件内容和仓库记录该文件的内容不一样 已暂存：是指记录了文件可以更新了，以便更新到仓库中记录的最新内容 已提交：是指文件在仓库中已经是最新内容，安全的保存成功 总的来分，所有的文件都是两个状态未跟踪和已跟踪，未跟踪的文件是不属于仓库管理的文件，比如你新建一个文件的时候，这个文件就属于未跟踪状态，只有在使用命令git add将文件移动到暂存区，才会变成已跟踪状态。已跟踪状态则是已经提交和已经修改，已提交的文件是安全的保存在仓库中，已修改的文件是修改了，但是还没有提交（commit）到仓库中。
+所以，根据文件的状态可以将仓库划分三个区域，工作区、暂存区、git仓库；
+工作区：是Git仓库压缩出来的一部分，以便用户可以修改这些文件 暂存区：是一个文件，记录需要提交的修改后的文件 Git仓库：是最终的数据库，保存的都是最新的内容 安装和配置 官网：Git下载
+配置
+配置用户名和邮箱，因为在提交代码的时候，需要记录提交者的信息 git config --global user.name &#34;yushan song&#34; git config --global user.email &#34;yushan.song@gmail.com&#34; --global，这个是全局配置，如果只对当前仓库生效，则不需要加
+基础 仓库：将整个文件夹变为一个仓库进行管理文件
+本地仓库：如果仅仅个人使用，利用Git的优点管理自己的文件，可以将文件夹变为一个仓库，然后自己进行操作 git init 远程仓库：一般用于多人协作开发一个工程，或者自己推送到软件项目托管平台，以供别人访问及使用 git push origin master git clone &lt;url&gt; 本地仓库内文件操作：
+状态：
+git status 可以查看当前仓库的文件状态，比如你修改了什么，新增了什么，删除了什么 添加至暂存区(stage)：
+git add &lt;file&gt;/&lt;path&gt; 将未跟踪的文件进行跟踪，将已跟踪且修改的文件添加到暂存区 将文件添加到暂存区，精确的说：“是将文件添加到下一个版本中”，每次add都是创建一个新版本，但是暂存区中只有一个版本，所以每次add都是覆盖之前的版本。 比如，当出现Untracked files这个信息，就表示有未跟踪文件（新增的），就可以使用这个命令将其添加到暂存区，交由git管理。 提交到仓库：
+git commit -m &#34;message&#34; 将暂存区的文件提交到仓库中，提交之后，这个文件就变成了已提交状态，可以理解为这个文件是安全的保存在仓库中，可以提交到远程仓库中。 分支 主分支和其他分支">
+
+
+
+
+
+
+
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+      <script>
+        var doNotTrack = false;
+        if ( false ) {
+          var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+          var doNotTrack = (dnt == "1" || dnt == "yes");
+        }
+        if (!doNotTrack) {
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-XXXXXXXXXX');
+        }
+      </script>
+
+
+
+
+<script type="text/javascript">
+  (function(c,l,a,r,i,t,y){
+      c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+      t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+      y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+  })(window, document, "clarity", "script", "abcdefghzd");
+</script>
+
+
+
+  
+
+
+
+
+
+
+      <script src="/js/toc.js"></script>
+    
+    <link type="text/css" rel="stylesheet" href="/vendor/css/bootstrap.min.css">
+
+<link rel="stylesheet" href="/scss/dark-mode.min.cb53f1bee2b8900cb4f082afbf00175d6618f281cf9a2fe8619e3b52d20b5721.css" integrity="sha256-y1PxvuK4kAy08IKvvwAXXWYY8oHPmi/oYZ47UtILVyE=" media="screen">
+
+
+<link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Material+Icons">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+<body>
+    	<div id="app"><div class="single-column-drawer-container" id="drawer"
+     v-bind:class="{ 'single-column-drawer-container-active': isDrawerOpen }">
+    <div class="drawer-content">
+        <div class="drawer-menu">
+            
+            
+            
+                
+                
+                
+                
+                
+                <a class="a-block drawer-menu-item false" href="/categories">
+                    分类
+                </a>
+                
+            
+                
+                
+                
+                
+                
+                <a class="a-block drawer-menu-item false" href="/tags">
+                    快速查找
+                </a>
+                
+            
+                
+                
+                
+                    
+                
+                
+                
+                <a class="a-block drawer-menu-item active" href="/essay">
+                    文章
+                </a>
+                
+            
+            
+            <div class="toc">
+
+
+	<div class="toc-content">
+	
+		
+		
+		
+		<center>- CATALOG -</center>
+		
+		
+		<ul>
+			
+				
+				
+					
+						
+						
+						
+						
+							
+								
+									<ul>
+								
+							
+						
+						
+							<li>
+								<a href="#%e7%ae%80%e4%bb%8b" class="nav-简介">
+									简介
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#git" class="nav-git">
+									Git
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#%e4%bb%93%e5%ba%93%e4%b8%ad%e6%96%87%e4%bb%b6%e7%8a%b6%e6%80%81" class="nav-仓库中文件状态">
+									仓库中文件状态
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#%e5%ae%89%e8%a3%85%e5%92%8c%e9%85%8d%e7%bd%ae" class="nav-安装和配置">
+									安装和配置
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#%e5%9f%ba%e7%a1%80" class="nav-基础">
+									基础
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#%e5%88%86%e6%94%af" class="nav-分支">
+									分支
+								</a>
+							</li>
+						
+						
+					
+				
+			
+		</ul>
+	</div>
+
+</div>
+            
+        </div>
+    </div>
+</div>
+<transition name="fade">
+    <div id="drawer-mask" v-bind:class="{ 'single-column-drawer-mask': mounted }" v-if="isDrawerOpen" v-on:click="toggleDrawer"></div>
+</transition>
+<nav id="navBar" class="navbar sticky-top navbar-light single-column-nav-container">
+    <div id="navBackground" class="nav-background"></div>
+    <div class="container container-narrow nav-content">
+        <button id="nav_dropdown_btn" class="nav-dropdown-toggle" type="button" v-on:click="toggleDrawer">
+            <i class="material-icons">
+                menu
+            </i>
+        </button>
+        <a id="navTitle" class="navbar-brand" href="http://localhost:1313/">
+            小宋小宋?
+        </a>
+        
+        <button type="button" class="nav-darkmode-toggle" id="darkModeToggleButton2">
+            <i class="material-icons" id="darkModeToggleIcon2">
+                dark_mode
+            </i>
+        </button>
+        
+    </div>
+</nav>
+<div class="single-column-header-container" id="pageHead"
+     v-bind:style="{ transform: 'translateZ(0px) translateY('+.3*scrollY+'px)', opacity: 1-navOpacity }">
+    <a href="http://localhost:1313/">
+        <div class="single-column-header-title">小宋小宋?</div>
+        
+        <div class="single-column-header-subtitle">在呢！</div>
+        
+
+    </a>
+</div>
+
+            <div id="content">
+                <div id="streamContainer" class="stream-container">
+
+    <div class="post-list-container post-list-container-shadow">
+        <div class="post">
+            
+            
+            
+
+            <div class="post-head-wrapper-text-only"
+                
+            >
+                <div class="post-title">
+                    Git
+                    
+                    <div class="post-meta">
+                        
+                        <time itemprop="datePublished">
+                            2024-07-10 00:00
+                        </time>
+                        
+
+                        
+
+                        
+                        
+                    </div>
+                </div>
+            </div>
+            
+            <div class="post-body-wrapper">
+                
+                <div class="post-body" v-pre>
+                
+                    <h2 id="简介">简介</h2>
+<blockquote>
+<p>需求：若是编辑一个文件时，想去保留每次修改的版本，以便当想去回滚版本的时候，也就是这次修改的不行，想要去使用以前的版本，所以，最常见的就是每次修改都另存为一个新文件，这种方法简单，但是繁琐</p>
+</blockquote>
+<p>发展历史</p>
+<ol>
+<li>本地化版本控制系统</li>
+<li>集中式版本控制系统：多个主机使用一个中央服务器的版本数据库，容易单点故障，出现故障的时候，多个主机无法工作</li>
+<li>分布式版本控制系统</li>
+</ol>
+<h2 id="git">Git</h2>
+<p>（分布式版本控制系统）</p>
+<p>Git由Linus Torvalds开发，用于在linux系统项目中使用。Git是建立一个仓库，这个仓库可以存储好多文件并进行管理，而且是直接存储<code>文件快照</code>，也就是每个主机都有文件的备份，可以解决集中式版本控制系统的单点故障问题。</p>
+<p>也就是说，当文件被更改的时候，新的版本记录的是最新的全量文件，而不是记录修改的差异，而且没有修改的文件则是链接，链接到上个版本文件。</p>
+<p><img src="snapshots.png" alt="快照"></p>
+<h2 id="仓库中文件状态">仓库中文件状态</h2>
+<p>仓库中有很多文件，每种文件都有不同的状态，有新建的、修改的、完成的，在Git中，可以理解为仓库中有箱子将这些不同状态的文件区分出来，需要人工手动地将文件移动到其他箱子，从而改变文件的状态。</p>
+<p>状态：</p>
+<ul>
+<li><code>已修改</code>：是指目前文件内容和仓库记录该文件的内容不一样</li>
+<li><code>已暂存</code>：是指记录了文件可以更新了，以便更新到仓库中记录的最新内容</li>
+<li><code>已提交</code>：是指文件在仓库中已经是最新内容，安全的保存成功</li>
+</ul>
+<p>总的来分，所有的文件都是两个状态<code>未跟踪</code>和<code>已跟踪</code>，未跟踪的文件是不属于仓库管理的文件，比如你新建一个文件的时候，这个文件就属于未跟踪状态，只有在使用命令<code>git add</code>将文件移动到暂存区，才会变成已跟踪状态。已跟踪状态则是已经提交和已经修改，已提交的文件是安全的保存在仓库中，已修改的文件是修改了，但是还没有提交（commit）到仓库中。</p>
+<p>所以，根据文件的状态可以将仓库划分三个区域，<code>工作区</code>、<code>暂存区</code>、<code>git仓库</code>；</p>
+<ul>
+<li>工作区：是Git仓库压缩出来的一部分，以便用户可以修改这些文件</li>
+<li>暂存区：是一个文件，记录需要提交的修改后的文件</li>
+<li>Git仓库：是最终的数据库，保存的都是最新的内容</li>
+</ul>
+<p><img src="areas.png" alt="区域"></p>
+<h2 id="安装和配置">安装和配置</h2>
+<p>官网：<a href="https://git-scm.com/downloads">Git下载</a></p>
+<p>配置</p>
+<ol>
+<li>配置用户名和邮箱，因为在提交代码的时候，需要记录提交者的信息</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>git config --global user.name <span style="color:#cd5555">&#34;yushan song&#34;</span>
+</span></span><span style="display:flex;"><span>git config --global user.email <span style="color:#cd5555">&#34;yushan.song@gmail.com&#34;</span>
+</span></span></code></pre></div><p><code>--global</code>，这个是全局配置，如果只对当前仓库生效，则不需要加</p>
+<h2 id="基础">基础</h2>
+<p>仓库：将整个文件夹变为一个仓库进行管理文件</p>
+<ul>
+<li>本地仓库：如果仅仅个人使用，利用Git的优点管理自己的文件，可以将文件夹变为一个仓库，然后自己进行操作
+<ul>
+<li><code>git init</code></li>
+</ul>
+</li>
+<li>远程仓库：一般用于多人协作开发一个工程，或者自己推送到软件项目托管平台，以供别人访问及使用
+<ul>
+<li><code>git push origin master</code></li>
+<li><code>git clone &lt;url&gt;</code></li>
+</ul>
+</li>
+</ul>
+<p>本地仓库内文件操作：</p>
+<p>状态：</p>
+<ol>
+<li><code>git status</code></li>
+<li>可以查看当前仓库的文件状态，比如你修改了什么，新增了什么，删除了什么</li>
+</ol>
+<p>添加至暂存区(stage)：</p>
+<ol>
+<li><code>git add &lt;file&gt;/&lt;path&gt;</code></li>
+<li>将未跟踪的文件进行跟踪，将已跟踪且修改的文件添加到暂存区</li>
+<li>将文件添加到暂存区，精确的说：“是将文件添加到下一个版本中”，每次add都是创建一个新版本，但是暂存区中只有一个版本，所以每次add都是覆盖之前的版本。</li>
+<li>比如，当出现<code>Untracked files</code>这个信息，就表示有未跟踪文件（新增的），就可以使用这个命令将其添加到暂存区，交由git管理。</li>
+</ol>
+<p>提交到仓库：</p>
+<ol>
+<li><code>git commit -m &quot;message&quot;</code></li>
+<li>将暂存区的文件提交到仓库中，提交之后，这个文件就变成了<code>已提交状态</code>，可以理解为这个文件是安全的保存在仓库中，可以提交到远程仓库中。</li>
+</ol>
+<h2 id="分支">分支</h2>
+<p>主分支和其他分支</p>
+
+                    
+                    <HR width="100%" id="EOF">
+		    <p style="color:#777;">Last modified on 2024-07-10</p>
+                    
+                </div>
+            </div>
+            
+            
+            <nav class="post-pagination">
+
+                
+                <a class="newer-posts" href="/essay/java-standard/">
+			Next<br>Java开发规范
+                </a>
+                
+                
+                
+                <a class="older-posts" href="/essay/bash/">
+			Previous<br>终端
+                </a>
+                
+            </nav>
+            <div class="post-comment-wrapper">
+                
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="https://giscus.app/client.js"
+        data-repo="username/repo"
+        data-repo-id="**************************"
+        data-category="General"
+        data-category-id="*********************"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="en"
+        crossorigin="anonymous"
+        async>
+</script>
+
+            </div>
+        </div>
+    </div>
+
+
+                    </div>
+            </div><div id="sideContainer" class="side-container">
+    
+    <a class="a-block nav-head false" href="http://localhost:1313/">
+    
+        <div class="nav-title">
+            小宋小宋?
+        </div>
+        
+        <div class="nav-subtitle">
+            在呢！
+        </div>
+        
+    </a>
+
+    <div class="nav-link-list">
+        
+        
+            
+            
+            
+            
+            
+            <a class="a-block nav-link-item false" href="/categories">
+                分类
+            </a>
+            
+        
+            
+            
+            
+            
+            
+            <a class="a-block nav-link-item false" href="/tags">
+                快速查找
+            </a>
+            
+        
+            
+            
+            
+                
+            
+            
+            
+            <a class="a-block nav-link-item active" href="/essay">
+                文章
+            </a>
+            
+        
+    </div>
+
+    
+
+    <div class="nav-footer">
+        
+Hugo Theme <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> by <a href="https://risehere.net/">Rise</a>
+<br>
+Ported from <a href="https://mak1t0.cc/" target="_blank" rel="noreferrer noopener">Makito</a>'s <a href="https://github.com/SumiMakito/hexo-theme-journal/" target="_blank" rel="noreferrer noopener">Journal.</a> <br>
+<br>
+
+&copy;
+	
+	This is a customized copyright.
+	
+
+    </div>
+    
+</div><div id="extraContainer" class="extra-container">
+    <div class="toc-wrapper">
+        
+
+        
+        <div class="toc">
+
+
+	<div class="toc-content">
+	
+		
+		
+		
+		<center>- CATALOG -</center>
+		
+		
+		<ul>
+			
+				
+				
+					
+						
+						
+						
+						
+							
+								
+									<ul>
+								
+							
+						
+						
+							<li>
+								<a href="#%e7%ae%80%e4%bb%8b" class="nav-简介">
+									简介
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#git" class="nav-git">
+									Git
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#%e4%bb%93%e5%ba%93%e4%b8%ad%e6%96%87%e4%bb%b6%e7%8a%b6%e6%80%81" class="nav-仓库中文件状态">
+									仓库中文件状态
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#%e5%ae%89%e8%a3%85%e5%92%8c%e9%85%8d%e7%bd%ae" class="nav-安装和配置">
+									安装和配置
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#%e5%9f%ba%e7%a1%80" class="nav-基础">
+									基础
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#%e5%88%86%e6%94%af" class="nav-分支">
+									分支
+								</a>
+							</li>
+						
+						
+					
+				
+			
+		</ul>
+	</div>
+
+</div>
+        
+    </div>
+    <div class="pagination">
+        <a id="globalBackToTop" class="pagination-action animated-visibility" href="#top"
+            :class="{ invisible: scrollY == 0 }">
+            <i class="material-icons pagination-action-icon">
+                keyboard_arrow_up
+            </i>
+        </a>
+        
+        <a type="button" class="pagination-action" id="darkModeToggleButton">
+            <span class="material-icons pagination-action-icon" id="darkModeToggleIcon">
+                dark_mode
+            </span>
+        </a>
+        
+        
+    </div>
+</div>
+
+<div id="single-column-footer">
+Hugo Theme <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> by <a href="https://risehere.net/">Rise</a>
+<br>
+Ported from <a href="https://mak1t0.cc/" target="_blank" rel="noreferrer noopener">Makito</a>'s <a href="https://github.com/SumiMakito/hexo-theme-journal/" target="_blank" rel="noreferrer noopener">Journal.</a> <br>
+<br>
+
+&copy;
+	
+	This is a customized copyright.
+	
+</div>
+            </div>
+    
+    <script src="/js/journal.js"></script></body>
+</html>

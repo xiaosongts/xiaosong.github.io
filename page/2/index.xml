@@ -1,0 +1,1215 @@
+<?xml-stylesheet href="/rss.xsl" type="text/xsl"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>小宋小宋?</title>
+    <link>http://example.org/</link>
+    <description>Recent content on 小宋小宋?</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>This is a customized copyright.</copyright>
+    <lastBuildDate>Fri, 25 Oct 2024 12:00:00 +0800</lastBuildDate>
+    
+        <atom:link href="http://example.org/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    
+        <item>
+        <title>相关配置</title>
+        <link>http://example.org/database/config/</link>
+        <pubDate>Mon, 21 Oct 2024 15:14:01 +0800</pubDate>
+        
+        <guid>http://example.org/database/config/</guid>
+        <description>小宋小宋? http://example.org/database/config/ -&lt;h2 id=&#34;限制登录次数&#34;&gt;限制登录次数&lt;/h2&gt;
+&lt;p&gt;需求：当使用账号登录mysql时，如果登录失败超过一定次数，将会延迟响应时间&lt;/p&gt;
+&lt;p&gt;参数：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;connection_control_failed_connections_threshold：假设值为5，即客户端连续失败登录5次后，后续的登录请求将被延迟&lt;/li&gt;
+&lt;li&gt;connection_control_min_connection_delay：设置超过失败次数阈值后，客户端下次登录请求的最小延迟时间（以毫秒为单位）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;配置文件中，
+[mysqld]
+plugin-load-add=connection_control.so
+connection_control_failed_connections_threshold=5
+connection_control_min_connection_delay=2000
+connection_control_max_connection_delay=10000&lt;/p&gt;
+&lt;p&gt;测试流程：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;配置好限制次数和延迟时间，假设：5次、10秒&lt;/li&gt;
+&lt;li&gt;准备好一个用户：test/p123&lt;/li&gt;
+&lt;li&gt;sql：SELECT * FROM information_schema.connection_control_failed_login_attempts;&lt;/li&gt;
+&lt;li&gt;先测试登录失败5次&lt;/li&gt;
+&lt;li&gt;执行sql，应该是5次&lt;/li&gt;
+&lt;li&gt;再测试登录失败1次&lt;/li&gt;
+&lt;li&gt;执行sql，应该是6次，并且效果会有10秒延迟&lt;/li&gt;
+&lt;li&gt;再正确登录&lt;/li&gt;
+&lt;li&gt;会有10秒延迟&lt;/li&gt;
+&lt;li&gt;执行sql，会查不到了&lt;/li&gt;
+&lt;li&gt;然后再正确登录一次，不会有延迟&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;清除登录失败的次数&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;重启mysql服务&lt;/li&gt;
+&lt;li&gt;重新设置限制次数：set global connection_control_failed_connections_threshold=2;&lt;/li&gt;
+&lt;/ol&gt;
+- http://example.org/database/config/ - This is a customized copyright.</description>
+        </item>
+    
+    
+    
+        <item>
+        <title>AOP</title>
+        <link>http://example.org/devframe/spring/aop/</link>
+        <pubDate>Fri, 24 May 2024 15:14:01 +0800</pubDate>
+        
+        <guid>http://example.org/devframe/spring/aop/</guid>
+        <description>小宋小宋? http://example.org/devframe/spring/aop/ -&lt;h2 id=&#34;代理模式&#34;&gt;代理模式&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;思想：找个中间商，在自己能干的事情基础上干自己不能干的事情，可以用来保护自己&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;进行代码易维护、进行功能增强&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;结构
+&lt;ul&gt;
+&lt;li&gt;目标对象&lt;/li&gt;
+&lt;li&gt;代理对象&lt;/li&gt;
+&lt;li&gt;目标对象和代理对象的公共接口或者继承&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;静态代理：has-a关系      关联关系&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;动态代理&lt;/code&gt;
+&lt;ul&gt;
+&lt;li&gt;JDK内置的java.lang.reflect.Proxy	只能代理接口&lt;/li&gt;
+&lt;li&gt;cglib    底层采用继承，可以代理接口或者类     底层使用ASM字节码处理框架优化&lt;/li&gt;
+&lt;li&gt;javassist（千叶滋yyds）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;aop一个思想面向切面编程&#34;&gt;AOP(一个思想，面向切面编程)&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Aspect Oriented Programming&lt;/li&gt;
+&lt;li&gt;思想：切面是一个和业务逻辑毫无关系的东西；采用代理模式，把这些切面当做功能增强的东西单独提取出来，形成一个单独的组件，以横向交叉的方式应用到业务流程。&lt;/li&gt;
+&lt;li&gt;作用：代码复用、可读性高&lt;/li&gt;
+&lt;li&gt;交叉业务&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;spring-aop&#34;&gt;Spring AOP&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;采用 &lt;code&gt;JDK代理+cglib代理&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;术语&#34;&gt;术语&lt;/h3&gt;
+&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th style=&#34;text-align: center&#34;&gt;名称&lt;/th&gt;
+          &lt;th style=&#34;text-align: center&#34;&gt;意义&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td style=&#34;text-align: center&#34;&gt;JoinPoint   连接点&lt;/td&gt;
+          &lt;td style=&#34;text-align: center&#34;&gt;切面可以切入的位置&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td style=&#34;text-align: center&#34;&gt;CutPoint  切点&lt;/td&gt;
+          &lt;td style=&#34;text-align: center&#34;&gt;方法，被切的东西&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td style=&#34;text-align: center&#34;&gt;Adivce    通知&lt;/td&gt;
+          &lt;td style=&#34;text-align: center&#34;&gt;具体增强的代码，切东西的工具&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td style=&#34;text-align: center&#34;&gt;Aspect    切面&lt;/td&gt;
+          &lt;td style=&#34;text-align: center&#34;&gt;切点+通知&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td style=&#34;text-align: center&#34;&gt;Weaving   织入&lt;/td&gt;
+          &lt;td style=&#34;text-align: center&#34;&gt;具体的动作&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td style=&#34;text-align: center&#34;&gt;Target    目标对象&lt;/td&gt;
+          &lt;td style=&#34;text-align: center&#34;&gt;&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td style=&#34;text-align: center&#34;&gt;Proxy     代理对象&lt;/td&gt;
+          &lt;td style=&#34;text-align: center&#34;&gt;&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id=&#34;通知的类型和顺序&#34;&gt;通知的类型和顺序&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;前置通知&lt;/li&gt;
+&lt;li&gt;环绕通知&lt;/li&gt;
+&lt;li&gt;后置通知&lt;/li&gt;
+&lt;li&gt;异常通知(当调用此通知，后续通知不再执行，若异常目标方法自己处理了，后续通知会继续执行)&lt;/li&gt;
+&lt;li&gt;返回通知&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;try{
+	·前置通知
+	·前环绕通知
+	·目标方法
+	·后环绕通知
+	·后置通知
+	·返回通知
+}catch(Exception e){
+	·异常通知
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;切点表达式&#34;&gt;切点表达式&lt;/h3&gt;
+&lt;h3 id=&#34;实例&#34;&gt;实例&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;public&lt;/span&gt;&lt;span style=&#34;color:#bbb&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;class&lt;/span&gt; &lt;span style=&#34;color:#008b45;font-weight:bold&#34;&gt;Student&lt;/span&gt;&lt;span style=&#34;color:#bbb&#34;&gt; &lt;/span&gt;{&lt;span style=&#34;color:#bbb&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#bbb&#34;&gt;    &lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;private&lt;/span&gt;&lt;span style=&#34;color:#bbb&#34;&gt; &lt;/span&gt;String&lt;span style=&#34;color:#bbb&#34;&gt; &lt;/span&gt;name;&lt;span style=&#34;color:#bbb&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#bbb&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#bbb&#34;&gt;    &lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;public&lt;/span&gt;&lt;span style=&#34;color:#bbb&#34;&gt; &lt;/span&gt;Object&lt;span style=&#34;color:#bbb&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#008b45&#34;&gt;exam&lt;/span&gt;(){&lt;span style=&#34;color:#bbb&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#bbb&#34;&gt;        &lt;/span&gt;System.&lt;span style=&#34;color:#658b00&#34;&gt;out&lt;/span&gt;.&lt;span style=&#34;color:#658b00&#34;&gt;println&lt;/span&gt;(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;目标方法  切点....&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#bbb&#34;&gt; &lt;/span&gt;+&lt;span style=&#34;color:#bbb&#34;&gt; &lt;/span&gt;name&lt;span style=&#34;color:#bbb&#34;&gt; &lt;/span&gt;+&lt;span style=&#34;color:#bbb&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;学生正在考试！&amp;#34;&lt;/span&gt;);&lt;span style=&#34;color:#bbb&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#bbb&#34;&gt;        &lt;/span&gt;&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt;&lt;span style=&#34;color:#bbb&#34;&gt; &lt;/span&gt;a=1/0;&lt;span style=&#34;color:#228b22&#34;&gt;//自己捕获异常，处理的话，切面不处理了&lt;/span&gt;&lt;span style=&#34;color:#bbb&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#bbb&#34;&gt;        &lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt;&lt;span style=&#34;color:#bbb&#34;&gt; &lt;/span&gt;name;&lt;span style=&#34;color:#bbb&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#bbb&#34;&gt;    &lt;/span&gt;}&lt;span style=&#34;color:#bbb&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#bbb&#34;&gt;    &lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;public&lt;/span&gt;&lt;span style=&#34;color:#bbb&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt;&lt;span style=&#34;color:#bbb&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#008b45&#34;&gt;end&lt;/span&gt;(){&lt;span style=&#34;color:#bbb&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#bbb&#34;&gt;        &lt;/span&gt;System.&lt;span style=&#34;color:#658b00&#34;&gt;out&lt;/span&gt;.&lt;span style=&#34;color:#658b00&#34;&gt;println&lt;/span&gt;(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;目标方法  切点....&amp;#34;&lt;/span&gt;+name+&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;学生陆续交试卷走人！&amp;#34;&lt;/span&gt;);&lt;span style=&#34;color:#bbb&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#bbb&#34;&gt;    &lt;/span&gt;}&lt;span style=&#34;color:#bbb&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#bbb&#34;&gt;    &lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;public&lt;/span&gt;&lt;span style=&#34;color:#bbb&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt;&lt;span style=&#34;color:#bbb&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#008b45&#34;&gt;setName&lt;/span&gt;(String&lt;span style=&#34;color:#bbb&#34;&gt; &lt;/span&gt;name)&lt;span style=&#34;color:#bbb&#34;&gt; &lt;/span&gt;{&lt;span style=&#34;color:#bbb&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#bbb&#34;&gt;        &lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#658b00&#34;&gt;name&lt;/span&gt;&lt;span style=&#34;color:#bbb&#34;&gt; &lt;/span&gt;=&lt;span style=&#34;color:#bbb&#34;&gt; &lt;/span&gt;name;&lt;span style=&#34;color:#bbb&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#bbb&#34;&gt;    &lt;/span&gt;}&lt;span style=&#34;color:#bbb&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#bbb&#34;&gt;&lt;/span&gt;}&lt;span style=&#34;color:#bbb&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;public&lt;/span&gt;&lt;span style=&#34;color:#bbb&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;class&lt;/span&gt; &lt;span style=&#34;color:#008b45;font-weight:bold&#34;&gt;ProctorAspect&lt;/span&gt;&lt;span style=&#34;color:#bbb&#34;&gt; &lt;/span&gt;{&lt;span style=&#34;color:#bbb&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#bbb&#34;&gt;    &lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;public&lt;/span&gt;&lt;span style=&#34;color:#bbb&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt;&lt;span style=&#34;color:#bbb&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#008b45&#34;&gt;tellStartTime&lt;/span&gt;(){&lt;span style=&#34;color:#bbb&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#bbb&#34;&gt;        &lt;/span&gt;System.&lt;span style=&#34;color:#658b00&#34;&gt;out&lt;/span&gt;.&lt;span style=&#34;color:#658b00&#34;&gt;println&lt;/span&gt;(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;监考官提醒时间开始！&amp;#34;&lt;/span&gt;);&lt;span style=&#34;color:#bbb&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#bbb&#34;&gt;    &lt;/span&gt;}&lt;span style=&#34;color:#bbb&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#bbb&#34;&gt;    &lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;public&lt;/span&gt;&lt;span style=&#34;color:#bbb&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt;&lt;span style=&#34;color:#bbb&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#008b45&#34;&gt;tellStart&lt;/span&gt;(){&lt;span style=&#34;color:#bbb&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#bbb&#34;&gt;        &lt;/span&gt;System.&lt;span style=&#34;color:#658b00&#34;&gt;out&lt;/span&gt;.&lt;span style=&#34;color:#658b00&#34;&gt;println&lt;/span&gt;(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;监考官提醒开始考试！&amp;#34;&lt;/span&gt;);&lt;span style=&#34;color:#bbb&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#bbb&#34;&gt;    &lt;/span&gt;}&lt;span style=&#34;color:#bbb&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#bbb&#34;&gt;    &lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;public&lt;/span&gt;&lt;span style=&#34;color:#bbb&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt;&lt;span style=&#34;color:#bbb&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#008b45&#34;&gt;invigilate&lt;/span&gt;(ProceedingJoinPoint&lt;span style=&#34;color:#bbb&#34;&gt; &lt;/span&gt;proceedingJoinPoint)&lt;span style=&#34;color:#bbb&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;throws&lt;/span&gt;&lt;span style=&#34;color:#bbb&#34;&gt; &lt;/span&gt;Throwable&lt;span style=&#34;color:#bbb&#34;&gt; &lt;/span&gt;{&lt;span style=&#34;color:#bbb&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#bbb&#34;&gt;        &lt;/span&gt;System.&lt;span style=&#34;color:#658b00&#34;&gt;out&lt;/span&gt;.&lt;span style=&#34;color:#658b00&#34;&gt;println&lt;/span&gt;(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;前环绕....监考官正在监考！&amp;#34;&lt;/span&gt;);&lt;span style=&#34;color:#bbb&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#bbb&#34;&gt;        &lt;/span&gt;proceedingJoinPoint.&lt;span style=&#34;color:#658b00&#34;&gt;proceed&lt;/span&gt;();&lt;span style=&#34;color:#bbb&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#bbb&#34;&gt;        &lt;/span&gt;System.&lt;span style=&#34;color:#658b00&#34;&gt;out&lt;/span&gt;.&lt;span style=&#34;color:#658b00&#34;&gt;println&lt;/span&gt;(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;后环绕....监考官正在监考！&amp;#34;&lt;/span&gt;);&lt;span style=&#34;color:#bbb&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#bbb&#34;&gt;    &lt;/span&gt;}&lt;span style=&#34;color:#bbb&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#bbb&#34;&gt;    &lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;public&lt;/span&gt;&lt;span style=&#34;color:#bbb&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt;&lt;span style=&#34;color:#bbb&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#008b45&#34;&gt;tellEndTime&lt;/span&gt;(){&lt;span style=&#34;color:#bbb&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#bbb&#34;&gt;        &lt;/span&gt;System.&lt;span style=&#34;color:#658b00&#34;&gt;out&lt;/span&gt;.&lt;span style=&#34;color:#658b00&#34;&gt;println&lt;/span&gt;(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;监考官提醒时间还有五分钟！&amp;#34;&lt;/span&gt;);&lt;span style=&#34;color:#bbb&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#bbb&#34;&gt;    &lt;/span&gt;}&lt;span style=&#34;color:#bbb&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#bbb&#34;&gt;    &lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;public&lt;/span&gt;&lt;span style=&#34;color:#bbb&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt;&lt;span style=&#34;color:#bbb&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#008b45&#34;&gt;tellEnd&lt;/span&gt;(){&lt;span style=&#34;color:#bbb&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#bbb&#34;&gt;        &lt;/span&gt;System.&lt;span style=&#34;color:#658b00&#34;&gt;out&lt;/span&gt;.&lt;span style=&#34;color:#658b00&#34;&gt;println&lt;/span&gt;(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;监考官开始收卷！&amp;#34;&lt;/span&gt;);&lt;span style=&#34;color:#bbb&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#bbb&#34;&gt;    &lt;/span&gt;}&lt;span style=&#34;color:#bbb&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#bbb&#34;&gt;    &lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;public&lt;/span&gt;&lt;span style=&#34;color:#bbb&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt;&lt;span style=&#34;color:#bbb&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#008b45&#34;&gt;exceptionHHH&lt;/span&gt;(Exception&lt;span style=&#34;color:#bbb&#34;&gt; &lt;/span&gt;e&lt;span style=&#34;color:#bbb&#34;&gt; &lt;/span&gt;){&lt;span style=&#34;color:#bbb&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#bbb&#34;&gt;        &lt;/span&gt;System.&lt;span style=&#34;color:#658b00&#34;&gt;out&lt;/span&gt;.&lt;span style=&#34;color:#658b00&#34;&gt;println&lt;/span&gt;(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;停电！&amp;#34;&lt;/span&gt;);&lt;span style=&#34;color:#bbb&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#bbb&#34;&gt;    &lt;/span&gt;}&lt;span style=&#34;color:#bbb&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#bbb&#34;&gt;    &lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;public&lt;/span&gt;&lt;span style=&#34;color:#bbb&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt;&lt;span style=&#34;color:#bbb&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#008b45&#34;&gt;after_return&lt;/span&gt;(){&lt;span style=&#34;color:#bbb&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#bbb&#34;&gt;        &lt;/span&gt;System.&lt;span style=&#34;color:#658b00&#34;&gt;out&lt;/span&gt;.&lt;span style=&#34;color:#658b00&#34;&gt;println&lt;/span&gt;(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;考试方法....你return了？&amp;#34;&lt;/span&gt;);&lt;span style=&#34;color:#bbb&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#bbb&#34;&gt;    &lt;/span&gt;}&lt;span style=&#34;color:#bbb&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#bbb&#34;&gt;&lt;/span&gt;}&lt;span style=&#34;color:#bbb&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;注解方式&#34;&gt;注解方式&lt;/h3&gt;
+&lt;h4 id=&#34;aopaspectj-autoproxy最为重要若基于类则使用enableaspectjautoproxy&#34;&gt;&lt;code&gt;&amp;lt;aop:aspectj-autoproxy/&amp;gt;&lt;/code&gt;最为重要（若基于类则使用	&lt;code&gt;@EnableAspectJAutoProxy&lt;/code&gt;）&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;声明切面的注解&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;@Aspect&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;声名切点的注解&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;@PointCut&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;通知的注解&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;@Before&lt;/p&gt;
+&lt;p&gt;@Around&lt;/p&gt;
+&lt;p&gt;@After&lt;/p&gt;
+&lt;p&gt;@AfterThrowing&lt;/p&gt;
+&lt;p&gt;@AfterReturning&lt;/p&gt;
+&lt;h3 id=&#34;xml配置方式&#34;&gt;XML配置方式&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-xml&#34; data-lang=&#34;xml&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&amp;lt;!--目标对象--&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;bean&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;id=&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;student&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;class=&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;com.yushan.pojo.Student&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;property&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;name=&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;name&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;value=&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;lisi&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;/&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;/bean&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&amp;lt;!--代理对象--&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;bean&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;id=&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;proctorAspect&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;class=&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;com.yushan.pojo.ProctorAspect&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;/&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;aop:config&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#228b22&#34;&gt;&amp;lt;!--配置切点表达式--&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;aop:pointcut&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;id=&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;exam&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;expression=&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;execution(* com.yushan.pojo.Student.exam(..))&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;/&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;aop:pointcut&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;id=&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;end&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;expression=&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;execution(* com.yushan.pojo.Student.end(..))&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;/&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#228b22&#34;&gt;&amp;lt;!--配置切面--&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;aop:aspect&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;ref=&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;proctorAspect&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#228b22&#34;&gt;&amp;lt;!--前置通知--&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;aop:before&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;method=&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;tellStartTime&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;pointcut-ref=&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;exam&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;/&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#228b22&#34;&gt;&amp;lt;!--前置通知--&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;aop:before&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;method=&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;tellStart&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;pointcut-ref=&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;exam&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;/&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#228b22&#34;&gt;&amp;lt;!--环绕通知--&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;aop:around&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;method=&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;invigilate&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;pointcut-ref=&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;exam&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;/&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#228b22&#34;&gt;&amp;lt;!--前置通知--&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;aop:before&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;method=&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;tellEndTime&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;pointcut-ref=&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;end&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;/&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#228b22&#34;&gt;&amp;lt;!--后置通知--&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;aop:after&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;method=&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;tellEnd&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;pointcut-ref=&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;end&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;/&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#228b22&#34;&gt;&amp;lt;!--异常通知--&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;aop:after-throwing&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;method=&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;exceptionHHH&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;throwing=&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;e&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;pointcut-ref=&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;exam&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;/&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#228b22&#34;&gt;&amp;lt;!--返回通知--&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;aop:after-returning&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;method=&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;after_return&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;pointcut-ref=&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;exam&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;/&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;/aop:aspect&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;/aop:config&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;结果&#34;&gt;结果&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;有异常的&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;监考官提醒时间开始！&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;监考官提醒开始考试！&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;前环绕&amp;hellip;.监考官正在监考！&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;目标方法  切点&amp;hellip;.lisi学生正在考试！&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;停电！&lt;/p&gt;
+&lt;p&gt;java.lang.ArithmeticException: / by zero&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;无异常的&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;监考官提醒时间开始！&lt;/li&gt;
+&lt;li&gt;监考官提醒开始考试！&lt;/li&gt;
+&lt;li&gt;前环绕&amp;hellip;.监考官正在监考！&lt;/li&gt;
+&lt;li&gt;目标方法  切点&amp;hellip;.lisi学生正在考试！&lt;/li&gt;
+&lt;li&gt;后环绕&amp;hellip;.监考官正在监考！&lt;/li&gt;
+&lt;li&gt;考试方法&amp;hellip;.你return了？&lt;/li&gt;
+&lt;li&gt;监考官提醒时间还有五分钟！&lt;/li&gt;
+&lt;li&gt;目标方法  切点&amp;hellip;.lisi学生陆续交试卷走人！&lt;/li&gt;
+&lt;li&gt;监考官开始收卷！&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+- http://example.org/devframe/spring/aop/ - This is a customized copyright.</description>
+        </item>
+    
+    
+    
+        <item>
+        <title>AOP</title>
+        <link>http://example.org/spring/aop/</link>
+        <pubDate>Fri, 24 May 2024 15:14:01 +0800</pubDate>
+        
+        <guid>http://example.org/spring/aop/</guid>
+        <description>小宋小宋? http://example.org/spring/aop/ -&lt;h2 id=&#34;代理模式&#34;&gt;代理模式&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;思想：找个中间商，在自己能干的事情基础上干自己不能干的事情，可以用来保护自己&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;进行代码易维护、进行功能增强&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;结构
+&lt;ul&gt;
+&lt;li&gt;目标对象&lt;/li&gt;
+&lt;li&gt;代理对象&lt;/li&gt;
+&lt;li&gt;目标对象和代理对象的公共接口或者继承&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;静态代理：has-a关系      关联关系&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;动态代理&lt;/code&gt;
+&lt;ul&gt;
+&lt;li&gt;JDK内置的java.lang.reflect.Proxy	只能代理接口&lt;/li&gt;
+&lt;li&gt;cglib    底层采用继承，可以代理接口或者类     底层使用ASM字节码处理框架优化&lt;/li&gt;
+&lt;li&gt;javassist（千叶滋yyds）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;aop一个思想面向切面编程&#34;&gt;AOP(一个思想，面向切面编程)&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Aspect Oriented Programming&lt;/li&gt;
+&lt;li&gt;思想：切面是一个和业务逻辑毫无关系的东西；采用代理模式，把这些切面当做功能增强的东西单独提取出来，形成一个单独的组件，以横向交叉的方式应用到业务流程。&lt;/li&gt;
+&lt;li&gt;作用：代码复用、可读性高&lt;/li&gt;
+&lt;li&gt;交叉业务&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;spring-aop&#34;&gt;Spring AOP&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;采用 &lt;code&gt;JDK代理+cglib代理&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;术语&#34;&gt;术语&lt;/h3&gt;
+&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th style=&#34;text-align: center&#34;&gt;名称&lt;/th&gt;
+          &lt;th style=&#34;text-align: center&#34;&gt;意义&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td style=&#34;text-align: center&#34;&gt;JoinPoint   连接点&lt;/td&gt;
+          &lt;td style=&#34;text-align: center&#34;&gt;切面可以切入的位置&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td style=&#34;text-align: center&#34;&gt;CutPoint  切点&lt;/td&gt;
+          &lt;td style=&#34;text-align: center&#34;&gt;方法，被切的东西&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td style=&#34;text-align: center&#34;&gt;Adivce    通知&lt;/td&gt;
+          &lt;td style=&#34;text-align: center&#34;&gt;具体增强的代码，切东西的工具&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td style=&#34;text-align: center&#34;&gt;Aspect    切面&lt;/td&gt;
+          &lt;td style=&#34;text-align: center&#34;&gt;切点+通知&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td style=&#34;text-align: center&#34;&gt;Weaving   织入&lt;/td&gt;
+          &lt;td style=&#34;text-align: center&#34;&gt;具体的动作&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td style=&#34;text-align: center&#34;&gt;Target    目标对象&lt;/td&gt;
+          &lt;td style=&#34;text-align: center&#34;&gt;&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td style=&#34;text-align: center&#34;&gt;Proxy     代理对象&lt;/td&gt;
+          &lt;td style=&#34;text-align: center&#34;&gt;&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id=&#34;通知的类型和顺序&#34;&gt;通知的类型和顺序&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;前置通知&lt;/li&gt;
+&lt;li&gt;环绕通知&lt;/li&gt;
+&lt;li&gt;后置通知&lt;/li&gt;
+&lt;li&gt;异常通知(当调用此通知，后续通知不再执行，若异常目标方法自己处理了，后续通知会继续执行)&lt;/li&gt;
+&lt;li&gt;返回通知&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;try{
+	·前置通知
+	·前环绕通知
+	·目标方法
+	·后环绕通知
+	·后置通知
+	·返回通知
+}catch(Exception e){
+	·异常通知
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;切点表达式&#34;&gt;切点表达式&lt;/h3&gt;
+&lt;h3 id=&#34;实例&#34;&gt;实例&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;public&lt;/span&gt;&lt;span style=&#34;color:#bbb&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;class&lt;/span&gt; &lt;span style=&#34;color:#008b45;font-weight:bold&#34;&gt;Student&lt;/span&gt;&lt;span style=&#34;color:#bbb&#34;&gt; &lt;/span&gt;{&lt;span style=&#34;color:#bbb&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#bbb&#34;&gt;    &lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;private&lt;/span&gt;&lt;span style=&#34;color:#bbb&#34;&gt; &lt;/span&gt;String&lt;span style=&#34;color:#bbb&#34;&gt; &lt;/span&gt;name;&lt;span style=&#34;color:#bbb&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#bbb&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#bbb&#34;&gt;    &lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;public&lt;/span&gt;&lt;span style=&#34;color:#bbb&#34;&gt; &lt;/span&gt;Object&lt;span style=&#34;color:#bbb&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#008b45&#34;&gt;exam&lt;/span&gt;(){&lt;span style=&#34;color:#bbb&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#bbb&#34;&gt;        &lt;/span&gt;System.&lt;span style=&#34;color:#658b00&#34;&gt;out&lt;/span&gt;.&lt;span style=&#34;color:#658b00&#34;&gt;println&lt;/span&gt;(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;目标方法  切点....&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#bbb&#34;&gt; &lt;/span&gt;+&lt;span style=&#34;color:#bbb&#34;&gt; &lt;/span&gt;name&lt;span style=&#34;color:#bbb&#34;&gt; &lt;/span&gt;+&lt;span style=&#34;color:#bbb&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;学生正在考试！&amp;#34;&lt;/span&gt;);&lt;span style=&#34;color:#bbb&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#bbb&#34;&gt;        &lt;/span&gt;&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt;&lt;span style=&#34;color:#bbb&#34;&gt; &lt;/span&gt;a=1/0;&lt;span style=&#34;color:#228b22&#34;&gt;//自己捕获异常，处理的话，切面不处理了&lt;/span&gt;&lt;span style=&#34;color:#bbb&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#bbb&#34;&gt;        &lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt;&lt;span style=&#34;color:#bbb&#34;&gt; &lt;/span&gt;name;&lt;span style=&#34;color:#bbb&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#bbb&#34;&gt;    &lt;/span&gt;}&lt;span style=&#34;color:#bbb&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#bbb&#34;&gt;    &lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;public&lt;/span&gt;&lt;span style=&#34;color:#bbb&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt;&lt;span style=&#34;color:#bbb&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#008b45&#34;&gt;end&lt;/span&gt;(){&lt;span style=&#34;color:#bbb&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#bbb&#34;&gt;        &lt;/span&gt;System.&lt;span style=&#34;color:#658b00&#34;&gt;out&lt;/span&gt;.&lt;span style=&#34;color:#658b00&#34;&gt;println&lt;/span&gt;(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;目标方法  切点....&amp;#34;&lt;/span&gt;+name+&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;学生陆续交试卷走人！&amp;#34;&lt;/span&gt;);&lt;span style=&#34;color:#bbb&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#bbb&#34;&gt;    &lt;/span&gt;}&lt;span style=&#34;color:#bbb&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#bbb&#34;&gt;    &lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;public&lt;/span&gt;&lt;span style=&#34;color:#bbb&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt;&lt;span style=&#34;color:#bbb&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#008b45&#34;&gt;setName&lt;/span&gt;(String&lt;span style=&#34;color:#bbb&#34;&gt; &lt;/span&gt;name)&lt;span style=&#34;color:#bbb&#34;&gt; &lt;/span&gt;{&lt;span style=&#34;color:#bbb&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#bbb&#34;&gt;        &lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#658b00&#34;&gt;name&lt;/span&gt;&lt;span style=&#34;color:#bbb&#34;&gt; &lt;/span&gt;=&lt;span style=&#34;color:#bbb&#34;&gt; &lt;/span&gt;name;&lt;span style=&#34;color:#bbb&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#bbb&#34;&gt;    &lt;/span&gt;}&lt;span style=&#34;color:#bbb&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#bbb&#34;&gt;&lt;/span&gt;}&lt;span style=&#34;color:#bbb&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;public&lt;/span&gt;&lt;span style=&#34;color:#bbb&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;class&lt;/span&gt; &lt;span style=&#34;color:#008b45;font-weight:bold&#34;&gt;ProctorAspect&lt;/span&gt;&lt;span style=&#34;color:#bbb&#34;&gt; &lt;/span&gt;{&lt;span style=&#34;color:#bbb&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#bbb&#34;&gt;    &lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;public&lt;/span&gt;&lt;span style=&#34;color:#bbb&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt;&lt;span style=&#34;color:#bbb&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#008b45&#34;&gt;tellStartTime&lt;/span&gt;(){&lt;span style=&#34;color:#bbb&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#bbb&#34;&gt;        &lt;/span&gt;System.&lt;span style=&#34;color:#658b00&#34;&gt;out&lt;/span&gt;.&lt;span style=&#34;color:#658b00&#34;&gt;println&lt;/span&gt;(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;监考官提醒时间开始！&amp;#34;&lt;/span&gt;);&lt;span style=&#34;color:#bbb&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#bbb&#34;&gt;    &lt;/span&gt;}&lt;span style=&#34;color:#bbb&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#bbb&#34;&gt;    &lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;public&lt;/span&gt;&lt;span style=&#34;color:#bbb&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt;&lt;span style=&#34;color:#bbb&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#008b45&#34;&gt;tellStart&lt;/span&gt;(){&lt;span style=&#34;color:#bbb&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#bbb&#34;&gt;        &lt;/span&gt;System.&lt;span style=&#34;color:#658b00&#34;&gt;out&lt;/span&gt;.&lt;span style=&#34;color:#658b00&#34;&gt;println&lt;/span&gt;(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;监考官提醒开始考试！&amp;#34;&lt;/span&gt;);&lt;span style=&#34;color:#bbb&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#bbb&#34;&gt;    &lt;/span&gt;}&lt;span style=&#34;color:#bbb&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#bbb&#34;&gt;    &lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;public&lt;/span&gt;&lt;span style=&#34;color:#bbb&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt;&lt;span style=&#34;color:#bbb&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#008b45&#34;&gt;invigilate&lt;/span&gt;(ProceedingJoinPoint&lt;span style=&#34;color:#bbb&#34;&gt; &lt;/span&gt;proceedingJoinPoint)&lt;span style=&#34;color:#bbb&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;throws&lt;/span&gt;&lt;span style=&#34;color:#bbb&#34;&gt; &lt;/span&gt;Throwable&lt;span style=&#34;color:#bbb&#34;&gt; &lt;/span&gt;{&lt;span style=&#34;color:#bbb&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#bbb&#34;&gt;        &lt;/span&gt;System.&lt;span style=&#34;color:#658b00&#34;&gt;out&lt;/span&gt;.&lt;span style=&#34;color:#658b00&#34;&gt;println&lt;/span&gt;(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;前环绕....监考官正在监考！&amp;#34;&lt;/span&gt;);&lt;span style=&#34;color:#bbb&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#bbb&#34;&gt;        &lt;/span&gt;proceedingJoinPoint.&lt;span style=&#34;color:#658b00&#34;&gt;proceed&lt;/span&gt;();&lt;span style=&#34;color:#bbb&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#bbb&#34;&gt;        &lt;/span&gt;System.&lt;span style=&#34;color:#658b00&#34;&gt;out&lt;/span&gt;.&lt;span style=&#34;color:#658b00&#34;&gt;println&lt;/span&gt;(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;后环绕....监考官正在监考！&amp;#34;&lt;/span&gt;);&lt;span style=&#34;color:#bbb&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#bbb&#34;&gt;    &lt;/span&gt;}&lt;span style=&#34;color:#bbb&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#bbb&#34;&gt;    &lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;public&lt;/span&gt;&lt;span style=&#34;color:#bbb&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt;&lt;span style=&#34;color:#bbb&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#008b45&#34;&gt;tellEndTime&lt;/span&gt;(){&lt;span style=&#34;color:#bbb&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#bbb&#34;&gt;        &lt;/span&gt;System.&lt;span style=&#34;color:#658b00&#34;&gt;out&lt;/span&gt;.&lt;span style=&#34;color:#658b00&#34;&gt;println&lt;/span&gt;(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;监考官提醒时间还有五分钟！&amp;#34;&lt;/span&gt;);&lt;span style=&#34;color:#bbb&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#bbb&#34;&gt;    &lt;/span&gt;}&lt;span style=&#34;color:#bbb&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#bbb&#34;&gt;    &lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;public&lt;/span&gt;&lt;span style=&#34;color:#bbb&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt;&lt;span style=&#34;color:#bbb&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#008b45&#34;&gt;tellEnd&lt;/span&gt;(){&lt;span style=&#34;color:#bbb&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#bbb&#34;&gt;        &lt;/span&gt;System.&lt;span style=&#34;color:#658b00&#34;&gt;out&lt;/span&gt;.&lt;span style=&#34;color:#658b00&#34;&gt;println&lt;/span&gt;(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;监考官开始收卷！&amp;#34;&lt;/span&gt;);&lt;span style=&#34;color:#bbb&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#bbb&#34;&gt;    &lt;/span&gt;}&lt;span style=&#34;color:#bbb&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#bbb&#34;&gt;    &lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;public&lt;/span&gt;&lt;span style=&#34;color:#bbb&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt;&lt;span style=&#34;color:#bbb&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#008b45&#34;&gt;exceptionHHH&lt;/span&gt;(Exception&lt;span style=&#34;color:#bbb&#34;&gt; &lt;/span&gt;e&lt;span style=&#34;color:#bbb&#34;&gt; &lt;/span&gt;){&lt;span style=&#34;color:#bbb&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#bbb&#34;&gt;        &lt;/span&gt;System.&lt;span style=&#34;color:#658b00&#34;&gt;out&lt;/span&gt;.&lt;span style=&#34;color:#658b00&#34;&gt;println&lt;/span&gt;(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;停电！&amp;#34;&lt;/span&gt;);&lt;span style=&#34;color:#bbb&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#bbb&#34;&gt;    &lt;/span&gt;}&lt;span style=&#34;color:#bbb&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#bbb&#34;&gt;    &lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;public&lt;/span&gt;&lt;span style=&#34;color:#bbb&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt;&lt;span style=&#34;color:#bbb&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#008b45&#34;&gt;after_return&lt;/span&gt;(){&lt;span style=&#34;color:#bbb&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#bbb&#34;&gt;        &lt;/span&gt;System.&lt;span style=&#34;color:#658b00&#34;&gt;out&lt;/span&gt;.&lt;span style=&#34;color:#658b00&#34;&gt;println&lt;/span&gt;(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;考试方法....你return了？&amp;#34;&lt;/span&gt;);&lt;span style=&#34;color:#bbb&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#bbb&#34;&gt;    &lt;/span&gt;}&lt;span style=&#34;color:#bbb&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#bbb&#34;&gt;&lt;/span&gt;}&lt;span style=&#34;color:#bbb&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;注解方式&#34;&gt;注解方式&lt;/h3&gt;
+&lt;h4 id=&#34;aopaspectj-autoproxy最为重要若基于类则使用enableaspectjautoproxy&#34;&gt;&lt;code&gt;&amp;lt;aop:aspectj-autoproxy/&amp;gt;&lt;/code&gt;最为重要（若基于类则使用	&lt;code&gt;@EnableAspectJAutoProxy&lt;/code&gt;）&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;声明切面的注解&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;@Aspect&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;声名切点的注解&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;@PointCut&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;通知的注解&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;@Before&lt;/p&gt;
+&lt;p&gt;@Around&lt;/p&gt;
+&lt;p&gt;@After&lt;/p&gt;
+&lt;p&gt;@AfterThrowing&lt;/p&gt;
+&lt;p&gt;@AfterReturning&lt;/p&gt;
+&lt;h3 id=&#34;xml配置方式&#34;&gt;XML配置方式&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-xml&#34; data-lang=&#34;xml&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&amp;lt;!--目标对象--&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;bean&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;id=&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;student&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;class=&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;com.yushan.pojo.Student&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;property&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;name=&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;name&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;value=&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;lisi&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;/&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;/bean&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&amp;lt;!--代理对象--&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;bean&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;id=&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;proctorAspect&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;class=&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;com.yushan.pojo.ProctorAspect&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;/&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;aop:config&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#228b22&#34;&gt;&amp;lt;!--配置切点表达式--&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;aop:pointcut&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;id=&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;exam&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;expression=&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;execution(* com.yushan.pojo.Student.exam(..))&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;/&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;aop:pointcut&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;id=&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;end&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;expression=&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;execution(* com.yushan.pojo.Student.end(..))&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;/&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#228b22&#34;&gt;&amp;lt;!--配置切面--&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;aop:aspect&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;ref=&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;proctorAspect&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#228b22&#34;&gt;&amp;lt;!--前置通知--&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;aop:before&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;method=&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;tellStartTime&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;pointcut-ref=&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;exam&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;/&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#228b22&#34;&gt;&amp;lt;!--前置通知--&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;aop:before&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;method=&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;tellStart&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;pointcut-ref=&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;exam&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;/&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#228b22&#34;&gt;&amp;lt;!--环绕通知--&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;aop:around&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;method=&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;invigilate&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;pointcut-ref=&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;exam&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;/&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#228b22&#34;&gt;&amp;lt;!--前置通知--&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;aop:before&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;method=&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;tellEndTime&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;pointcut-ref=&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;end&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;/&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#228b22&#34;&gt;&amp;lt;!--后置通知--&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;aop:after&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;method=&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;tellEnd&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;pointcut-ref=&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;end&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;/&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#228b22&#34;&gt;&amp;lt;!--异常通知--&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;aop:after-throwing&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;method=&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;exceptionHHH&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;throwing=&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;e&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;pointcut-ref=&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;exam&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;/&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#228b22&#34;&gt;&amp;lt;!--返回通知--&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;aop:after-returning&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;method=&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;after_return&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;pointcut-ref=&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;exam&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;/&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;/aop:aspect&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;/aop:config&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;结果&#34;&gt;结果&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;有异常的&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;监考官提醒时间开始！&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;监考官提醒开始考试！&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;前环绕&amp;hellip;.监考官正在监考！&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;目标方法  切点&amp;hellip;.lisi学生正在考试！&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;停电！&lt;/p&gt;
+&lt;p&gt;java.lang.ArithmeticException: / by zero&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;无异常的&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;监考官提醒时间开始！&lt;/li&gt;
+&lt;li&gt;监考官提醒开始考试！&lt;/li&gt;
+&lt;li&gt;前环绕&amp;hellip;.监考官正在监考！&lt;/li&gt;
+&lt;li&gt;目标方法  切点&amp;hellip;.lisi学生正在考试！&lt;/li&gt;
+&lt;li&gt;后环绕&amp;hellip;.监考官正在监考！&lt;/li&gt;
+&lt;li&gt;考试方法&amp;hellip;.你return了？&lt;/li&gt;
+&lt;li&gt;监考官提醒时间还有五分钟！&lt;/li&gt;
+&lt;li&gt;目标方法  切点&amp;hellip;.lisi学生陆续交试卷走人！&lt;/li&gt;
+&lt;li&gt;监考官开始收卷！&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+- http://example.org/spring/aop/ - This is a customized copyright.</description>
+        </item>
+    
+    
+    
+        <item>
+        <title>Class文件</title>
+        <link>http://example.org/java/jvm/class/class/</link>
+        <pubDate>Fri, 24 May 2024 15:14:01 +0800</pubDate>
+        
+        <guid>http://example.org/java/jvm/class/class/</guid>
+        <description>小宋小宋? http://example.org/java/jvm/class/class/ -&lt;h1 id=&#34;字节码&#34;&gt;字节码&lt;/h1&gt;
+&lt;p&gt;字节码即java跨平台的重要支撑点，它是一个&lt;code&gt;.class&lt;/code&gt;文件，通过一个编译器生成的。平常的&lt;code&gt;.java&lt;/code&gt;文件，还有Kotlin的&lt;code&gt;.kt&lt;/code&gt;文件，它们如果都遵循编译规则，生成字节码文件，都是可以运行在JVM上的。&lt;!-- raw HTML omitted --&gt;
+字节码的生成：在java中，它可以通过javac编译器生成，javac是一个全量式编译。&lt;!-- raw HTML omitted --&gt;
+javac的使用&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;javac Main.java&lt;/li&gt;
+&lt;li&gt;javac -d /opt Main.java   ，文件编译到/opt目录下面，并且生成包结构，即package语法。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;class文件&#34;&gt;Class文件&lt;/h1&gt;
+&lt;ol&gt;
+&lt;li&gt;魔数：每个字节码文件的前4个字节都是固定的魔数0xCAFEBABE，用于标识这是一个Java字节码文件。&lt;/li&gt;
+&lt;li&gt;版本信息：紧接着魔数的是版本信息，包括次版本号和主版本号，表示编译该字节码的Java编译器版本。&lt;/li&gt;
+&lt;li&gt;常量池：常量池是字节码文件中资源的集合，包括文字字符串、类或接口名、字段名和其他常量。&lt;/li&gt;
+&lt;li&gt;访问标志：这部分包含类的访问权限等信息。&lt;/li&gt;
+&lt;li&gt;此类索引、父类索引和接口索引集合：这些索引指向常量池中相应的类和接口。&lt;/li&gt;
+&lt;li&gt;字段表：包含了类中声明的变量信息。&lt;/li&gt;
+&lt;li&gt;方法表：包含了类中定义的方法信息。&lt;/li&gt;
+&lt;li&gt;属性表：包含了类的其他属性信息，如注解&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h1 id=&#34;类加载&#34;&gt;类加载&lt;/h1&gt;
+&lt;p&gt;为什么？&lt;!-- raw HTML omitted --&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;速度快&lt;/code&gt;、&lt;code&gt;安全性&lt;/code&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;面向对象，要通过类文件创建实例对象，在编写代码时，会使用到各种各样的类，多种类之间又会互联关联、依赖。&lt;/li&gt;
+&lt;li&gt;jvm要读取class文件的信息，创建对应的实例对象，如果类文件放在磁盘上，jvm读取会产生磁盘I/O，性能比较低，再加上class文件可能会被修改，安全性得不到保证。&lt;/li&gt;
+&lt;li&gt;所以，在需要时，将类文件加载到虚拟机的内存中，可以更快的得到类信息，而且安全性可以得到保障。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;步骤：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;classload.png&#34; alt=&#34;classload.png&#34;&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;加载&lt;/li&gt;
+&lt;li&gt;验证&lt;/li&gt;
+&lt;li&gt;准备&lt;/li&gt;
+&lt;li&gt;解析&lt;/li&gt;
+&lt;li&gt;初始化&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;加载&#34;&gt;加载&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;通过类的全限定名（包名+类名），找到&lt;code&gt;.class&lt;/code&gt;文件，然后将类的信息转为&lt;code&gt;字节流&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;将字节流&lt;code&gt;加载到内存的方法区&lt;/code&gt;，映射为jvm识别的数据结构&lt;/li&gt;
+&lt;li&gt;在内存中生成一个代表该类的&lt;code&gt; java.lang.Class 对象&lt;/code&gt;，作为方法区这些数据的访问入口&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;连接&#34;&gt;连接&lt;/h2&gt;
+&lt;h3 id=&#34;验证&#34;&gt;验证&lt;/h3&gt;
+&lt;p&gt;验证是连接阶段的第一步，这一阶段的目的是确保 &lt;code&gt;Class 文件的字节流&lt;/code&gt;中包含的信息符合《Java 虚拟机规范》的全部&lt;code&gt;约束要求&lt;/code&gt;，保证这些信息被当作代码运行后&lt;code&gt;不会危害虚拟机&lt;/code&gt;自身的安全。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;字节码文件格式验证：验证文件是否能够正确的加载到方法区中，&lt;/li&gt;
+&lt;li&gt;元数据验证：进行语义分析，确保类的元数据（如类名、父类、接口等）正确&lt;/li&gt;
+&lt;li&gt;字节码验证：针对程序，验证程序的语义是否符合逻辑&lt;/li&gt;
+&lt;li&gt;符号引用验证：验证符号引用指向方法区中的对象是否存在&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;准备&#34;&gt;准备&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;该阶段是为类变量（static变量）分配内存，并设置初始值&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;这个阶段仅仅分配类变量&lt;/li&gt;
+&lt;li&gt;分配到 &lt;code&gt;方法区&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;jdk1.7以前，是在方法区中（永久代），内存还是jvm内存&lt;/li&gt;
+&lt;li&gt;jdk1.7及以后，是在方法区中（元空间），但是此时将字符串常量池、类变量都移动到&lt;code&gt;堆区&lt;/code&gt;中了，类变量跟随&lt;code&gt;加载阶段&lt;/code&gt;创建的Class对象，放在堆中&lt;/li&gt;
+&lt;/ul&gt;
+&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;类型&lt;/th&gt;
+          &lt;th&gt;默认值&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;int&lt;/td&gt;
+          &lt;td&gt;0&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;long&lt;/td&gt;
+          &lt;td&gt;0L&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;short&lt;/td&gt;
+          &lt;td&gt;0&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;char&lt;/td&gt;
+          &lt;td&gt;&amp;lsquo;\u0000&amp;rsquo;&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;byte&lt;/td&gt;
+          &lt;td&gt;0&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;boolean&lt;/td&gt;
+          &lt;td&gt;flase&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;float&lt;/td&gt;
+          &lt;td&gt;0.0f&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;double&lt;/td&gt;
+          &lt;td&gt;0.0d&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;refrence引用类型&lt;/td&gt;
+          &lt;td&gt;null&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id=&#34;解析&#34;&gt;解析&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;这阶段主要是将常量池中的符号引用转为直接引用&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;符号引用：主要代表类、接口、方法、字段等信息的位置，它存在于class文件中，即在编译阶段就存在
+&lt;ul&gt;
+&lt;li&gt;为什么存在：支持类的懒加载机制，在一个java程序运行时，不是所有的类都要加载到内存中，而且需要时才加载；但是java运行时是解释型语言，所以就需要一个逻辑的概念，让jvm知道所调用的方法在哪，符号引用就是这个间接方式的实现。&lt;/li&gt;
+&lt;li&gt;所以，在类加载后，内存地址都知道了，通过解析，绑定一下逻辑地址和物理地址&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;直接引用：它是内存中对象的实际地址，可以是一个指针，或者是一个偏移量&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;初始化&#34;&gt;初始化&lt;/h2&gt;
+&lt;p&gt;此时&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;类的信息已经加载到内存了&lt;/li&gt;
+&lt;li&gt;也已经验证好了，是正确的信息&lt;/li&gt;
+&lt;li&gt;类变量也已经分配好空间了&lt;/li&gt;
+&lt;li&gt;方法也可以正确的定位到&lt;/li&gt;
+&lt;li&gt;工作已经完成的差不多了&lt;/li&gt;
+&lt;li&gt;接下来和创建的对象的时候一样，可以自定义类的信息，也就是按照自己的意愿进行初始化工作，jvm将这一阶段放在最后&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;初始化阶段执行 clint()方法，由编译阶段产生的&lt;/p&gt;
+- http://example.org/java/jvm/class/class/ - This is a customized copyright.</description>
+        </item>
+    
+    
+    
+        <item>
+        <title>存储引擎</title>
+        <link>http://example.org/database/engines/</link>
+        <pubDate>Fri, 24 May 2024 15:14:01 +0800</pubDate>
+        
+        <guid>http://example.org/database/engines/</guid>
+        <description>小宋小宋? http://example.org/database/engines/ -&lt;h2 id=&#34;存储引擎&#34;&gt;存储引擎&lt;/h2&gt;
+&lt;p&gt;一些命令：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;show engines;&lt;/li&gt;
+&lt;li&gt;select version();&lt;/li&gt;
+&lt;li&gt;select variables like &amp;lsquo;%storage_engine%&amp;rsquo;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;存储引擎是什么&#34;&gt;存储引擎是什么？&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;数据需要存储，但按照什么方式进行存储，这是多种多样的。这些方式就是各种各样的存储引擎，它可以定义自己的方式，进行存储数据、检索数据、管理数据。MySQL提供了一个存储引擎的抽象概念，市面上有各种各样的存储引擎，innodb、myisam。&lt;/li&gt;
+&lt;li&gt;存储引擎是作用在表上的，每个表的存储引擎可以不相同。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;区别&#34;&gt;区别：&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;索引：InnoDB和MyISAM都支持索引，都采用B+树作为索引的数据结构。但是
+&lt;ul&gt;
+&lt;li&gt;InnoDB 索引文件和数据文件在一起的，每个节点都存储。&lt;/li&gt;
+&lt;li&gt;MyISAM 是分开的，非聚簇索引，节点指向数据文件的位置。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;行锁：InnoDB支持行锁，MyISAM支持表锁。粒度不一样。&lt;/li&gt;
+&lt;li&gt;事务：InnoDB支持事务，提供隔离级别；MyISAM不支持事务。&lt;/li&gt;
+&lt;li&gt;外键：InnoDB支持外键；MyISAM不支持。但是当更新操作时，外键会触发级联更新，性能会慢，而且可能会出错。&lt;/li&gt;
+&lt;li&gt;InnoDB是以页为单位存储数据的&lt;/li&gt;
+&lt;/ul&gt;
+- http://example.org/database/engines/ - This is a customized copyright.</description>
+        </item>
+    
+    
+    
+        <item>
+        <title>mvc流程</title>
+        <link>http://example.org/spring/springmvc/</link>
+        <pubDate>Fri, 24 May 2024 15:12:02 +0800</pubDate>
+        
+        <guid>http://example.org/spring/springmvc/</guid>
+        <description>小宋小宋? http://example.org/spring/springmvc/ -&lt;h2 id=&#34;mvc&#34;&gt;MVC&lt;/h2&gt;
+&lt;p&gt;MVC是一种软件架构模式，Model-View-Controller。作为一个服务端，要接收若干请求，然后进行相应处理，还要返还给客户端数据，所以这一套流程，如果都糅合在一个代码块里，对于系统的维护是非常复杂的。所以采用MVC模式&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Model：模型，代表着业务逻辑和数据部分，如客户端发送的数据，服务端处理好的数据&lt;/li&gt;
+&lt;li&gt;View：视图，代表着和客户端展示结果的部分，比如可以返回一个页面&lt;/li&gt;
+&lt;li&gt;Controller：控制，代表着和客户端交互的部分，接收客户端的输入，处理模型数据，返回试图&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;mvc.png&#34; alt=&#34;image.png&#34;&gt;&lt;/p&gt;
+&lt;h1 id=&#34;spring-web-mvc-流程&#34;&gt;Spring Web MVC 流程&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;就是Servlet的封装，建立在Servlet API上的原始Web框架&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;大致的流程就是&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;由一个调度器接收请求uri&lt;/li&gt;
+&lt;li&gt;通过map&amp;lt;uri,handler&amp;gt;，查找获得一个处理器&lt;/li&gt;
+&lt;li&gt;再将这个处理器交给执行器&lt;/li&gt;
+&lt;li&gt;执行器执行的结果返回给调度器&lt;/li&gt;
+&lt;li&gt;调度器将结果给视图部分，返回给调度器&lt;/li&gt;
+&lt;li&gt;调度器返回给客户端&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;网上具体的&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;用户发送出请求被前端控制器&lt;code&gt;DispatcherServlet&lt;/code&gt;拦截进行处理。&lt;/li&gt;
+&lt;li&gt;DispatcherServlet收到请求调用&lt;code&gt;HandlerMapping&lt;/code&gt;（处理器映射器）。&lt;/li&gt;
+&lt;li&gt;HandlerMapping找到具体的处理器(查找xml配置或注解配置)，生成处理器对象及处理器拦截器(如果有，也就是执行器链)，再一起返回给DispatcherServlet。&lt;/li&gt;
+&lt;li&gt;DispatcherServlet调用&lt;code&gt;HandlerAdapter&lt;/code&gt;（处理器适配器）。&lt;/li&gt;
+&lt;li&gt;HandlerAdapter经过适配调用具体的处理器（Handler/Controller）。&lt;/li&gt;
+&lt;li&gt;Controller执行完成返回&lt;code&gt;ModelAndView&lt;/code&gt;对象。&lt;/li&gt;
+&lt;li&gt;HandlerAdapter将Controller执行结果ModelAndView返回给DispatcherServlet。&lt;/li&gt;
+&lt;li&gt;DispatcherServlet将ModelAndView传给ViewReslover（视图解析器）。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;ViewReslover&lt;/code&gt;解析ModelAndView后返回具体View（视图）给DispatcherServlet。&lt;/li&gt;
+&lt;li&gt;DispatcherServlet根据View进行渲染视图（即将模型数据填充至视图中）。&lt;/li&gt;
+&lt;li&gt;DispatcherServlet响应View给用户。&lt;/li&gt;
+&lt;/ol&gt;
+- http://example.org/spring/springmvc/ - This is a customized copyright.</description>
+        </item>
+    
+    
+    
+        <item>
+        <title>对象</title>
+        <link>http://example.org/java/jvm/object/jvm_object/</link>
+        <pubDate>Fri, 24 May 2024 15:14:01 +0800</pubDate>
+        
+        <guid>http://example.org/java/jvm/object/jvm_object/</guid>
+        <description>小宋小宋? http://example.org/java/jvm/object/jvm_object/ -&lt;h2 id=&#34;对象&#34;&gt;对象&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;对象，在java中有很多很多对象，在代码中，此对象调用另一个对象，这个对象又执行了它的方法。这时候就要了解，此对象长什么样，以及它又如何调用方法，使用属性的。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;对象的创建流程&#34;&gt;对象的创建流程&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;类加载检查
+&lt;ol&gt;
+&lt;li&gt;对象是类的实例，类是对象的模板。&lt;/li&gt;
+&lt;li&gt;创建对象，首先要检查对应的&lt;strong&gt;类是否加载完成并且初始化&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;如果没有，就要进行类的加载过程。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;分配内存空间
+&lt;ol&gt;
+&lt;li&gt;在类加载检查通过后，就可以分配内存空间了&lt;/li&gt;
+&lt;li&gt;空间的大小由类加载完成后确定&lt;/li&gt;
+&lt;li&gt;分配方式：&lt;code&gt;指针碰撞&lt;/code&gt;、&lt;code&gt;空闲列表&lt;/code&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;初始化零值
+&lt;ol&gt;
+&lt;li&gt;在类中，实例属性可以不初始化，在创建对象后就会有默认值可以使用，就是这一步的原因&lt;/li&gt;
+&lt;li&gt;这一步进行初始化对象布局里的&lt;code&gt;实例数据&lt;/code&gt;，不包括&lt;code&gt;对象头&lt;/code&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;设置对象头
+&lt;ol&gt;
+&lt;li&gt;由虚拟机设置该对象的信息。&lt;/li&gt;
+&lt;li&gt;如对象的哈希码、GC状态、锁信息、分代年龄、线程ID等重要信息&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;执行init方法
+&lt;ol&gt;
+&lt;li&gt;当创建对象是通过构造器的话，会执行这一步骤，用来进行自定义的初始化工作&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;分配空间方式及问题&#34;&gt;分配空间方式及问题&lt;/h3&gt;
+&lt;p&gt;采用那种方式取决于 &lt;code&gt;Java 堆是否规整&lt;/code&gt;，而&lt;code&gt; Java 堆是否规整&lt;/code&gt;又取决于采用的&lt;code&gt;垃圾收集器是否带有压缩整理功能&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;指针碰撞：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;适用于堆规整，将&lt;code&gt;已使用的内存&lt;/code&gt;和&lt;code&gt;未使用的内存&lt;/code&gt;分成两部分，当一个对象需要分配空间时，通过它的大小，将指针移动到&lt;code&gt;未使用的内存&lt;/code&gt;那边&lt;/li&gt;
+&lt;li&gt;使用该分配方式的 GC 收集器：Serial, ParNew&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;空闲列表&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;适用于堆不规整，此时就要维护一个列表，记录内存的空间状态&lt;/li&gt;
+&lt;li&gt;通过对象的大小，找一块区域分配即可&lt;/li&gt;
+&lt;li&gt;使用该分配方式的 GC 收集器：CMS&lt;/li&gt;
+&lt;li&gt;内存碎片的问题，是有垃圾收集器的算法处理&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;p&gt;问题&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;一个类可以有多个实例，但是当一个实例遇见多个线程同时创建，会遇见并发问题&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;解决&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;CAS：比较和交换，这是一种乐观锁的方法，假设当前没有问题，等处理完毕，比较一下，不相等了，就重试了&lt;/li&gt;
+&lt;li&gt;TLAB：（Thread Local Allocation Buffer），是线程专有的一块区域，它使线程不共享公共区域，减少竞争。
+&lt;ul&gt;
+&lt;li&gt;它是在堆区中Eden区域的一小部分，适合在线程上分配较小的对象，当遇见较大的对象，空间不够时，还会在堆区上分配对象空间，继续采用CAS操作分配。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h3 id=&#34;对象的内存布局&#34;&gt;对象的内存布局&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;对象头：第一部分用于存储&lt;code&gt;对象自身的运行时数据&lt;/code&gt;（哈希码、GC 分代年龄、锁状态标志等等）；另一部分是&lt;code&gt;类型指针&lt;/code&gt;，即&lt;code&gt;对象指向它的类元数据的指针&lt;/code&gt;，虚拟机通过这个指针来确定这个对象是哪个类的实例。&lt;/li&gt;
+&lt;li&gt;实例数据：对象的数据，包括父类的属性、本身的属性&lt;/li&gt;
+&lt;li&gt;对齐填充：jvm要求对象的大小是8的倍数，当对象的实例数据不够8的倍数，就需要填充占位符对齐了&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;对象头&#34;&gt;对象头&lt;/h4&gt;
+&lt;p&gt;&lt;strong&gt;Markword&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;记录对象的信息，如哈希值、线程ID、分代年龄、锁的状态&lt;/li&gt;
+&lt;li&gt;在32位系统占4字节，在64位系统中占8字节&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;markword.png&#34; alt=&#34;image.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;32位jvm&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;无锁时（正常对象）：hashcode占据 25bit，分代年龄4bit，偏向锁标识 1bit，锁的状态 2bit&lt;/li&gt;
+&lt;li&gt;偏向锁对象：线程ID 23bit，epoch 2bit，分代年龄4bit，偏向锁标识 1bit，锁的状态 2bit。
+&lt;ul&gt;
+&lt;li&gt;此时当对象持有对象的偏向锁时，无需使用原子操作&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;CMS（concurrent mark sweep）：是一个垃圾回收器&lt;/li&gt;
+&lt;li&gt;轻量级锁状态：前30bit，指向栈中锁记录的指针&lt;/li&gt;
+&lt;li&gt;重量级锁状态：锁膨胀，前30bit，指向对象的监视器&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;64位jvm&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;无锁状态：前25bit未使用，31bit记录hashcode，1bit未使用，分代年龄4bit，偏向锁标识 1bit，锁的状态 2bit&lt;/li&gt;
+&lt;li&gt;偏向锁对象：线程ID 54bit，epoch 2bit，1bit未使用，分代年龄4bit，偏向锁标识 1bit，锁的状态 2bit。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;lower two lock bits&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;低两位表示锁的状态：
+&lt;ul&gt;
+&lt;li&gt;00：轻量级锁的状态，30bit指向栈中&lt;/li&gt;
+&lt;li&gt;01：正常的对象，无锁/偏向锁（所属线程id）&lt;/li&gt;
+&lt;li&gt;10：锁膨胀的状态，重量级锁，30bit指向监视器&lt;/li&gt;
+&lt;li&gt;11：对象无效的标识&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Kclass Pointer&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;对象指向其类信息的指针，用于在运行时确定对象的类型信息&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;对象的访问&#34;&gt;对象的访问&lt;/h3&gt;
+&lt;p&gt;确定对象的位置&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;线程创建对象后，会将对象内存空间的引用存储虚拟机栈中的局部变量表中&lt;/li&gt;
+&lt;li&gt;总的来说，总是通过栈上的引用指向内存堆中空间（TLAB的空间也是在堆区中）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;方法（取决于各种jvm的实现）：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;直接指针：栈上的引用直接指向堆区的内存空间、速度快。&lt;/li&gt;
+&lt;li&gt;句柄：栈上的引用指向堆区的句柄池的内存空间，有句柄池来维护其对应的对象内存空间地址。维护方便。
+&lt;ul&gt;
+&lt;li&gt;如图：&lt;/li&gt;
+&lt;li&gt;&lt;img src=&#34;handlepool.png&#34; alt=&#34;句柄池.png&#34;&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+- http://example.org/java/jvm/object/jvm_object/ - This is a customized copyright.</description>
+        </item>
+    
+    
+    
+        <item>
+        <title>索引</title>
+        <link>http://example.org/database/index/</link>
+        <pubDate>Fri, 24 May 2024 15:14:01 +0800</pubDate>
+        
+        <guid>http://example.org/database/index/</guid>
+        <description>小宋小宋? http://example.org/database/index/ -&lt;h2 id=&#34;数据结构类型&#34;&gt;数据结构类型&lt;/h2&gt;
+&lt;p&gt;Hash：查找速度O(1)，但是会出现Hash冲突，解决冲突可以使用拉链法。但是查询一个范围时，需要多次hash映射，才能得到全部数据。O(N)&lt;/p&gt;
+&lt;p&gt;二叉搜索树 ：理想速度O(logN)。但是非递减数据会退化成链表。&lt;/p&gt;
+&lt;p&gt;平衡二叉树 ：解决二叉搜索树的问题。各种操作最坏情况复杂度O(logN)。但是：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;元素多，高度还是会高&lt;/li&gt;
+&lt;li&gt;维护平衡，代价高，通过各种旋转，O(logN)。&lt;/li&gt;
+&lt;li&gt;每个节点存储的数据少，也就是节点上每次加载的数据太少，即便找到了数据，也需要多次磁盘IO去取数据。&lt;/li&gt;
+&lt;li&gt;可以范围查询，中序遍历就是有序的数据。&lt;/li&gt;
+&lt;li&gt;因为数据量比较大，一次性不一定能把数据全部加载到内存中。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;红黑树 ：解决平衡二叉树的&lt;code&gt;维护平衡&lt;/code&gt;的问题。通过&lt;code&gt;颜色的改变&lt;/code&gt;，可以在O(1)的复杂度下维护平衡。但是，缺点还是平衡二叉树大差不差。&lt;/p&gt;
+&lt;h2 id=&#34;b树&#34;&gt;B树&lt;/h2&gt;
+&lt;p&gt;每个节点都存储数据,每一个节点都会存储指针
+概念&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;阶：一个数的最大子节点的个数，同时也控制每一个节点的键的数量的上下限&lt;/li&gt;
+&lt;li&gt;根节点，中间节点：非根、非叶子结点，叶子结点&lt;/li&gt;
+&lt;li&gt;键值对：是每个节点所存储的数据，每个节点有一个最小键、一个最大键，键的值是按照非递减的规则排序&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;重点
+B数的结构控制，假设B树的阶数为 m&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;根结点至少有两个子女。&lt;/li&gt;
+&lt;li&gt;中间节点：k-1个键和k个孩子(指针)，其中k的范围[m/2,m]&lt;/li&gt;
+&lt;li&gt;叶子节点：k-1个元素，其中k的范围[m/2,m]&lt;/li&gt;
+&lt;li&gt;叶子节点都在一层&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;通过这些规则，B树可以达到自平衡
+插入：键的非递减顺序、超过范围进行父节点的选举
+删除：不足范围进行合并&lt;/p&gt;
+&lt;h2 id=&#34;b树-1&#34;&gt;B+树&lt;/h2&gt;
+&lt;p&gt;只有叶子结点存储完整数据，并且每个叶子节点可以链接
+m阶的B+树每个节点的键的范围：[m/2-1,m-1]；向上取整&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;叶子节点中存储全部的数据&lt;/li&gt;
+&lt;li&gt;每个&lt;code&gt;叶子节点采用双向链表&lt;/code&gt;进行关联&lt;/li&gt;
+&lt;li&gt;中间节点：一个键对应一个子节点，共k个键；&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;采用b树b树在mysql的好处&#34;&gt;采用B树、B+树在mysql的好处&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;速度：多路索引，树的高度能够降低，然后一次磁盘IO可以取出更多的数据&lt;/li&gt;
+&lt;li&gt;顺序查询：B+树，叶子节点采用双向链表关联，可以进行范围查询&lt;/li&gt;
+&lt;li&gt;如果需要高效的查询和插入操作，那么红黑树可能是更好的选择；&lt;/li&gt;
+&lt;li&gt;如果要进行大量的数据读写操作，那么B+树可能更适合。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;聚簇索引非聚簇索引&#34;&gt;聚簇索引、非聚簇索引&lt;/h2&gt;
+&lt;p&gt;聚簇索引&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;叶子结点的data包含记录的全部数据记录&lt;/li&gt;
+&lt;li&gt;整条树是根据主索引建立，这就是为什么数据库表中只能有一个primary key&lt;/li&gt;
+&lt;li&gt;其他是辅助索引，在根据辅助索引查询时，需要先辅助索引的data确定其主索引，再走主索引树&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;非聚簇索引&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;叶子结点的data包含指向记录数据的指针&lt;/li&gt;
+&lt;li&gt;回表查询：当查询结果正是需要的索引关键字，不需要回表取数据&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;类型&#34;&gt;类型&lt;/h2&gt;
+&lt;h3 id=&#34;辅助索引&#34;&gt;辅助索引&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;也叫二级索引，存储的是主索引的值&lt;/li&gt;
+&lt;li&gt;唯一索引，普通索引，前缀索引，全文索引都是的&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;sql语句&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-sql&#34; data-lang=&#34;sql&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;alter&lt;/span&gt;&lt;span style=&#34;color:#bbb&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;table&lt;/span&gt;&lt;span style=&#34;color:#bbb&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;table_name&lt;/span&gt;&lt;span style=&#34;color:#bbb&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;add&lt;/span&gt;&lt;span style=&#34;color:#bbb&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;index&lt;/span&gt;/fulltext&lt;span style=&#34;color:#bbb&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;index&lt;/span&gt;/&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;unique&lt;/span&gt;&lt;span style=&#34;color:#bbb&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;index&lt;/span&gt;&lt;span style=&#34;color:#bbb&#34;&gt;  &lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;column&lt;/span&gt;(index_name);&lt;span style=&#34;color:#bbb&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#bbb&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#bbb&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;--前缀索引
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;create&lt;/span&gt;&lt;span style=&#34;color:#bbb&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;table&lt;/span&gt;&lt;span style=&#34;color:#bbb&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;table_name&lt;/span&gt;(&lt;span style=&#34;color:#bbb&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;index&lt;/span&gt;(&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;column_name&lt;/span&gt;(&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;length&lt;/span&gt;))&lt;span style=&#34;color:#bbb&#34;&gt; &lt;/span&gt;);&lt;span style=&#34;color:#bbb&#34;&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#bbb&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;create&lt;/span&gt;&lt;span style=&#34;color:#bbb&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;index&lt;/span&gt;&lt;span style=&#34;color:#bbb&#34;&gt; &lt;/span&gt;index_name&lt;span style=&#34;color:#bbb&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;on&lt;/span&gt;&lt;span style=&#34;color:#bbb&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;table_name&lt;/span&gt;(&lt;span style=&#34;color:#bbb&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;column_name&lt;/span&gt;(&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;length&lt;/span&gt;)&lt;span style=&#34;color:#bbb&#34;&gt; &lt;/span&gt;);&lt;span style=&#34;color:#bbb&#34;&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;覆盖索引&#34;&gt;覆盖索引&lt;/h3&gt;
+&lt;p&gt;在简单查询的时候，解决回表查询。
+意思就是：如果查询的数据，正是索引关键字的属性，就直接返回，不用通过主键查询一次了&lt;/p&gt;
+- http://example.org/database/index/ - This is a customized copyright.</description>
+        </item>
+    
+    
+    
+        <item>
+        <title>日志</title>
+        <link>http://example.org/database/log/</link>
+        <pubDate>Fri, 24 May 2024 15:14:01 +0800</pubDate>
+        
+        <guid>http://example.org/database/log/</guid>
+        <description>小宋小宋? http://example.org/database/log/ -&lt;h2 id=&#34;redo-log&#34;&gt;redo log&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;重做日志&lt;/li&gt;
+&lt;li&gt;主要是记录更新操作的细节，然后记录到文件中，为了mysql崩溃时能够恢复&lt;/li&gt;
+&lt;li&gt;可以保证事务的持久性&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;为什么需要这个redo log&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;数据是存放在磁盘上，用户是通过cpu来操作的，两者之间速度是非常慢的，通常是需要缓冲池（是内存中的一个页面）作中间缓冲，&lt;strong&gt;缓存表数据与索引数据&lt;/strong&gt;，避免多次磁盘IO。&lt;/li&gt;
+&lt;li&gt;但是一个更新操作完成后，代表这有数据变了，磁盘上的数据要更改。先更新了缓冲池，但是mysql进程挂了，后续无法操作，导致磁盘中没有更新，造成数据丢失。&lt;/li&gt;
+&lt;li&gt;有一个暴力解决：
+&lt;ol&gt;
+&lt;li&gt;可以在事务提交之前，将数据刷新到磁盘中&lt;/li&gt;
+&lt;li&gt;但会出现多次随机IO，导致速度会非常慢&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;所以&lt;code&gt;redo log file&lt;/code&gt;就出现了，它可以记录每次更新操作，只要将更新详细细节追加到这个文件中，就代表着事务提交成功。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;其中细节：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;code&gt;redo log file&lt;/code&gt;出现了，但是这个文件还是在磁盘上的，如果每次事务都进行刷盘，还是会有多次磁盘IO&lt;/li&gt;
+&lt;li&gt;所以还可以在内存中申请一个缓冲池&lt;code&gt;redo log buffer&lt;/code&gt;，记录redo log信息&lt;/li&gt;
+&lt;li&gt;所以会有一个概念“何时将缓冲池&lt;code&gt;redo log buffer&lt;/code&gt;的数据写入到磁盘&lt;code&gt;redo log file&lt;/code&gt;文件中？”&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;刷盘策略&#34;&gt;刷盘策略&lt;/h3&gt;
+&lt;p&gt;重要的概念，刷盘不是直接写入到磁盘的&lt;code&gt;redo log file&lt;/code&gt;，而是写入到文件系统的Page Cache。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;参数：innodb_flush_log_at_trx_commit控制&lt;/li&gt;
+&lt;li&gt;缓冲池大小快满的时候&lt;/li&gt;
+&lt;li&gt;后台线程控制&lt;/li&gt;
+&lt;li&gt;mysql实例关闭时&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;innodb_flush_log_at_trx_commit&#34;&gt;innodb_flush_log_at_trx_commit&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;0：每次事务提交不操作，而是由后台线程来控制，每隔1秒进行刷盘，最多丢失1秒的数据&lt;/li&gt;
+&lt;li&gt;1：默认的，也是保证持久化必须的，每次事务提交就刷盘，通过&lt;code&gt;fsync&lt;/code&gt;从页缓存写入到磁盘中&lt;/li&gt;
+&lt;li&gt;2：文件系统的页缓存，事务提交，刷新到页缓存，再由页缓存刷新到磁盘&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;后台线程&#34;&gt;后台线程&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;innodb有一个后台线程&lt;code&gt;Page Cleaner Thread&lt;/code&gt;，会每隔一秒将&lt;code&gt;redo log buffer&lt;/code&gt;的数据写入到&lt;code&gt;page cache&lt;/code&gt;，然后调用&lt;code&gt;fsync&lt;/code&gt;从页缓存中写入到磁盘，但是刷新的是&lt;code&gt;脏页&lt;/code&gt;，未修改的数据页是不会刷新的&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;日志文件组&#34;&gt;日志文件组&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;mysql里不止一个redo文件，在mysql8中默认32个文件，采用环形数组存储。&lt;/li&gt;
+&lt;li&gt;write pos：代表当前写入的位置，后移操作。&lt;/li&gt;
+&lt;li&gt;check point：检查点，代表擦除的位置，后移操作。&lt;/li&gt;
+&lt;li&gt;write pos之后和check point之前，这两个之间代表是可以写入数据的部分。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;bin-log&#34;&gt;bin log&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;redo log是保证事务的持久性，是属于InnoDB的&lt;/li&gt;
+&lt;li&gt;bin log二进制日志，是记录更新语句的原始逻辑，类似于Redis的AOF机制，可以保证&lt;code&gt;一致性&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;作用&#34;&gt;作用&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;主从复制
+&lt;ul&gt;
+&lt;li&gt;主节点将操作写入到&lt;code&gt;bin log&lt;/code&gt;文件中&lt;/li&gt;
+&lt;li&gt;从节点从&lt;code&gt;bin log&lt;/code&gt;文件中获取详细信息，实现数据同步&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;审计、监控&lt;/li&gt;
+&lt;li&gt;数据恢复
+&lt;ul&gt;
+&lt;li&gt;可以恢复指定时间点的数据&lt;/li&gt;
+&lt;li&gt;重新执行sql语句&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;记录格式&#34;&gt;记录格式&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;statement
+&lt;ul&gt;
+&lt;li&gt;记录语句的原始状态，可以理解成一模一样&lt;/li&gt;
+&lt;li&gt;会出现数据不一致的问题，如插入语句中有now()，date()函数之类的。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;row
+&lt;ul&gt;
+&lt;li&gt;记录语句的更新的具体数据&lt;/li&gt;
+&lt;li&gt;但是会导致文件比较大&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;mixed
+&lt;ul&gt;
+&lt;li&gt;会先判断语句是否会导致不一致的问题&lt;/li&gt;
+&lt;li&gt;再去决定用什么存储&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;具体细节&#34;&gt;具体细节&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;和redo log一样，还是在内存有一个缓存，&lt;code&gt;binlog cache&lt;/code&gt;，在磁盘中还有一个&lt;code&gt;binlog file&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;binlog的是以事务为单位的，只有在事务提交后，才会记录，写入文件。&lt;/li&gt;
+&lt;li&gt;刷新&lt;code&gt;binlog cache&lt;/code&gt;时机，由变量&lt;code&gt;sync_binlog&lt;/code&gt;决定
+&lt;ol&gt;
+&lt;li&gt;0，事务提交后，不刷新，由系统决定&lt;/li&gt;
+&lt;li&gt;N，累积N个事务后，刷新缓冲区，执行&lt;code&gt;fsync&lt;/code&gt;命令，刷入磁盘&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;undo-log&#34;&gt;undo log&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;重做日志&lt;/li&gt;
+&lt;li&gt;实现回滚，当一个事务异常后，可以根据这个文件进行回滚操作。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;问题&#34;&gt;问题&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;脏页
+&lt;ol&gt;
+&lt;li&gt;内存区和磁盘区的数据不一致，此时内存区的数据页称为”脏页“&lt;/li&gt;
+&lt;li&gt;即便不一致，但是有redo log，也无妨&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;“脏页”变成“干净页”&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;内存缓冲区不够用了，会根据一些算法替换老页，若是脏页，必须先写回磁盘，才能替换&lt;/li&gt;
+&lt;li&gt;后台线程定时刷新&lt;/li&gt;
+&lt;li&gt;日志文件组空间不够时，也就是write pos=check point，此时需要将check point后移，擦除记录，对应的脏页也要写回磁盘了，因为没法保证数据改变了。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h1 id=&#34;页缓存&#34;&gt;页缓存&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;是为了提高文件的读写效率，Linux内核会以页大小（4KB）为单位，将文件划分为多数据块。当用户对文件中的某个数据块进行读写操作时，内核首先会申请一个内存页（称为页缓存）与文件中的数据块进行绑定。&lt;/li&gt;
+&lt;li&gt;读数据时：当读取的数据在内存页中，直接返回&lt;/li&gt;
+&lt;li&gt;写数据时：更新的数据块不在内存页时，直接修改文件的数据块；若是在内存页中，先修改内存页，随后之后再修改文件的数据块&lt;/li&gt;
+&lt;/ul&gt;
+- http://example.org/database/log/ - This is a customized copyright.</description>
+        </item>
+    
+    
+    
+        <item>
+        <title>事务</title>
+        <link>http://example.org/database/transaction/</link>
+        <pubDate>Fri, 24 May 2024 15:14:01 +0800</pubDate>
+        
+        <guid>http://example.org/database/transaction/</guid>
+        <description>小宋小宋? http://example.org/database/transaction/ -&lt;h2 id=&#34;概念&#34;&gt;概念&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;是指一组逻辑操作，看成一个实体，这些操作要么全部正确执行，若出错一个在全部不执行，不造成修改操作。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;事务使用&#34;&gt;事务使用&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;设置隔离级别：set session transaction isolation level read uncommited;&lt;/li&gt;
+&lt;li&gt;开启事务：start transcation&lt;/li&gt;
+&lt;li&gt;设置保存点：savepoint&lt;/li&gt;
+&lt;li&gt;提交事务：commit&lt;/li&gt;
+&lt;li&gt;回滚事务：rollback&lt;/li&gt;
+&lt;li&gt;回滚到保存点：rollback to&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;acid&#34;&gt;ACID&lt;/h2&gt;
+&lt;p&gt;利用 AID来保证最终的C&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;原子性 atomic：事务的所有操作要么全部执行成功，要么全部执行失败。&lt;/li&gt;
+&lt;li&gt;一致性 consistency：事务执行之后，数据应该保持一致，如修改前后资源的平衡。&lt;/li&gt;
+&lt;li&gt;隔离性 isolation：事务与事务之间应该相互隔离，互不影响。&lt;/li&gt;
+&lt;li&gt;持久性 durable：事务执行后的操作结果应该是持久的。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;问题&#34;&gt;问题&lt;/h2&gt;
+&lt;p&gt;假设两个事务：T1，T2&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;脏读：T1查询到了T2修改的数据，但是T2没有提交，这时T2可以随时回滚，抛弃它自己修改的数据；然后T1若是对自己查询的数据进行操作，就会出现最终数据错误。&lt;/li&gt;
+&lt;li&gt;不可重复读：T1在一直读取数据的时候，这时T2对这一个数据进行了修改，导致T1读取的数据变了。&lt;/li&gt;
+&lt;li&gt;幻读：T1在查询一个区间时，突然T2向这一个区间插入了一个新数据，导致T1再次查询时，出现了不认识的新数据，就像出现了幻觉一样。&lt;/li&gt;
+&lt;li&gt;修改丢失：T1和T2读取同一个数据然后进行修改，会出现T1的修改被T2的修改替换了&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;隔离级别&#34;&gt;隔离级别&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;代表的是多个事务之间占用相同的资源是如何隔离的&lt;/li&gt;
+&lt;li&gt;解决事务之间的问题&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;read-uncommitted&#34;&gt;READ-UNCOMMITTED&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;读未提交&lt;/li&gt;
+&lt;li&gt;允许一个事务读取另一个事务未提交的修改数据&lt;/li&gt;
+&lt;li&gt;都不能解决&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;read-committed&#34;&gt;READ-COMMITTED&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;读已提交&lt;/li&gt;
+&lt;li&gt;允许一个事务读取另一事务已提交的数据&lt;/li&gt;
+&lt;li&gt;脏读能解决，因为此隔离可以防止读取未提交的数据&lt;/li&gt;
+&lt;li&gt;不可重复读、幻读不能解决&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;repeatable-read&#34;&gt;REPEATABLE-READ&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;可重复读&lt;/li&gt;
+&lt;li&gt;对同一字段多次读取结果都是一致的&lt;/li&gt;
+&lt;li&gt;脏读能解决&lt;/li&gt;
+&lt;li&gt;不可重复读能解决，共享锁&lt;/li&gt;
+&lt;li&gt;幻读不能解决，也可以解决，如记录锁和间隙锁&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;serializable&#34;&gt;SERIALIZABLE&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;串行&lt;/li&gt;
+&lt;li&gt;事务一个一个执行，不存在并行，也就不存在并行事务带来的问题&lt;/li&gt;
+&lt;li&gt;都能解决；通过加&lt;code&gt;锁&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;锁&#34;&gt;锁&lt;/h2&gt;
+&lt;p&gt;按照模式上分类：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;乐观锁&lt;/li&gt;
+&lt;li&gt;悲观锁&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;按照粒度上分类：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;全局锁&lt;/li&gt;
+&lt;li&gt;表级锁&lt;/li&gt;
+&lt;li&gt;页级锁&lt;/li&gt;
+&lt;li&gt;行级锁：在存储引擎之上的，利用索引机制来进行加锁&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;按照属性上分类：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;共享锁 S锁：读锁，在多个事务中可以多次获取这个锁进行操作，同一时刻可以多个线程拥有&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;排它锁 X锁：写锁，独占的，其他事务对其不能再加锁，同一时刻只能有一个线程拥有&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;意向锁：代表着一个事务要想获取数据的共享/排他锁，必须先获得其意向锁&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;注：这两把读写锁可以实现 读读、不能实现读写、写写&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+- http://example.org/database/transaction/ - This is a customized copyright.</description>
+        </item>
+    
+    
+  </channel>
+</rss> 

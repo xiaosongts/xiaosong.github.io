@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+<html><head>
+<title>对象</title>
+
+
+
+
+<meta charset="utf-8">
+<meta name="X-UA-Compatible" content="IE=edge">
+<meta name="google-site-verification" content="G-XXXXXXXXXX">
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+<meta content="telephone=no" name="format-detection">
+<meta name="description" content="">
+<meta name="renderer" content="webkit">
+<meta name="theme-color" content="#ffffff">
+
+
+
+<meta property="og:url" content="http://example.org/java/jvm/object/jvm_object/">
+  <meta property="og:site_name" content="小宋小宋?">
+  <meta property="og:title" content="对象">
+  <meta property="og:description" content="对象 对象，在java中有很多很多对象，在代码中，此对象调用另一个对象，这个对象又执行了它的方法。这时候就要了解，此对象长什么样，以及它又如何调用方法，使用属性的。 对象的创建流程 类加载检查 对象是类的实例，类是对象的模板。 创建对象，首先要检查对应的类是否加载完成并且初始化。 如果没有，就要进行类的加载过程。 分配内存空间 在类加载检查通过后，就可以分配内存空间了 空间的大小由类加载完成后确定 分配方式：指针碰撞、空闲列表 初始化零值 在类中，实例属性可以不初始化，在创建对象后就会有默认值可以使用，就是这一步的原因 这一步进行初始化对象布局里的实例数据，不包括对象头 设置对象头 由虚拟机设置该对象的信息。 如对象的哈希码、GC状态、锁信息、分代年龄、线程ID等重要信息 执行init方法 当创建对象是通过构造器的话，会执行这一步骤，用来进行自定义的初始化工作 分配空间方式及问题 采用那种方式取决于 Java 堆是否规整，而 Java 堆是否规整又取决于采用的垃圾收集器是否带有压缩整理功能
+指针碰撞：
+适用于堆规整，将已使用的内存和未使用的内存分成两部分，当一个对象需要分配空间时，通过它的大小，将指针移动到未使用的内存那边 使用该分配方式的 GC 收集器：Serial, ParNew 空闲列表
+适用于堆不规整，此时就要维护一个列表，记录内存的空间状态 通过对象的大小，找一块区域分配即可 使用该分配方式的 GC 收集器：CMS 内存碎片的问题，是有垃圾收集器的算法处理 问题
+一个类可以有多个实例，但是当一个实例遇见多个线程同时创建，会遇见并发问题 解决
+CAS：比较和交换，这是一种乐观锁的方法，假设当前没有问题，等处理完毕，比较一下，不相等了，就重试了 TLAB：（Thread Local Allocation Buffer），是线程专有的一块区域，它使线程不共享公共区域，减少竞争。 它是在堆区中Eden区域的一小部分，适合在线程上分配较小的对象，当遇见较大的对象，空间不够时，还会在堆区上分配对象空间，继续采用CAS操作分配。 对象的内存布局 对象头：第一部分用于存储对象自身的运行时数据（哈希码、GC 分代年龄、锁状态标志等等）；另一部分是类型指针，即对象指向它的类元数据的指针，虚拟机通过这个指针来确定这个对象是哪个类的实例。 实例数据：对象的数据，包括父类的属性、本身的属性 对齐填充：jvm要求对象的大小是8的倍数，当对象的实例数据不够8的倍数，就需要填充占位符对齐了 对象头 Markword
+记录对象的信息，如哈希值、线程ID、分代年龄、锁的状态 在32位系统占4字节，在64位系统中占8字节 32位jvm：
+无锁时（正常对象）：hashcode占据 25bit，分代年龄4bit，偏向锁标识 1bit，锁的状态 2bit 偏向锁对象：线程ID 23bit，epoch 2bit，分代年龄4bit，偏向锁标识 1bit，锁的状态 2bit。 此时当对象持有对象的偏向锁时，无需使用原子操作 CMS（concurrent mark sweep）：是一个垃圾回收器 轻量级锁状态：前30bit，指向栈中锁记录的指针 重量级锁状态：锁膨胀，前30bit，指向对象的监视器 64位jvm">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="java">
+    <meta property="article:published_time" content="2024-05-24T15:14:01+08:00">
+    <meta property="article:modified_time" content="2024-05-24T15:14:01+08:00">
+
+
+
+
+
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="对象">
+  <meta name="twitter:description" content="对象 对象，在java中有很多很多对象，在代码中，此对象调用另一个对象，这个对象又执行了它的方法。这时候就要了解，此对象长什么样，以及它又如何调用方法，使用属性的。 对象的创建流程 类加载检查 对象是类的实例，类是对象的模板。 创建对象，首先要检查对应的类是否加载完成并且初始化。 如果没有，就要进行类的加载过程。 分配内存空间 在类加载检查通过后，就可以分配内存空间了 空间的大小由类加载完成后确定 分配方式：指针碰撞、空闲列表 初始化零值 在类中，实例属性可以不初始化，在创建对象后就会有默认值可以使用，就是这一步的原因 这一步进行初始化对象布局里的实例数据，不包括对象头 设置对象头 由虚拟机设置该对象的信息。 如对象的哈希码、GC状态、锁信息、分代年龄、线程ID等重要信息 执行init方法 当创建对象是通过构造器的话，会执行这一步骤，用来进行自定义的初始化工作 分配空间方式及问题 采用那种方式取决于 Java 堆是否规整，而 Java 堆是否规整又取决于采用的垃圾收集器是否带有压缩整理功能
+指针碰撞：
+适用于堆规整，将已使用的内存和未使用的内存分成两部分，当一个对象需要分配空间时，通过它的大小，将指针移动到未使用的内存那边 使用该分配方式的 GC 收集器：Serial, ParNew 空闲列表
+适用于堆不规整，此时就要维护一个列表，记录内存的空间状态 通过对象的大小，找一块区域分配即可 使用该分配方式的 GC 收集器：CMS 内存碎片的问题，是有垃圾收集器的算法处理 问题
+一个类可以有多个实例，但是当一个实例遇见多个线程同时创建，会遇见并发问题 解决
+CAS：比较和交换，这是一种乐观锁的方法，假设当前没有问题，等处理完毕，比较一下，不相等了，就重试了 TLAB：（Thread Local Allocation Buffer），是线程专有的一块区域，它使线程不共享公共区域，减少竞争。 它是在堆区中Eden区域的一小部分，适合在线程上分配较小的对象，当遇见较大的对象，空间不够时，还会在堆区上分配对象空间，继续采用CAS操作分配。 对象的内存布局 对象头：第一部分用于存储对象自身的运行时数据（哈希码、GC 分代年龄、锁状态标志等等）；另一部分是类型指针，即对象指向它的类元数据的指针，虚拟机通过这个指针来确定这个对象是哪个类的实例。 实例数据：对象的数据，包括父类的属性、本身的属性 对齐填充：jvm要求对象的大小是8的倍数，当对象的实例数据不够8的倍数，就需要填充占位符对齐了 对象头 Markword
+记录对象的信息，如哈希值、线程ID、分代年龄、锁的状态 在32位系统占4字节，在64位系统中占8字节 32位jvm：
+无锁时（正常对象）：hashcode占据 25bit，分代年龄4bit，偏向锁标识 1bit，锁的状态 2bit 偏向锁对象：线程ID 23bit，epoch 2bit，分代年龄4bit，偏向锁标识 1bit，锁的状态 2bit。 此时当对象持有对象的偏向锁时，无需使用原子操作 CMS（concurrent mark sweep）：是一个垃圾回收器 轻量级锁状态：前30bit，指向栈中锁记录的指针 重量级锁状态：锁膨胀，前30bit，指向对象的监视器 64位jvm">
+
+
+
+
+
+
+
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+      <script>
+        var doNotTrack = false;
+        if ( false ) {
+          var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+          var doNotTrack = (dnt == "1" || dnt == "yes");
+        }
+        if (!doNotTrack) {
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-XXXXXXXXXX');
+        }
+      </script>
+
+
+
+
+<script type="text/javascript">
+  (function(c,l,a,r,i,t,y){
+      c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+      t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+      y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+  })(window, document, "clarity", "script", "abcdefghzd");
+</script>
+
+
+
+  
+
+
+
+
+
+
+      <script src="/js/toc.js"></script>
+    
+    <link type="text/css" rel="stylesheet" href="/vendor/css/bootstrap.min.css">
+
+<link rel="stylesheet" href="/scss/dark-mode.min.cb53f1bee2b8900cb4f082afbf00175d6618f281cf9a2fe8619e3b52d20b5721.css" integrity="sha256-y1PxvuK4kAy08IKvvwAXXWYY8oHPmi/oYZ47UtILVyE=" media="screen">
+
+
+<link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Material+Icons">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+<body>
+    	<div id="app"><div class="single-column-drawer-container" id="drawer"
+     v-bind:class="{ 'single-column-drawer-container-active': isDrawerOpen }">
+    <div class="drawer-content">
+        <div class="drawer-menu">
+            
+            
+            
+                
+                
+                
+                
+                
+                <a class="a-block drawer-menu-item false" href="/posts">
+                    文章
+                </a>
+                
+            
+                
+                
+                
+                
+                
+                <a class="a-block drawer-menu-item false" href="/categories">
+                    分类
+                </a>
+                
+            
+                
+                
+                
+                
+                
+                <a class="a-block drawer-menu-item false" href="/tags">
+                    快速查找
+                </a>
+                
+            
+                
+                
+                
+                
+                
+                <a class="a-block drawer-menu-item false" href="/database">
+                    MySQL
+                </a>
+                
+            
+                
+                
+                
+                
+                
+                <a class="a-block drawer-menu-item false" href="/spring">
+                    Spring
+                </a>
+                
+            
+            
+            <div class="toc">
+
+
+	<div class="toc-content">
+	
+		
+		
+		
+		<center>- CATALOG -</center>
+		
+		
+		<ul>
+			
+				
+				
+					
+						
+						
+						
+						
+							
+								
+									<ul>
+								
+							
+						
+						
+							<li>
+								<a href="#%e5%af%b9%e8%b1%a1" class="nav-对象">
+									对象
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+							
+								
+									<ul>
+								
+							
+						
+						
+							<li>
+								<a href="#%e5%af%b9%e8%b1%a1%e7%9a%84%e5%88%9b%e5%bb%ba%e6%b5%81%e7%a8%8b" class="nav-对象的创建流程">
+									对象的创建流程
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#%e5%88%86%e9%85%8d%e7%a9%ba%e9%97%b4%e6%96%b9%e5%bc%8f%e5%8f%8a%e9%97%ae%e9%a2%98" class="nav-分配空间方式及问题">
+									分配空间方式及问题
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#%e5%af%b9%e8%b1%a1%e7%9a%84%e5%86%85%e5%ad%98%e5%b8%83%e5%b1%80" class="nav-对象的内存布局">
+									对象的内存布局
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+							
+								
+									<ul>
+								
+							
+						
+						
+							<li>
+								<a href="#%e5%af%b9%e8%b1%a1%e5%a4%b4" class="nav-对象头">
+									对象头
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+							
+								</ul>
+							
+						
+						
+						
+							<li>
+								<a href="#%e5%af%b9%e8%b1%a1%e7%9a%84%e8%ae%bf%e9%97%ae" class="nav-对象的访问">
+									对象的访问
+								</a>
+							</li>
+						
+						
+					
+				
+			
+		</ul>
+	</div>
+
+</div>
+            
+        </div>
+    </div>
+</div>
+<transition name="fade">
+    <div id="drawer-mask" v-bind:class="{ 'single-column-drawer-mask': mounted }" v-if="isDrawerOpen" v-on:click="toggleDrawer"></div>
+</transition>
+<nav id="navBar" class="navbar sticky-top navbar-light single-column-nav-container">
+    <div id="navBackground" class="nav-background"></div>
+    <div class="container container-narrow nav-content">
+        <button id="nav_dropdown_btn" class="nav-dropdown-toggle" type="button" v-on:click="toggleDrawer">
+            <i class="material-icons">
+                menu
+            </i>
+        </button>
+        <a id="navTitle" class="navbar-brand" href="http://example.org/">
+            小宋小宋?
+        </a>
+        
+        <button type="button" class="nav-darkmode-toggle" id="darkModeToggleButton2">
+            <i class="material-icons" id="darkModeToggleIcon2">
+                dark_mode
+            </i>
+        </button>
+        
+    </div>
+</nav>
+<div class="single-column-header-container" id="pageHead"
+     v-bind:style="{ transform: 'translateZ(0px) translateY('+.3*scrollY+'px)', opacity: 1-navOpacity }">
+    <a href="http://example.org/">
+        <div class="single-column-header-title">小宋小宋?</div>
+        
+        <div class="single-column-header-subtitle">在呢！</div>
+        
+
+    </a>
+</div>
+
+            <div id="content">
+                <div id="streamContainer" class="stream-container">
+
+    <div class="post-list-container post-list-container-shadow">
+        <div class="post">
+            
+            
+            
+
+            <div class="post-head-wrapper-text-only"
+                
+            >
+                <div class="post-title">
+                    对象
+                    
+                    <div class="post-meta">
+                        
+                        <time itemprop="datePublished">
+                            2024-05-24 15:14
+                        </time>
+                        
+
+                        
+
+                        
+                        
+                    </div>
+                </div>
+            </div>
+            
+            <div class="post-body-wrapper">
+                
+                <div class="post-body" v-pre>
+                
+                    <h2 id="对象">对象</h2>
+<ul>
+<li>对象，在java中有很多很多对象，在代码中，此对象调用另一个对象，这个对象又执行了它的方法。这时候就要了解，此对象长什么样，以及它又如何调用方法，使用属性的。</li>
+</ul>
+<h3 id="对象的创建流程">对象的创建流程</h3>
+<ol>
+<li>类加载检查
+<ol>
+<li>对象是类的实例，类是对象的模板。</li>
+<li>创建对象，首先要检查对应的<strong>类是否加载完成并且初始化</strong>。</li>
+<li>如果没有，就要进行类的加载过程。</li>
+</ol>
+</li>
+<li>分配内存空间
+<ol>
+<li>在类加载检查通过后，就可以分配内存空间了</li>
+<li>空间的大小由类加载完成后确定</li>
+<li>分配方式：<code>指针碰撞</code>、<code>空闲列表</code></li>
+</ol>
+</li>
+<li>初始化零值
+<ol>
+<li>在类中，实例属性可以不初始化，在创建对象后就会有默认值可以使用，就是这一步的原因</li>
+<li>这一步进行初始化对象布局里的<code>实例数据</code>，不包括<code>对象头</code></li>
+</ol>
+</li>
+<li>设置对象头
+<ol>
+<li>由虚拟机设置该对象的信息。</li>
+<li>如对象的哈希码、GC状态、锁信息、分代年龄、线程ID等重要信息</li>
+</ol>
+</li>
+<li>执行init方法
+<ol>
+<li>当创建对象是通过构造器的话，会执行这一步骤，用来进行自定义的初始化工作</li>
+</ol>
+</li>
+</ol>
+<h3 id="分配空间方式及问题">分配空间方式及问题</h3>
+<p>采用那种方式取决于 <code>Java 堆是否规整</code>，而<code> Java 堆是否规整</code>又取决于采用的<code>垃圾收集器是否带有压缩整理功能</code></p>
+<p>指针碰撞：</p>
+<ul>
+<li>适用于堆规整，将<code>已使用的内存</code>和<code>未使用的内存</code>分成两部分，当一个对象需要分配空间时，通过它的大小，将指针移动到<code>未使用的内存</code>那边</li>
+<li>使用该分配方式的 GC 收集器：Serial, ParNew</li>
+</ul>
+<p>空闲列表</p>
+<ul>
+<li>适用于堆不规整，此时就要维护一个列表，记录内存的空间状态</li>
+<li>通过对象的大小，找一块区域分配即可</li>
+<li>使用该分配方式的 GC 收集器：CMS</li>
+<li>内存碎片的问题，是有垃圾收集器的算法处理</li>
+</ul>
+<hr>
+<p>问题</p>
+<ul>
+<li>一个类可以有多个实例，但是当一个实例遇见多个线程同时创建，会遇见并发问题</li>
+</ul>
+<p>解决</p>
+<ul>
+<li>CAS：比较和交换，这是一种乐观锁的方法，假设当前没有问题，等处理完毕，比较一下，不相等了，就重试了</li>
+<li>TLAB：（Thread Local Allocation Buffer），是线程专有的一块区域，它使线程不共享公共区域，减少竞争。
+<ul>
+<li>它是在堆区中Eden区域的一小部分，适合在线程上分配较小的对象，当遇见较大的对象，空间不够时，还会在堆区上分配对象空间，继续采用CAS操作分配。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="对象的内存布局">对象的内存布局</h3>
+<ul>
+<li>对象头：第一部分用于存储<code>对象自身的运行时数据</code>（哈希码、GC 分代年龄、锁状态标志等等）；另一部分是<code>类型指针</code>，即<code>对象指向它的类元数据的指针</code>，虚拟机通过这个指针来确定这个对象是哪个类的实例。</li>
+<li>实例数据：对象的数据，包括父类的属性、本身的属性</li>
+<li>对齐填充：jvm要求对象的大小是8的倍数，当对象的实例数据不够8的倍数，就需要填充占位符对齐了</li>
+</ul>
+<h4 id="对象头">对象头</h4>
+<p><strong>Markword</strong></p>
+<ul>
+<li>记录对象的信息，如哈希值、线程ID、分代年龄、锁的状态</li>
+<li>在32位系统占4字节，在64位系统中占8字节</li>
+</ul>
+<p><img src="markword.png" alt="image.png"></p>
+<p><strong>32位jvm</strong>：</p>
+<ul>
+<li>无锁时（正常对象）：hashcode占据 25bit，分代年龄4bit，偏向锁标识 1bit，锁的状态 2bit</li>
+<li>偏向锁对象：线程ID 23bit，epoch 2bit，分代年龄4bit，偏向锁标识 1bit，锁的状态 2bit。
+<ul>
+<li>此时当对象持有对象的偏向锁时，无需使用原子操作</li>
+</ul>
+</li>
+<li>CMS（concurrent mark sweep）：是一个垃圾回收器</li>
+<li>轻量级锁状态：前30bit，指向栈中锁记录的指针</li>
+<li>重量级锁状态：锁膨胀，前30bit，指向对象的监视器</li>
+</ul>
+<p><strong>64位jvm</strong></p>
+<ul>
+<li>无锁状态：前25bit未使用，31bit记录hashcode，1bit未使用，分代年龄4bit，偏向锁标识 1bit，锁的状态 2bit</li>
+<li>偏向锁对象：线程ID 54bit，epoch 2bit，1bit未使用，分代年龄4bit，偏向锁标识 1bit，锁的状态 2bit。</li>
+</ul>
+<p>lower two lock bits</p>
+<ul>
+<li>低两位表示锁的状态：
+<ul>
+<li>00：轻量级锁的状态，30bit指向栈中</li>
+<li>01：正常的对象，无锁/偏向锁（所属线程id）</li>
+<li>10：锁膨胀的状态，重量级锁，30bit指向监视器</li>
+<li>11：对象无效的标识</li>
+</ul>
+</li>
+</ul>
+<p><strong>Kclass Pointer</strong></p>
+<ul>
+<li>对象指向其类信息的指针，用于在运行时确定对象的类型信息</li>
+</ul>
+<h3 id="对象的访问">对象的访问</h3>
+<p>确定对象的位置</p>
+<ul>
+<li>线程创建对象后，会将对象内存空间的引用存储虚拟机栈中的局部变量表中</li>
+<li>总的来说，总是通过栈上的引用指向内存堆中空间（TLAB的空间也是在堆区中）</li>
+</ul>
+<p>方法（取决于各种jvm的实现）：</p>
+<ul>
+<li>直接指针：栈上的引用直接指向堆区的内存空间、速度快。</li>
+<li>句柄：栈上的引用指向堆区的句柄池的内存空间，有句柄池来维护其对应的对象内存空间地址。维护方便。
+<ul>
+<li>如图：</li>
+<li><img src="handlepool.png" alt="句柄池.png"></li>
+</ul>
+</li>
+</ul>
+
+                    
+                    <HR width="100%" id="EOF">
+		    <p style="color:#777;">Last modified on 2024-05-24</p>
+                    
+                </div>
+            </div>
+            
+            
+            <nav class="post-pagination">
+
+                
+                <a class="newer-posts" href="/spring/springmvc/">
+			Next<br>mvc流程
+                </a>
+                
+                
+                
+                <a class="older-posts" href="/database/index/">
+			Previous<br>索引
+                </a>
+                
+            </nav>
+            <div class="post-comment-wrapper">
+                
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="https://giscus.app/client.js"
+        data-repo="username/repo"
+        data-repo-id="**************************"
+        data-category="General"
+        data-category-id="*********************"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="en"
+        crossorigin="anonymous"
+        async>
+</script>
+
+            </div>
+        </div>
+    </div>
+
+
+                    </div>
+            </div><div id="sideContainer" class="side-container">
+    
+    <a class="a-block nav-head false" href="http://example.org/">
+    
+        <div class="nav-title">
+            小宋小宋?
+        </div>
+        
+        <div class="nav-subtitle">
+            在呢！
+        </div>
+        
+    </a>
+
+    <div class="nav-link-list">
+        
+        
+            
+            
+            
+            
+            
+            <a class="a-block nav-link-item false" href="/posts">
+                文章
+            </a>
+            
+        
+            
+            
+            
+            
+            
+            <a class="a-block nav-link-item false" href="/categories">
+                分类
+            </a>
+            
+        
+            
+            
+            
+            
+            
+            <a class="a-block nav-link-item false" href="/tags">
+                快速查找
+            </a>
+            
+        
+            
+            
+            
+            
+            
+            <a class="a-block nav-link-item false" href="/database">
+                MySQL
+            </a>
+            
+        
+            
+            
+            
+            
+            
+            <a class="a-block nav-link-item false" href="/spring">
+                Spring
+            </a>
+            
+        
+    </div>
+
+    
+
+    <div class="nav-footer">
+        
+Hugo Theme <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> by <a href="https://risehere.net/">Rise</a>
+<br>
+Ported from <a href="https://mak1t0.cc/" target="_blank" rel="noreferrer noopener">Makito</a>'s <a href="https://github.com/SumiMakito/hexo-theme-journal/" target="_blank" rel="noreferrer noopener">Journal.</a> <br>
+<br>
+
+&copy;
+	
+	This is a customized copyright.
+	
+
+    </div>
+    
+</div><div id="extraContainer" class="extra-container">
+    <div class="toc-wrapper">
+        
+
+        
+        <div class="toc">
+
+
+	<div class="toc-content">
+	
+		
+		
+		
+		<center>- CATALOG -</center>
+		
+		
+		<ul>
+			
+				
+				
+					
+						
+						
+						
+						
+							
+								
+									<ul>
+								
+							
+						
+						
+							<li>
+								<a href="#%e5%af%b9%e8%b1%a1" class="nav-对象">
+									对象
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+							
+								
+									<ul>
+								
+							
+						
+						
+							<li>
+								<a href="#%e5%af%b9%e8%b1%a1%e7%9a%84%e5%88%9b%e5%bb%ba%e6%b5%81%e7%a8%8b" class="nav-对象的创建流程">
+									对象的创建流程
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#%e5%88%86%e9%85%8d%e7%a9%ba%e9%97%b4%e6%96%b9%e5%bc%8f%e5%8f%8a%e9%97%ae%e9%a2%98" class="nav-分配空间方式及问题">
+									分配空间方式及问题
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#%e5%af%b9%e8%b1%a1%e7%9a%84%e5%86%85%e5%ad%98%e5%b8%83%e5%b1%80" class="nav-对象的内存布局">
+									对象的内存布局
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+							
+								
+									<ul>
+								
+							
+						
+						
+							<li>
+								<a href="#%e5%af%b9%e8%b1%a1%e5%a4%b4" class="nav-对象头">
+									对象头
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+							
+								</ul>
+							
+						
+						
+						
+							<li>
+								<a href="#%e5%af%b9%e8%b1%a1%e7%9a%84%e8%ae%bf%e9%97%ae" class="nav-对象的访问">
+									对象的访问
+								</a>
+							</li>
+						
+						
+					
+				
+			
+		</ul>
+	</div>
+
+</div>
+        
+    </div>
+    <div class="pagination">
+        <a id="globalBackToTop" class="pagination-action animated-visibility" href="#top"
+            :class="{ invisible: scrollY == 0 }">
+            <i class="material-icons pagination-action-icon">
+                keyboard_arrow_up
+            </i>
+        </a>
+        
+        <a type="button" class="pagination-action" id="darkModeToggleButton">
+            <span class="material-icons pagination-action-icon" id="darkModeToggleIcon">
+                dark_mode
+            </span>
+        </a>
+        
+        
+    </div>
+</div>
+
+<div id="single-column-footer">
+Hugo Theme <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> by <a href="https://risehere.net/">Rise</a>
+<br>
+Ported from <a href="https://mak1t0.cc/" target="_blank" rel="noreferrer noopener">Makito</a>'s <a href="https://github.com/SumiMakito/hexo-theme-journal/" target="_blank" rel="noreferrer noopener">Journal.</a> <br>
+<br>
+
+&copy;
+	
+	This is a customized copyright.
+	
+</div>
+            </div>
+    
+    <script src="/js/journal.js"></script></body>
+</html>

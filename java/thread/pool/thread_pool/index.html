@@ -1,0 +1,1238 @@
+<!DOCTYPE html>
+<html><head>
+<title>线程池</title>
+
+
+
+
+<meta charset="utf-8">
+<meta name="X-UA-Compatible" content="IE=edge">
+<meta name="google-site-verification" content="G-XXXXXXXXXX">
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+<meta content="telephone=no" name="format-detection">
+<meta name="description" content="">
+<meta name="renderer" content="webkit">
+<meta name="theme-color" content="#ffffff">
+
+
+
+<meta property="og:url" content="http://example.org/java/thread/pool/thread_pool/">
+  <meta property="og:site_name" content="小宋小宋?">
+  <meta property="og:title" content="线程池">
+  <meta property="og:description" content="线程池 池化技术，对于线程来说，在一个池中存放许多线程对象，当来一个任务的时候，不需要创建新的线程对象，而是直接从池中拿一个线程对象来使用，进行处理任务 好处：
+降低资源消耗。通过重复利用已创建的线程降低线程创建和销毁造成的消耗。 提高响应速度。当任务到达时，任务可以不需要等到线程创建就能立即执行。 提高线程的可管理性。线程是稀缺资源，如果无限制的创建，不仅会消耗系统资源，还会降低系统的稳定性，使用线程池可以进行统一的分配，调优和监控。 Executor接口 用来在未来某个时间执行Runnable的任务 执行程序可以在调用者的线程中立即运行已提交的任务，当然也可以在execute方法中新开一个线程执行run方法 public class ExecutorOne implements Executor { @Override public void execute(Runnable command) { command.run(); } public static void main(String[] args) { ExecutorOne exec = new ExecutorOne(); exec.execute(()-&gt; System.out.println(&#34;hello,world！&#34;)); } } Callable @FunctionalInterface public interface Callable&lt;V&gt; { //计算结果，无法计算抛出异常 V call() throws Exception; } 和Runnable类似，但Runnable无法返回结果 该接口提供了一个call的动作，所以任何实现该接口的类，都会有这一个动作，此时可以结合其他类，利用实现Callable接口的类做一些功能，如果结合线程，就可以不占用主线程做一些异步任务，并且可以获取计算的结果，挺好！ Future public interface Future&lt;V&gt; { boolean cancel(boolean mayInterruptIfRunning); boolean isCancelled(); boolean isDone(); V get() throws InterruptedException, ExecutionException; V get(long timeout, TimeUnit unit) throws InterruptedException, ExecutionException, TimeoutException; } 代表的是异步计算的结果，允许程序员对异步执行的任务进行控制和获取结果 接口的功能主要关注的是任务的结果，和Runnable不同，Runnable只有一个run方法，只是可以利用线程完成一系列不关心结果的任务 ExecutorService public interface ExecutorService extends Executor { void shutdown(); List&lt;Runnable&gt; shutdownNow(); boolean isShutdown(); boolean isTerminated(); //执行一个任务 &lt;T&gt; Future&lt;T&gt; submit(Callable&lt;T&gt; task); &lt;T&gt; Future&lt;T&gt; submit(Runnable task, T result); Future&lt;?&gt; submit(Runnable task); //执行所有的任务 &lt;T&gt; List&lt;Future&lt;T&gt;&gt; invokeAll(Collection&lt;? extends Callable&lt;T&gt;&gt; tasks) throws InterruptedException; //执行一个成功的任务 &lt;T&gt; T invokeAny(Collection&lt;? extends Callable&lt;T&gt;&gt; tasks) throws InterruptedException, ExecutionException; } 本质上是一个为异步任务执行提供机制的接口，从接口定义的动作来看，就是为了执行任务，并且返回任务计算的结果的。 ThreadPoolExecutor 是一个线程池的实现框架，它通过几个重要的参数来定义池中的信息，用以控制线程的信息 类名的意思应该是，最顶层接口是一个Executor，它用来执行一个任务，然后这个类代表的是用一个线程池来执行很多的任务 参数 public ThreadPoolExecutor(int corePoolSize, int maximumPoolSize, long keepAliveTime, TimeUnit unit, BlockingQueue&lt;Runnable&gt; workQueue, ThreadFactory threadFactory, RejectedExecutionHandler handler) { if (corePoolSize &lt; 0 || maximumPoolSize &lt;= 0 || maximumPoolSize &lt; corePoolSize || keepAliveTime &lt; 0) throw new IllegalArgumentException(); if (workQueue == null || threadFactory == null || handler == null) throw new NullPointerException(); this.acc = System.getSecurityManager() == null ? null :AccessController.getContext(); } corePoolSize – 线程池的核心线程数量 maximumPoolSize – 线程池的最大线程数量 keepAliveTime –当线程数大于核心线程数时，空闲线程的等待任务的时间，时间一过，终止线程 unit – 时间单位 workQueue – 保存未执行的任务。仅仅保存由execute方法执行的Runnable任务 threadFactory – 创建新线程的工厂 handler – 拒绝执行策略，当提交的任务过多而不能及时处理时，我们可以定制策略来处理任务 线程数量的控制 新任务来时，判断当前运行的线程数量 小于corePoolSize，则创建新线程 [corePoolSize，maximumPoolSize)，判断任务队列 任务队列没满，继续等待 任务队列满，创建新线程 当然也可以使用方法，在接收任务之前，预先创建核心线程 拒绝策略 当任务队列满，且线程数量达到最大，新的任务将被拒绝 public interface RejectedExecutionHandler { void rejectedExecution(Runnable r, ThreadPoolExecutor executor); } 在该类中定义了四个静态内部类，用于拒绝策略">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="java">
+    <meta property="article:published_time" content="2024-05-24T15:14:01+08:00">
+    <meta property="article:modified_time" content="2024-05-24T15:14:01+08:00">
+
+
+
+
+
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="线程池">
+  <meta name="twitter:description" content="线程池 池化技术，对于线程来说，在一个池中存放许多线程对象，当来一个任务的时候，不需要创建新的线程对象，而是直接从池中拿一个线程对象来使用，进行处理任务 好处：
+降低资源消耗。通过重复利用已创建的线程降低线程创建和销毁造成的消耗。 提高响应速度。当任务到达时，任务可以不需要等到线程创建就能立即执行。 提高线程的可管理性。线程是稀缺资源，如果无限制的创建，不仅会消耗系统资源，还会降低系统的稳定性，使用线程池可以进行统一的分配，调优和监控。 Executor接口 用来在未来某个时间执行Runnable的任务 执行程序可以在调用者的线程中立即运行已提交的任务，当然也可以在execute方法中新开一个线程执行run方法 public class ExecutorOne implements Executor { @Override public void execute(Runnable command) { command.run(); } public static void main(String[] args) { ExecutorOne exec = new ExecutorOne(); exec.execute(()-&gt; System.out.println(&#34;hello,world！&#34;)); } } Callable @FunctionalInterface public interface Callable&lt;V&gt; { //计算结果，无法计算抛出异常 V call() throws Exception; } 和Runnable类似，但Runnable无法返回结果 该接口提供了一个call的动作，所以任何实现该接口的类，都会有这一个动作，此时可以结合其他类，利用实现Callable接口的类做一些功能，如果结合线程，就可以不占用主线程做一些异步任务，并且可以获取计算的结果，挺好！ Future public interface Future&lt;V&gt; { boolean cancel(boolean mayInterruptIfRunning); boolean isCancelled(); boolean isDone(); V get() throws InterruptedException, ExecutionException; V get(long timeout, TimeUnit unit) throws InterruptedException, ExecutionException, TimeoutException; } 代表的是异步计算的结果，允许程序员对异步执行的任务进行控制和获取结果 接口的功能主要关注的是任务的结果，和Runnable不同，Runnable只有一个run方法，只是可以利用线程完成一系列不关心结果的任务 ExecutorService public interface ExecutorService extends Executor { void shutdown(); List&lt;Runnable&gt; shutdownNow(); boolean isShutdown(); boolean isTerminated(); //执行一个任务 &lt;T&gt; Future&lt;T&gt; submit(Callable&lt;T&gt; task); &lt;T&gt; Future&lt;T&gt; submit(Runnable task, T result); Future&lt;?&gt; submit(Runnable task); //执行所有的任务 &lt;T&gt; List&lt;Future&lt;T&gt;&gt; invokeAll(Collection&lt;? extends Callable&lt;T&gt;&gt; tasks) throws InterruptedException; //执行一个成功的任务 &lt;T&gt; T invokeAny(Collection&lt;? extends Callable&lt;T&gt;&gt; tasks) throws InterruptedException, ExecutionException; } 本质上是一个为异步任务执行提供机制的接口，从接口定义的动作来看，就是为了执行任务，并且返回任务计算的结果的。 ThreadPoolExecutor 是一个线程池的实现框架，它通过几个重要的参数来定义池中的信息，用以控制线程的信息 类名的意思应该是，最顶层接口是一个Executor，它用来执行一个任务，然后这个类代表的是用一个线程池来执行很多的任务 参数 public ThreadPoolExecutor(int corePoolSize, int maximumPoolSize, long keepAliveTime, TimeUnit unit, BlockingQueue&lt;Runnable&gt; workQueue, ThreadFactory threadFactory, RejectedExecutionHandler handler) { if (corePoolSize &lt; 0 || maximumPoolSize &lt;= 0 || maximumPoolSize &lt; corePoolSize || keepAliveTime &lt; 0) throw new IllegalArgumentException(); if (workQueue == null || threadFactory == null || handler == null) throw new NullPointerException(); this.acc = System.getSecurityManager() == null ? null :AccessController.getContext(); } corePoolSize – 线程池的核心线程数量 maximumPoolSize – 线程池的最大线程数量 keepAliveTime –当线程数大于核心线程数时，空闲线程的等待任务的时间，时间一过，终止线程 unit – 时间单位 workQueue – 保存未执行的任务。仅仅保存由execute方法执行的Runnable任务 threadFactory – 创建新线程的工厂 handler – 拒绝执行策略，当提交的任务过多而不能及时处理时，我们可以定制策略来处理任务 线程数量的控制 新任务来时，判断当前运行的线程数量 小于corePoolSize，则创建新线程 [corePoolSize，maximumPoolSize)，判断任务队列 任务队列没满，继续等待 任务队列满，创建新线程 当然也可以使用方法，在接收任务之前，预先创建核心线程 拒绝策略 当任务队列满，且线程数量达到最大，新的任务将被拒绝 public interface RejectedExecutionHandler { void rejectedExecution(Runnable r, ThreadPoolExecutor executor); } 在该类中定义了四个静态内部类，用于拒绝策略">
+
+
+
+
+
+
+
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+      <script>
+        var doNotTrack = false;
+        if ( false ) {
+          var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+          var doNotTrack = (dnt == "1" || dnt == "yes");
+        }
+        if (!doNotTrack) {
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-XXXXXXXXXX');
+        }
+      </script>
+
+
+
+
+<script type="text/javascript">
+  (function(c,l,a,r,i,t,y){
+      c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+      t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+      y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+  })(window, document, "clarity", "script", "abcdefghzd");
+</script>
+
+
+
+  
+
+
+
+
+
+
+      <script src="/js/toc.js"></script>
+    
+    <link type="text/css" rel="stylesheet" href="/vendor/css/bootstrap.min.css">
+
+<link rel="stylesheet" href="/scss/dark-mode.min.cb53f1bee2b8900cb4f082afbf00175d6618f281cf9a2fe8619e3b52d20b5721.css" integrity="sha256-y1PxvuK4kAy08IKvvwAXXWYY8oHPmi/oYZ47UtILVyE=" media="screen">
+
+
+<link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Material+Icons">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+<body>
+    	<div id="app"><div class="single-column-drawer-container" id="drawer"
+     v-bind:class="{ 'single-column-drawer-container-active': isDrawerOpen }">
+    <div class="drawer-content">
+        <div class="drawer-menu">
+            
+            
+            
+                
+                
+                
+                
+                
+                <a class="a-block drawer-menu-item false" href="/posts">
+                    文章
+                </a>
+                
+            
+                
+                
+                
+                
+                
+                <a class="a-block drawer-menu-item false" href="/categories">
+                    分类
+                </a>
+                
+            
+                
+                
+                
+                
+                
+                <a class="a-block drawer-menu-item false" href="/tags">
+                    快速查找
+                </a>
+                
+            
+                
+                
+                
+                
+                
+                <a class="a-block drawer-menu-item false" href="/database">
+                    MySQL
+                </a>
+                
+            
+                
+                
+                
+                
+                
+                <a class="a-block drawer-menu-item false" href="/spring">
+                    Spring
+                </a>
+                
+            
+            
+            <div class="toc">
+
+
+	<div class="toc-content">
+	
+		
+		
+		
+		<center>- CATALOG -</center>
+		
+		
+		<ul>
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#%e7%ba%bf%e7%a8%8b%e6%b1%a0" class="nav-线程池">
+									线程池
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#executor%e6%8e%a5%e5%8f%a3" class="nav-executor接口">
+									Executor接口
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#callable" class="nav-callable">
+									Callable
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#future" class="nav-future">
+									Future
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#executorservice" class="nav-executorservice">
+									ExecutorService
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#threadpoolexecutor" class="nav-threadpoolexecutor">
+									ThreadPoolExecutor
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+							
+								
+									<ul>
+								
+							
+						
+						
+							<li>
+								<a href="#%e5%8f%82%e6%95%b0" class="nav-参数">
+									参数
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#%e7%ba%bf%e7%a8%8b%e6%95%b0%e9%87%8f%e7%9a%84%e6%8e%a7%e5%88%b6" class="nav-线程数量的控制">
+									线程数量的控制
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#%e6%8b%92%e7%bb%9d%e7%ad%96%e7%95%a5" class="nav-拒绝策略">
+									拒绝策略
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#%e4%bb%bb%e5%8a%a1%e9%98%9f%e5%88%97%e6%8e%92%e9%98%9f%e7%94%a8%e7%9a%84" class="nav-任务队列排队用的">
+									任务队列（排队用的）
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+							
+								
+									<ul>
+								
+							
+						
+						
+							<li>
+								<a href="#arrayblockingqueue" class="nav-arrayblockingqueue">
+									ArrayBlockingQueue
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#delayqueue" class="nav-delayqueue">
+									DelayQueue
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#synchronousqueue" class="nav-synchronousqueue">
+									SynchronousQueue
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+							
+								</ul>
+							
+								</ul>
+							
+						
+						
+						
+							<li>
+								<a href="#executors" class="nav-executors">
+									Executors
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#%e8%be%85%e5%8a%a9%e6%8e%a5%e5%8f%a3%e5%92%8c%e7%b1%bb" class="nav-辅助接口和类">
+									辅助接口和类
+								</a>
+							</li>
+						
+						
+					
+				
+			
+		</ul>
+	</div>
+
+</div>
+            
+        </div>
+    </div>
+</div>
+<transition name="fade">
+    <div id="drawer-mask" v-bind:class="{ 'single-column-drawer-mask': mounted }" v-if="isDrawerOpen" v-on:click="toggleDrawer"></div>
+</transition>
+<nav id="navBar" class="navbar sticky-top navbar-light single-column-nav-container">
+    <div id="navBackground" class="nav-background"></div>
+    <div class="container container-narrow nav-content">
+        <button id="nav_dropdown_btn" class="nav-dropdown-toggle" type="button" v-on:click="toggleDrawer">
+            <i class="material-icons">
+                menu
+            </i>
+        </button>
+        <a id="navTitle" class="navbar-brand" href="http://example.org/">
+            小宋小宋?
+        </a>
+        
+        <button type="button" class="nav-darkmode-toggle" id="darkModeToggleButton2">
+            <i class="material-icons" id="darkModeToggleIcon2">
+                dark_mode
+            </i>
+        </button>
+        
+    </div>
+</nav>
+<div class="single-column-header-container" id="pageHead"
+     v-bind:style="{ transform: 'translateZ(0px) translateY('+.3*scrollY+'px)', opacity: 1-navOpacity }">
+    <a href="http://example.org/">
+        <div class="single-column-header-title">小宋小宋?</div>
+        
+        <div class="single-column-header-subtitle">在呢！</div>
+        
+
+    </a>
+</div>
+
+            <div id="content">
+                <div id="streamContainer" class="stream-container">
+
+    <div class="post-list-container post-list-container-shadow">
+        <div class="post">
+            
+            
+            
+
+            <div class="post-head-wrapper-text-only"
+                
+            >
+                <div class="post-title">
+                    线程池
+                    
+                    <div class="post-meta">
+                        
+                        <time itemprop="datePublished">
+                            2024-05-24 15:14
+                        </time>
+                        
+
+                        
+
+                        
+                        
+                    </div>
+                </div>
+            </div>
+            
+            <div class="post-body-wrapper">
+                
+                <div class="post-body" v-pre>
+                
+                    <h1 id="线程池">线程池</h1>
+<ul>
+<li>池化技术，对于线程来说，在一个池中存放许多<code>线程对象</code>，当来一个任务的时候，不需要创建新的线程对象，而是直接从池中拿一个线程对象来使用，进行处理任务</li>
+</ul>
+<p>好处：</p>
+<ul>
+<li><strong>降低资源消耗</strong>。通过重复利用已创建的线程降低线程创建和销毁造成的消耗。</li>
+<li><strong>提高响应速度</strong>。当任务到达时，任务可以不需要等到线程创建就能立即执行。</li>
+<li><strong>提高线程的可管理性</strong>。线程是稀缺资源，如果无限制的创建，不仅会消耗系统资源，还会降低系统的稳定性，使用线程池可以进行统一的分配，调优和监控。</li>
+</ul>
+<h1 id="executor接口">Executor接口</h1>
+<ul>
+<li>用来在未来某个时间执行Runnable的任务</li>
+<li>执行程序可以在调用者的线程中立即运行已提交的任务，当然也可以在execute方法中新开一个线程执行run方法</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#8b008b;font-weight:bold">public</span><span style="color:#bbb"> </span><span style="color:#8b008b;font-weight:bold">class</span> <span style="color:#008b45;font-weight:bold">ExecutorOne</span><span style="color:#bbb"> </span><span style="color:#8b008b;font-weight:bold">implements</span><span style="color:#bbb"> </span>Executor<span style="color:#bbb"> </span>{<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">	
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#707a7c">@Override</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#8b008b;font-weight:bold">public</span><span style="color:#bbb"> </span><span style="color:#00688b;font-weight:bold">void</span><span style="color:#bbb"> </span><span style="color:#008b45">execute</span>(Runnable<span style="color:#bbb"> </span>command)<span style="color:#bbb"> </span>{<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>command.<span style="color:#658b00">run</span>();<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>}<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#8b008b;font-weight:bold">public</span><span style="color:#bbb"> </span><span style="color:#8b008b;font-weight:bold">static</span><span style="color:#bbb"> </span><span style="color:#00688b;font-weight:bold">void</span><span style="color:#bbb"> </span><span style="color:#008b45">main</span>(String[]<span style="color:#bbb"> </span>args)<span style="color:#bbb"> </span>{<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>ExecutorOne<span style="color:#bbb"> </span>exec<span style="color:#bbb"> </span>=<span style="color:#bbb"> </span><span style="color:#8b008b;font-weight:bold">new</span><span style="color:#bbb"> </span>ExecutorOne();<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>exec.<span style="color:#658b00">execute</span>(()-&gt;<span style="color:#bbb"> </span>System.<span style="color:#658b00">out</span>.<span style="color:#658b00">println</span>(<span style="color:#cd5555">&#34;hello,world！&#34;</span>));<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>}<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span>}<span style="color:#bbb">
+</span></span></span></code></pre></div><h1 id="callable">Callable</h1>
+<div class="highlight"><pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#707a7c">@FunctionalInterface</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#8b008b;font-weight:bold">public</span><span style="color:#bbb"> </span><span style="color:#8b008b;font-weight:bold">interface</span> <span style="color:#008b45;font-weight:bold">Callable</span>&lt;V&gt;<span style="color:#bbb"> </span>{<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#228b22">//计算结果，无法计算抛出异常</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>V<span style="color:#bbb"> </span><span style="color:#008b45">call</span>()<span style="color:#bbb"> </span><span style="color:#8b008b;font-weight:bold">throws</span><span style="color:#bbb"> </span>Exception;<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span>}<span style="color:#bbb">
+</span></span></span></code></pre></div><ul>
+<li>和Runnable类似，但Runnable无法返回结果</li>
+<li>该接口提供了一个call的动作，所以任何实现该接口的类，都会有这一个动作，此时可以结合其他类，利用实现Callable接口的类做一些功能，如果结合线程，就可以不占用主线程做一些异步任务，并且可以获取计算的结果，挺好！</li>
+</ul>
+<h1 id="future">Future</h1>
+<div class="highlight"><pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#8b008b;font-weight:bold">public</span><span style="color:#bbb"> </span><span style="color:#8b008b;font-weight:bold">interface</span> <span style="color:#008b45;font-weight:bold">Future</span>&lt;V&gt;<span style="color:#bbb"> </span>{<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#00688b;font-weight:bold">boolean</span><span style="color:#bbb"> </span><span style="color:#008b45">cancel</span>(<span style="color:#00688b;font-weight:bold">boolean</span><span style="color:#bbb"> </span>mayInterruptIfRunning);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#00688b;font-weight:bold">boolean</span><span style="color:#bbb"> </span><span style="color:#008b45">isCancelled</span>();<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#00688b;font-weight:bold">boolean</span><span style="color:#bbb"> </span><span style="color:#008b45">isDone</span>();<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>V<span style="color:#bbb"> </span><span style="color:#008b45">get</span>()<span style="color:#bbb"> </span><span style="color:#8b008b;font-weight:bold">throws</span><span style="color:#bbb"> </span>InterruptedException,<span style="color:#bbb"> </span>ExecutionException;<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>V<span style="color:#bbb"> </span><span style="color:#008b45">get</span>(<span style="color:#00688b;font-weight:bold">long</span><span style="color:#bbb"> </span>timeout,<span style="color:#bbb"> </span>TimeUnit<span style="color:#bbb"> </span>unit)<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#8b008b;font-weight:bold">throws</span><span style="color:#bbb"> </span>InterruptedException,<span style="color:#bbb"> </span>ExecutionException,<span style="color:#bbb"> </span>TimeoutException;<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span>}<span style="color:#bbb">
+</span></span></span></code></pre></div><ul>
+<li>代表的是<code>异步计算的结果</code>，允许程序员对异步执行的任务进行控制和<code>获取结果</code></li>
+<li>接口的功能主要关注的是任务的结果，和Runnable不同，Runnable只有一个run方法，只是可以利用线程完成一系列不关心结果的任务</li>
+</ul>
+<h1 id="executorservice">ExecutorService</h1>
+<div class="highlight"><pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#8b008b;font-weight:bold">public</span><span style="color:#bbb"> </span><span style="color:#8b008b;font-weight:bold">interface</span> <span style="color:#008b45;font-weight:bold">ExecutorService</span><span style="color:#bbb"> </span><span style="color:#8b008b;font-weight:bold">extends</span><span style="color:#bbb"> </span>Executor<span style="color:#bbb"> </span>{<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#00688b;font-weight:bold">void</span><span style="color:#bbb"> </span><span style="color:#008b45">shutdown</span>();<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>List&lt;Runnable&gt;<span style="color:#bbb"> </span><span style="color:#008b45">shutdownNow</span>();<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#00688b;font-weight:bold">boolean</span><span style="color:#bbb"> </span><span style="color:#008b45">isShutdown</span>();<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#00688b;font-weight:bold">boolean</span><span style="color:#bbb"> </span><span style="color:#008b45">isTerminated</span>();<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#228b22">//执行一个任务</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>&lt;T&gt;<span style="color:#bbb"> </span>Future&lt;T&gt;<span style="color:#bbb"> </span><span style="color:#008b45">submit</span>(Callable&lt;T&gt;<span style="color:#bbb"> </span>task);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>&lt;T&gt;<span style="color:#bbb"> </span>Future&lt;T&gt;<span style="color:#bbb"> </span><span style="color:#008b45">submit</span>(Runnable<span style="color:#bbb"> </span>task,<span style="color:#bbb"> </span>T<span style="color:#bbb"> </span>result);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>Future&lt;?&gt;<span style="color:#bbb"> </span>submit(Runnable<span style="color:#bbb"> </span>task);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#228b22">//执行所有的任务</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>&lt;T&gt;<span style="color:#bbb"> </span>List&lt;Future&lt;T&gt;&gt;<span style="color:#bbb"> </span><span style="color:#008b45">invokeAll</span>(Collection&lt;?<span style="color:#bbb"> </span><span style="color:#8b008b;font-weight:bold">extends</span><span style="color:#bbb"> </span>Callable&lt;T&gt;&gt;<span style="color:#bbb"> </span>tasks)<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#8b008b;font-weight:bold">throws</span><span style="color:#bbb"> </span>InterruptedException;<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#228b22">//执行一个成功的任务</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>&lt;T&gt;<span style="color:#bbb"> </span>T<span style="color:#bbb"> </span><span style="color:#008b45">invokeAny</span>(Collection&lt;?<span style="color:#bbb"> </span><span style="color:#8b008b;font-weight:bold">extends</span><span style="color:#bbb"> </span>Callable&lt;T&gt;&gt;<span style="color:#bbb"> </span>tasks)<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#8b008b;font-weight:bold">throws</span><span style="color:#bbb"> </span>InterruptedException,<span style="color:#bbb"> </span>ExecutionException;<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span>}<span style="color:#bbb">
+</span></span></span></code></pre></div><ul>
+<li>本质上是一个为异步任务执行提供机制的<code>接口</code>，从接口定义的动作来看，就是为了执行任务，并且返回任务计算的结果的。</li>
+</ul>
+<h1 id="threadpoolexecutor">ThreadPoolExecutor</h1>
+<ul>
+<li>是一个<code>线程池</code>的实现框架，它通过几个重要的参数来定义池中的信息，用以控制线程的信息</li>
+<li>类名的意思应该是，最顶层接口是一个Executor，它用来执行一个任务，然后这个类代表的是用一个线程池来执行很多的任务</li>
+</ul>
+<h2 id="参数">参数</h2>
+<div class="highlight"><pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#8b008b;font-weight:bold">public</span><span style="color:#bbb"> </span><span style="color:#008b45">ThreadPoolExecutor</span>(<span style="color:#00688b;font-weight:bold">int</span><span style="color:#bbb"> </span>corePoolSize,<span style="color:#bbb"> </span><span style="color:#00688b;font-weight:bold">int</span><span style="color:#bbb"> </span>maximumPoolSize,<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">                          </span><span style="color:#00688b;font-weight:bold">long</span><span style="color:#bbb"> </span>keepAliveTime,<span style="color:#bbb"> </span>TimeUnit<span style="color:#bbb"> </span>unit,<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">                          </span>BlockingQueue&lt;Runnable&gt;<span style="color:#bbb"> </span>workQueue,<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">                          </span>ThreadFactory<span style="color:#bbb"> </span>threadFactory,<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">                          </span>RejectedExecutionHandler<span style="color:#bbb"> </span>handler)<span style="color:#bbb"> </span>{<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#8b008b;font-weight:bold">if</span><span style="color:#bbb"> </span>(corePoolSize<span style="color:#bbb"> </span>&lt;<span style="color:#bbb"> </span>0<span style="color:#bbb"> </span>||<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>maximumPoolSize<span style="color:#bbb"> </span>&lt;=<span style="color:#bbb"> </span>0<span style="color:#bbb"> </span>||<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>maximumPoolSize<span style="color:#bbb"> </span>&lt;<span style="color:#bbb"> </span>corePoolSize<span style="color:#bbb"> </span>||<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>keepAliveTime<span style="color:#bbb"> </span>&lt;<span style="color:#bbb"> </span>0)<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#8b008b;font-weight:bold">throw</span><span style="color:#bbb"> </span><span style="color:#8b008b;font-weight:bold">new</span><span style="color:#bbb"> </span>IllegalArgumentException();<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#8b008b;font-weight:bold">if</span><span style="color:#bbb"> </span>(workQueue<span style="color:#bbb"> </span>==<span style="color:#bbb"> </span><span style="color:#8b008b;font-weight:bold">null</span><span style="color:#bbb"> </span>||<span style="color:#bbb"> </span>threadFactory<span style="color:#bbb"> </span>==<span style="color:#bbb"> </span><span style="color:#8b008b;font-weight:bold">null</span><span style="color:#bbb"> </span>||<span style="color:#bbb"> </span>handler<span style="color:#bbb"> </span>==<span style="color:#bbb"> </span><span style="color:#8b008b;font-weight:bold">null</span>)<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#8b008b;font-weight:bold">throw</span><span style="color:#bbb"> </span><span style="color:#8b008b;font-weight:bold">new</span><span style="color:#bbb"> </span>NullPointerException();<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#8b008b;font-weight:bold">this</span>.<span style="color:#658b00">acc</span><span style="color:#bbb"> </span>=<span style="color:#bbb"> </span>System.<span style="color:#658b00">getSecurityManager</span>()<span style="color:#bbb"> </span>==<span style="color:#bbb"> </span><span style="color:#8b008b;font-weight:bold">null</span><span style="color:#bbb"> </span>?<span style="color:#bbb"> </span><span style="color:#8b008b;font-weight:bold">null</span><span style="color:#bbb"> </span>:AccessController.<span style="color:#658b00">getContext</span>();<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span>}<span style="color:#bbb">
+</span></span></span></code></pre></div><ul>
+<li>corePoolSize – 线程池的核心线程数量</li>
+<li>maximumPoolSize – 线程池的最大线程数量</li>
+<li>keepAliveTime –当线程数大于核心线程数时，空闲线程的等待任务的时间，时间一过，终止线程</li>
+<li>unit – 时间单位</li>
+<li>workQueue – 保存未执行的任务。仅仅保存由execute方法执行的Runnable任务</li>
+<li>threadFactory – 创建新线程的工厂</li>
+<li>handler – 拒绝执行策略，当提交的任务过多而不能及时处理时，我们可以定制策略来处理任务</li>
+</ul>
+<h2 id="线程数量的控制"><strong>线程数量的控制</strong></h2>
+<ul>
+<li>新任务来时，判断<code>当前运行的线程数量</code>
+<ul>
+<li>小于corePoolSize，则创建新线程</li>
+<li>[corePoolSize，maximumPoolSize)，判断任务队列
+<ul>
+<li>任务队列没满，继续等待</li>
+<li>任务队列满，创建新线程</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>当然也可以使用方法，在接收任务之前，预先创建核心线程</li>
+</ul>
+<h2 id="拒绝策略"><strong>拒绝策略</strong></h2>
+<ul>
+<li>当任务队列满，且线程数量达到最大，新的任务将被拒绝</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#8b008b;font-weight:bold">public</span><span style="color:#bbb"> </span><span style="color:#8b008b;font-weight:bold">interface</span> <span style="color:#008b45;font-weight:bold">RejectedExecutionHandler</span><span style="color:#bbb"> </span>{<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#00688b;font-weight:bold">void</span><span style="color:#bbb"> </span><span style="color:#008b45">rejectedExecution</span>(Runnable<span style="color:#bbb"> </span>r,<span style="color:#bbb"> </span>ThreadPoolExecutor<span style="color:#bbb"> </span>executor);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span>}<span style="color:#bbb">
+</span></span></span></code></pre></div><p>在该类中定义了四个静态内部类，用于拒绝策略</p>
+<ul>
+<li>AbortPolicy：直接拒绝新任务，直接抛出<code>RejectedExecutionException</code>异常，（默认的）</li>
+<li>CallerRunsPolicy：直接由调用execute方法的线程来执行Runnable的run方法，这种情况是每个任务都得到执行</li>
+<li>DiscardOldestPolicy：任务队列的队头丢弃，然后新的任务执行execute，进行原来的判断处理</li>
+<li>DiscardPolicy：直接丢弃，也就是不做任何处理，空方法体</li>
+</ul>
+<h2 id="任务队列排队用的"><strong>任务队列（排队用的）</strong></h2>
+<div class="highlight"><pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#8b008b;font-weight:bold">public</span><span style="color:#bbb"> </span><span style="color:#8b008b;font-weight:bold">interface</span> <span style="color:#008b45;font-weight:bold">BlockingQueue</span>&lt;E&gt;<span style="color:#bbb"> </span><span style="color:#8b008b;font-weight:bold">extends</span><span style="color:#bbb"> </span>Queue&lt;E&gt;<span style="color:#bbb"> </span>{<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#00688b;font-weight:bold">boolean</span><span style="color:#bbb"> </span><span style="color:#008b45">add</span>(E<span style="color:#bbb"> </span>e);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#00688b;font-weight:bold">boolean</span><span style="color:#bbb"> </span><span style="color:#008b45">offer</span>(E<span style="color:#bbb"> </span>e);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#00688b;font-weight:bold">void</span><span style="color:#bbb"> </span><span style="color:#008b45">put</span>(E<span style="color:#bbb"> </span>e)<span style="color:#bbb"> </span><span style="color:#8b008b;font-weight:bold">throws</span><span style="color:#bbb"> </span>InterruptedException;<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#00688b;font-weight:bold">boolean</span><span style="color:#bbb"> </span><span style="color:#008b45">remove</span>(Object<span style="color:#bbb"> </span>o);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>E<span style="color:#bbb"> </span><span style="color:#008b45">poll</span>()<span style="color:#8b008b;font-weight:bold">throws</span><span style="color:#bbb"> </span>InterruptedException;<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>E<span style="color:#bbb"> </span><span style="color:#008b45">take</span>()<span style="color:#bbb"> </span><span style="color:#8b008b;font-weight:bold">throws</span><span style="color:#bbb"> </span>InterruptedException;<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span>}<span style="color:#bbb">
+</span></span></span></code></pre></div><ul>
+<li>该类的排队采用是一种<code>阻塞队列</code>，<code>先进先出</code>的数据结构</li>
+<li>阻塞队列是支持线程插入/删除元素失败的线程等待作用，类似与<code>生产者/消费者</code>。</li>
+<li>因为阻塞队列是不竞争资源的，不需要阻塞，而是放弃cpu的使用权，进入等待状态，等待某个条件的成立而恢复操作（如队列有空间可以使用了）</li>
+</ul>
+<p><img src="blockqueue.png" alt="blockqueue.png"></p>
+<h3 id="arrayblockingqueue">ArrayBlockingQueue</h3>
+<ul>
+<li>数组支持的有界阻塞队列</li>
+<li><code>新元素插入到队列的尾部</code>，队列获取操作则是从<code>队列头部开始获得元素</code></li>
+<li>数组大小固定
+<ul>
+<li>数组满时，插入线程等待</li>
+<li>数组空时，移除线程等待</li>
+</ul>
+</li>
+</ul>
+<p>注意：</p>
+<ul>
+<li>阻塞功能要用put/offer方法，add方法会抛出异常</li>
+<li>此类是<code>线程安全</code>的，采用了可重入锁<code>ReentrantLock</code>来维护</li>
+</ul>
+<h3 id="delayqueue">DelayQueue</h3>
+<ul>
+<li>是一个无界阻塞队列，底层采用的是优先队列</li>
+<li><code>延迟</code>：是指队列中的元素必须经过指定时间之后，才能取出来</li>
+<li>队列中的元素必须实现<code>Delayed</code>接口，支持队列中的排序和延迟功能。</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#8b008b;font-weight:bold">public</span><span style="color:#bbb"> </span><span style="color:#8b008b;font-weight:bold">class</span> <span style="color:#008b45;font-weight:bold">DelayQueue</span>&lt;E<span style="color:#bbb"> </span><span style="color:#8b008b;font-weight:bold">extends</span><span style="color:#bbb"> </span>Delayed&gt;<span style="color:#bbb"> </span><span style="color:#8b008b;font-weight:bold">extends</span><span style="color:#bbb"> </span>AbstractQueue&lt;E&gt;<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#8b008b;font-weight:bold">implements</span><span style="color:#bbb"> </span>BlockingQueue&lt;E&gt;<span style="color:#bbb"> </span>{<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span>}<span style="color:#bbb">
+</span></span></span></code></pre></div><h3 id="synchronousqueue">SynchronousQueue</h3>
+<ul>
+<li>同步阻塞队列，每个插入操作必须等待另一个线程的对应移除操作 ；可以理解为：一个生产者添加一个元素，它若想停止必须等待一个消费者取出这个元素，类似于消息的安全传递</li>
+<li>注意：该队列没有任何元素</li>
+<li>适合于<code>传递性设计</code>，在这种设计中，在一个线程中运行的对象要将某些信息、事件或任务传递给在另一个线程中运行的对象，它就必须与该对象同步。</li>
+</ul>
+<p>使用：</p>
+<ul>
+<li>只有put、take、offer、poll有用，其他的关于集合的动作都是没用的</li>
+<li>如下例，生产者线程会一直等待下去</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#8b008b;font-weight:bold">public</span><span style="color:#bbb"> </span><span style="color:#8b008b;font-weight:bold">class</span> <span style="color:#008b45;font-weight:bold">Example</span><span style="color:#bbb"> </span>{<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#8b008b;font-weight:bold">public</span><span style="color:#bbb"> </span><span style="color:#8b008b;font-weight:bold">static</span><span style="color:#bbb"> </span><span style="color:#00688b;font-weight:bold">void</span><span style="color:#bbb"> </span><span style="color:#008b45">main</span>(String[]<span style="color:#bbb"> </span>args)<span style="color:#bbb"> </span><span style="color:#8b008b;font-weight:bold">throws</span><span style="color:#bbb"> </span>InterruptedException<span style="color:#bbb"> </span>{<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>SynchronousQueue&lt;Integer&gt;<span style="color:#bbb"> </span>queue<span style="color:#bbb"> </span>=<span style="color:#bbb"> </span><span style="color:#8b008b;font-weight:bold">new</span><span style="color:#bbb"> </span>SynchronousQueue&lt;&gt;();<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#228b22">// 生产者线程</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#8b008b;font-weight:bold">new</span><span style="color:#bbb"> </span>Thread(()<span style="color:#bbb"> </span>-&gt;<span style="color:#bbb"> </span>{<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span><span style="color:#8b008b;font-weight:bold">try</span><span style="color:#bbb"> </span>{<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">                </span>queue.<span style="color:#658b00">put</span>(1);<span style="color:#bbb"> </span><span style="color:#228b22">// 向队列中添加元素</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span>}<span style="color:#bbb"> </span><span style="color:#8b008b;font-weight:bold">catch</span><span style="color:#bbb"> </span>(InterruptedException<span style="color:#bbb"> </span>e)<span style="color:#bbb"> </span>{<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">                </span>e.<span style="color:#658b00">printStackTrace</span>();<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span>}<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>}).<span style="color:#658b00">start</span>();<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">   </span>}<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span>}<span style="color:#bbb">
+</span></span></span></code></pre></div><h1 id="executors">Executors</h1>
+<h1 id="辅助接口和类">辅助接口和类</h1>
+
+                    
+                    <HR width="100%" id="EOF">
+		    <p style="color:#777;">Last modified on 2024-05-24</p>
+                    
+                </div>
+            </div>
+            
+            
+            <nav class="post-pagination">
+
+                
+                <a class="newer-posts" href="/java/thread/basic/thread_basic/">
+			Next<br>基础概念
+                </a>
+                
+                
+                
+                <a class="older-posts" href="/java/basic/collection/collection/">
+			Previous<br>集合
+                </a>
+                
+            </nav>
+            <div class="post-comment-wrapper">
+                
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="https://giscus.app/client.js"
+        data-repo="username/repo"
+        data-repo-id="**************************"
+        data-category="General"
+        data-category-id="*********************"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="en"
+        crossorigin="anonymous"
+        async>
+</script>
+
+            </div>
+        </div>
+    </div>
+
+
+                    </div>
+            </div><div id="sideContainer" class="side-container">
+    
+    <a class="a-block nav-head false" href="http://example.org/">
+    
+        <div class="nav-title">
+            小宋小宋?
+        </div>
+        
+        <div class="nav-subtitle">
+            在呢！
+        </div>
+        
+    </a>
+
+    <div class="nav-link-list">
+        
+        
+            
+            
+            
+            
+            
+            <a class="a-block nav-link-item false" href="/posts">
+                文章
+            </a>
+            
+        
+            
+            
+            
+            
+            
+            <a class="a-block nav-link-item false" href="/categories">
+                分类
+            </a>
+            
+        
+            
+            
+            
+            
+            
+            <a class="a-block nav-link-item false" href="/tags">
+                快速查找
+            </a>
+            
+        
+            
+            
+            
+            
+            
+            <a class="a-block nav-link-item false" href="/database">
+                MySQL
+            </a>
+            
+        
+            
+            
+            
+            
+            
+            <a class="a-block nav-link-item false" href="/spring">
+                Spring
+            </a>
+            
+        
+    </div>
+
+    
+
+    <div class="nav-footer">
+        
+Hugo Theme <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> by <a href="https://risehere.net/">Rise</a>
+<br>
+Ported from <a href="https://mak1t0.cc/" target="_blank" rel="noreferrer noopener">Makito</a>'s <a href="https://github.com/SumiMakito/hexo-theme-journal/" target="_blank" rel="noreferrer noopener">Journal.</a> <br>
+<br>
+
+&copy;
+	
+	This is a customized copyright.
+	
+
+    </div>
+    
+</div><div id="extraContainer" class="extra-container">
+    <div class="toc-wrapper">
+        
+
+        
+        <div class="toc">
+
+
+	<div class="toc-content">
+	
+		
+		
+		
+		<center>- CATALOG -</center>
+		
+		
+		<ul>
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#%e7%ba%bf%e7%a8%8b%e6%b1%a0" class="nav-线程池">
+									线程池
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#executor%e6%8e%a5%e5%8f%a3" class="nav-executor接口">
+									Executor接口
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#callable" class="nav-callable">
+									Callable
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#future" class="nav-future">
+									Future
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#executorservice" class="nav-executorservice">
+									ExecutorService
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#threadpoolexecutor" class="nav-threadpoolexecutor">
+									ThreadPoolExecutor
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+							
+								
+									<ul>
+								
+							
+						
+						
+							<li>
+								<a href="#%e5%8f%82%e6%95%b0" class="nav-参数">
+									参数
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#%e7%ba%bf%e7%a8%8b%e6%95%b0%e9%87%8f%e7%9a%84%e6%8e%a7%e5%88%b6" class="nav-线程数量的控制">
+									线程数量的控制
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#%e6%8b%92%e7%bb%9d%e7%ad%96%e7%95%a5" class="nav-拒绝策略">
+									拒绝策略
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#%e4%bb%bb%e5%8a%a1%e9%98%9f%e5%88%97%e6%8e%92%e9%98%9f%e7%94%a8%e7%9a%84" class="nav-任务队列排队用的">
+									任务队列（排队用的）
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+							
+								
+									<ul>
+								
+							
+						
+						
+							<li>
+								<a href="#arrayblockingqueue" class="nav-arrayblockingqueue">
+									ArrayBlockingQueue
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#delayqueue" class="nav-delayqueue">
+									DelayQueue
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#synchronousqueue" class="nav-synchronousqueue">
+									SynchronousQueue
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+							
+								</ul>
+							
+								</ul>
+							
+						
+						
+						
+							<li>
+								<a href="#executors" class="nav-executors">
+									Executors
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#%e8%be%85%e5%8a%a9%e6%8e%a5%e5%8f%a3%e5%92%8c%e7%b1%bb" class="nav-辅助接口和类">
+									辅助接口和类
+								</a>
+							</li>
+						
+						
+					
+				
+			
+		</ul>
+	</div>
+
+</div>
+        
+    </div>
+    <div class="pagination">
+        <a id="globalBackToTop" class="pagination-action animated-visibility" href="#top"
+            :class="{ invisible: scrollY == 0 }">
+            <i class="material-icons pagination-action-icon">
+                keyboard_arrow_up
+            </i>
+        </a>
+        
+        <a type="button" class="pagination-action" id="darkModeToggleButton">
+            <span class="material-icons pagination-action-icon" id="darkModeToggleIcon">
+                dark_mode
+            </span>
+        </a>
+        
+        
+    </div>
+</div>
+
+<div id="single-column-footer">
+Hugo Theme <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> by <a href="https://risehere.net/">Rise</a>
+<br>
+Ported from <a href="https://mak1t0.cc/" target="_blank" rel="noreferrer noopener">Makito</a>'s <a href="https://github.com/SumiMakito/hexo-theme-journal/" target="_blank" rel="noreferrer noopener">Journal.</a> <br>
+<br>
+
+&copy;
+	
+	This is a customized copyright.
+	
+</div>
+            </div>
+    
+    <script src="/js/journal.js"></script></body>
+</html>

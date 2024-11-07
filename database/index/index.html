@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html><head>
+<title>索引</title>
+
+
+
+
+<meta charset="utf-8">
+<meta name="X-UA-Compatible" content="IE=edge">
+<meta name="google-site-verification" content="G-XXXXXXXXXX">
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+<meta content="telephone=no" name="format-detection">
+<meta name="description" content="">
+<meta name="renderer" content="webkit">
+<meta name="theme-color" content="#ffffff">
+
+
+
+<meta property="og:url" content="http://example.org/database/index/">
+  <meta property="og:site_name" content="小宋小宋?">
+  <meta property="og:title" content="索引">
+  <meta property="og:description" content="数据结构类型 Hash：查找速度O(1)，但是会出现Hash冲突，解决冲突可以使用拉链法。但是查询一个范围时，需要多次hash映射，才能得到全部数据。O(N)
+二叉搜索树 ：理想速度O(logN)。但是非递减数据会退化成链表。
+平衡二叉树 ：解决二叉搜索树的问题。各种操作最坏情况复杂度O(logN)。但是：
+元素多，高度还是会高 维护平衡，代价高，通过各种旋转，O(logN)。 每个节点存储的数据少，也就是节点上每次加载的数据太少，即便找到了数据，也需要多次磁盘IO去取数据。 可以范围查询，中序遍历就是有序的数据。 因为数据量比较大，一次性不一定能把数据全部加载到内存中。 红黑树 ：解决平衡二叉树的维护平衡的问题。通过颜色的改变，可以在O(1)的复杂度下维护平衡。但是，缺点还是平衡二叉树大差不差。
+B树 每个节点都存储数据,每一个节点都会存储指针 概念
+阶：一个数的最大子节点的个数，同时也控制每一个节点的键的数量的上下限 根节点，中间节点：非根、非叶子结点，叶子结点 键值对：是每个节点所存储的数据，每个节点有一个最小键、一个最大键，键的值是按照非递减的规则排序 重点 B数的结构控制，假设B树的阶数为 m
+根结点至少有两个子女。 中间节点：k-1个键和k个孩子(指针)，其中k的范围[m/2,m] 叶子节点：k-1个元素，其中k的范围[m/2,m] 叶子节点都在一层 通过这些规则，B树可以达到自平衡 插入：键的非递减顺序、超过范围进行父节点的选举 删除：不足范围进行合并
+B&#43;树 只有叶子结点存储完整数据，并且每个叶子节点可以链接 m阶的B&#43;树每个节点的键的范围：[m/2-1,m-1]；向上取整
+叶子节点中存储全部的数据 每个叶子节点采用双向链表进行关联 中间节点：一个键对应一个子节点，共k个键； 采用B树、B&#43;树在mysql的好处 速度：多路索引，树的高度能够降低，然后一次磁盘IO可以取出更多的数据 顺序查询：B&#43;树，叶子节点采用双向链表关联，可以进行范围查询 如果需要高效的查询和插入操作，那么红黑树可能是更好的选择； 如果要进行大量的数据读写操作，那么B&#43;树可能更适合。 聚簇索引、非聚簇索引 聚簇索引
+叶子结点的data包含记录的全部数据记录 整条树是根据主索引建立，这就是为什么数据库表中只能有一个primary key 其他是辅助索引，在根据辅助索引查询时，需要先辅助索引的data确定其主索引，再走主索引树 非聚簇索引
+叶子结点的data包含指向记录数据的指针 回表查询：当查询结果正是需要的索引关键字，不需要回表取数据 类型 辅助索引 也叫二级索引，存储的是主索引的值 唯一索引，普通索引，前缀索引，全文索引都是的 sql语句
+alter table table_name add index/fulltext index/unique index column(index_name); --前缀索引 create table table_name( index(column_name(length)) ); create index index_name on table_name( column_name(length) ); 覆盖索引 在简单查询的时候，解决回表查询。 意思就是：如果查询的数据，正是索引关键字的属性，就直接返回，不用通过主键查询一次了">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="database">
+    <meta property="article:published_time" content="2024-05-24T15:14:01+08:00">
+    <meta property="article:modified_time" content="2024-05-24T15:14:01+08:00">
+
+
+
+
+
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="索引">
+  <meta name="twitter:description" content="数据结构类型 Hash：查找速度O(1)，但是会出现Hash冲突，解决冲突可以使用拉链法。但是查询一个范围时，需要多次hash映射，才能得到全部数据。O(N)
+二叉搜索树 ：理想速度O(logN)。但是非递减数据会退化成链表。
+平衡二叉树 ：解决二叉搜索树的问题。各种操作最坏情况复杂度O(logN)。但是：
+元素多，高度还是会高 维护平衡，代价高，通过各种旋转，O(logN)。 每个节点存储的数据少，也就是节点上每次加载的数据太少，即便找到了数据，也需要多次磁盘IO去取数据。 可以范围查询，中序遍历就是有序的数据。 因为数据量比较大，一次性不一定能把数据全部加载到内存中。 红黑树 ：解决平衡二叉树的维护平衡的问题。通过颜色的改变，可以在O(1)的复杂度下维护平衡。但是，缺点还是平衡二叉树大差不差。
+B树 每个节点都存储数据,每一个节点都会存储指针 概念
+阶：一个数的最大子节点的个数，同时也控制每一个节点的键的数量的上下限 根节点，中间节点：非根、非叶子结点，叶子结点 键值对：是每个节点所存储的数据，每个节点有一个最小键、一个最大键，键的值是按照非递减的规则排序 重点 B数的结构控制，假设B树的阶数为 m
+根结点至少有两个子女。 中间节点：k-1个键和k个孩子(指针)，其中k的范围[m/2,m] 叶子节点：k-1个元素，其中k的范围[m/2,m] 叶子节点都在一层 通过这些规则，B树可以达到自平衡 插入：键的非递减顺序、超过范围进行父节点的选举 删除：不足范围进行合并
+B&#43;树 只有叶子结点存储完整数据，并且每个叶子节点可以链接 m阶的B&#43;树每个节点的键的范围：[m/2-1,m-1]；向上取整
+叶子节点中存储全部的数据 每个叶子节点采用双向链表进行关联 中间节点：一个键对应一个子节点，共k个键； 采用B树、B&#43;树在mysql的好处 速度：多路索引，树的高度能够降低，然后一次磁盘IO可以取出更多的数据 顺序查询：B&#43;树，叶子节点采用双向链表关联，可以进行范围查询 如果需要高效的查询和插入操作，那么红黑树可能是更好的选择； 如果要进行大量的数据读写操作，那么B&#43;树可能更适合。 聚簇索引、非聚簇索引 聚簇索引
+叶子结点的data包含记录的全部数据记录 整条树是根据主索引建立，这就是为什么数据库表中只能有一个primary key 其他是辅助索引，在根据辅助索引查询时，需要先辅助索引的data确定其主索引，再走主索引树 非聚簇索引
+叶子结点的data包含指向记录数据的指针 回表查询：当查询结果正是需要的索引关键字，不需要回表取数据 类型 辅助索引 也叫二级索引，存储的是主索引的值 唯一索引，普通索引，前缀索引，全文索引都是的 sql语句
+alter table table_name add index/fulltext index/unique index column(index_name); --前缀索引 create table table_name( index(column_name(length)) ); create index index_name on table_name( column_name(length) ); 覆盖索引 在简单查询的时候，解决回表查询。 意思就是：如果查询的数据，正是索引关键字的属性，就直接返回，不用通过主键查询一次了">
+
+
+
+
+
+
+
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+      <script>
+        var doNotTrack = false;
+        if ( false ) {
+          var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+          var doNotTrack = (dnt == "1" || dnt == "yes");
+        }
+        if (!doNotTrack) {
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-XXXXXXXXXX');
+        }
+      </script>
+
+
+
+
+<script type="text/javascript">
+  (function(c,l,a,r,i,t,y){
+      c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+      t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+      y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+  })(window, document, "clarity", "script", "abcdefghzd");
+</script>
+
+
+
+  
+
+
+
+
+
+
+      <script src="/js/toc.js"></script>
+    
+    <link type="text/css" rel="stylesheet" href="/vendor/css/bootstrap.min.css">
+
+<link rel="stylesheet" href="/scss/dark-mode.min.cb53f1bee2b8900cb4f082afbf00175d6618f281cf9a2fe8619e3b52d20b5721.css" integrity="sha256-y1PxvuK4kAy08IKvvwAXXWYY8oHPmi/oYZ47UtILVyE=" media="screen">
+
+
+<link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Material+Icons">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+<body>
+    	<div id="app"><div class="single-column-drawer-container" id="drawer"
+     v-bind:class="{ 'single-column-drawer-container-active': isDrawerOpen }">
+    <div class="drawer-content">
+        <div class="drawer-menu">
+            
+            
+            
+                
+                
+                
+                
+                
+                <a class="a-block drawer-menu-item false" href="/posts">
+                    文章
+                </a>
+                
+            
+                
+                
+                
+                
+                
+                <a class="a-block drawer-menu-item false" href="/categories">
+                    分类
+                </a>
+                
+            
+                
+                
+                
+                
+                
+                <a class="a-block drawer-menu-item false" href="/tags">
+                    快速查找
+                </a>
+                
+            
+                
+                
+                
+                    
+                
+                
+                
+                <a class="a-block drawer-menu-item active" href="/database">
+                    MySQL
+                </a>
+                
+            
+                
+                
+                
+                
+                
+                <a class="a-block drawer-menu-item false" href="/spring">
+                    Spring
+                </a>
+                
+            
+            
+            <div class="toc">
+
+
+	<div class="toc-content">
+	
+		
+		
+		
+		<center>- CATALOG -</center>
+		
+		
+		<ul>
+			
+				
+				
+					
+						
+						
+						
+						
+							
+								
+									<ul>
+								
+							
+						
+						
+							<li>
+								<a href="#%e6%95%b0%e6%8d%ae%e7%bb%93%e6%9e%84%e7%b1%bb%e5%9e%8b" class="nav-数据结构类型">
+									数据结构类型
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#b%e6%a0%91" class="nav-b树">
+									B树
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#b%e6%a0%91-1" class="nav-b树-1">
+									B&#43;树
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#%e9%87%87%e7%94%a8b%e6%a0%91b%e6%a0%91%e5%9c%a8mysql%e7%9a%84%e5%a5%bd%e5%a4%84" class="nav-采用b树b树在mysql的好处">
+									采用B树、B&#43;树在mysql的好处
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#%e8%81%9a%e7%b0%87%e7%b4%a2%e5%bc%95%e9%9d%9e%e8%81%9a%e7%b0%87%e7%b4%a2%e5%bc%95" class="nav-聚簇索引非聚簇索引">
+									聚簇索引、非聚簇索引
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#%e7%b1%bb%e5%9e%8b" class="nav-类型">
+									类型
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+							
+								
+									<ul>
+								
+							
+						
+						
+							<li>
+								<a href="#%e8%be%85%e5%8a%a9%e7%b4%a2%e5%bc%95" class="nav-辅助索引">
+									辅助索引
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#%e8%a6%86%e7%9b%96%e7%b4%a2%e5%bc%95" class="nav-覆盖索引">
+									覆盖索引
+								</a>
+							</li>
+						
+						
+					
+				
+			
+		</ul>
+	</div>
+
+</div>
+            
+        </div>
+    </div>
+</div>
+<transition name="fade">
+    <div id="drawer-mask" v-bind:class="{ 'single-column-drawer-mask': mounted }" v-if="isDrawerOpen" v-on:click="toggleDrawer"></div>
+</transition>
+<nav id="navBar" class="navbar sticky-top navbar-light single-column-nav-container">
+    <div id="navBackground" class="nav-background"></div>
+    <div class="container container-narrow nav-content">
+        <button id="nav_dropdown_btn" class="nav-dropdown-toggle" type="button" v-on:click="toggleDrawer">
+            <i class="material-icons">
+                menu
+            </i>
+        </button>
+        <a id="navTitle" class="navbar-brand" href="http://example.org/">
+            小宋小宋?
+        </a>
+        
+        <button type="button" class="nav-darkmode-toggle" id="darkModeToggleButton2">
+            <i class="material-icons" id="darkModeToggleIcon2">
+                dark_mode
+            </i>
+        </button>
+        
+    </div>
+</nav>
+<div class="single-column-header-container" id="pageHead"
+     v-bind:style="{ transform: 'translateZ(0px) translateY('+.3*scrollY+'px)', opacity: 1-navOpacity }">
+    <a href="http://example.org/">
+        <div class="single-column-header-title">小宋小宋?</div>
+        
+        <div class="single-column-header-subtitle">在呢！</div>
+        
+
+    </a>
+</div>
+
+            <div id="content">
+                <div id="streamContainer" class="stream-container">
+
+    <div class="post-list-container post-list-container-shadow">
+        <div class="post">
+            
+            
+            
+
+            <div class="post-head-wrapper-text-only"
+                
+            >
+                <div class="post-title">
+                    索引
+                    
+                    <div class="post-meta">
+                        
+                        <time itemprop="datePublished">
+                            2024-05-24 15:14
+                        </time>
+                        
+
+                        
+
+                        
+                        
+                    </div>
+                </div>
+            </div>
+            
+            <div class="post-body-wrapper">
+                
+                <div class="post-body" v-pre>
+                
+                    <h2 id="数据结构类型">数据结构类型</h2>
+<p>Hash：查找速度O(1)，但是会出现Hash冲突，解决冲突可以使用拉链法。但是查询一个范围时，需要多次hash映射，才能得到全部数据。O(N)</p>
+<p>二叉搜索树 ：理想速度O(logN)。但是非递减数据会退化成链表。</p>
+<p>平衡二叉树 ：解决二叉搜索树的问题。各种操作最坏情况复杂度O(logN)。但是：</p>
+<ul>
+<li>元素多，高度还是会高</li>
+<li>维护平衡，代价高，通过各种旋转，O(logN)。</li>
+<li>每个节点存储的数据少，也就是节点上每次加载的数据太少，即便找到了数据，也需要多次磁盘IO去取数据。</li>
+<li>可以范围查询，中序遍历就是有序的数据。</li>
+<li>因为数据量比较大，一次性不一定能把数据全部加载到内存中。</li>
+</ul>
+<p>红黑树 ：解决平衡二叉树的<code>维护平衡</code>的问题。通过<code>颜色的改变</code>，可以在O(1)的复杂度下维护平衡。但是，缺点还是平衡二叉树大差不差。</p>
+<h2 id="b树">B树</h2>
+<p>每个节点都存储数据,每一个节点都会存储指针
+概念</p>
+<ul>
+<li>阶：一个数的最大子节点的个数，同时也控制每一个节点的键的数量的上下限</li>
+<li>根节点，中间节点：非根、非叶子结点，叶子结点</li>
+<li>键值对：是每个节点所存储的数据，每个节点有一个最小键、一个最大键，键的值是按照非递减的规则排序</li>
+</ul>
+<p>重点
+B数的结构控制，假设B树的阶数为 m</p>
+<ol>
+<li>根结点至少有两个子女。</li>
+<li>中间节点：k-1个键和k个孩子(指针)，其中k的范围[m/2,m]</li>
+<li>叶子节点：k-1个元素，其中k的范围[m/2,m]</li>
+<li>叶子节点都在一层</li>
+</ol>
+<p>通过这些规则，B树可以达到自平衡
+插入：键的非递减顺序、超过范围进行父节点的选举
+删除：不足范围进行合并</p>
+<h2 id="b树-1">B+树</h2>
+<p>只有叶子结点存储完整数据，并且每个叶子节点可以链接
+m阶的B+树每个节点的键的范围：[m/2-1,m-1]；向上取整</p>
+<ol>
+<li>叶子节点中存储全部的数据</li>
+<li>每个<code>叶子节点采用双向链表</code>进行关联</li>
+<li>中间节点：一个键对应一个子节点，共k个键；</li>
+</ol>
+<h2 id="采用b树b树在mysql的好处">采用B树、B+树在mysql的好处</h2>
+<ul>
+<li>速度：多路索引，树的高度能够降低，然后一次磁盘IO可以取出更多的数据</li>
+<li>顺序查询：B+树，叶子节点采用双向链表关联，可以进行范围查询</li>
+<li>如果需要高效的查询和插入操作，那么红黑树可能是更好的选择；</li>
+<li>如果要进行大量的数据读写操作，那么B+树可能更适合。</li>
+</ul>
+<h2 id="聚簇索引非聚簇索引">聚簇索引、非聚簇索引</h2>
+<p>聚簇索引</p>
+<ul>
+<li>叶子结点的data包含记录的全部数据记录</li>
+<li>整条树是根据主索引建立，这就是为什么数据库表中只能有一个primary key</li>
+<li>其他是辅助索引，在根据辅助索引查询时，需要先辅助索引的data确定其主索引，再走主索引树</li>
+</ul>
+<p>非聚簇索引</p>
+<ul>
+<li>叶子结点的data包含指向记录数据的指针</li>
+<li>回表查询：当查询结果正是需要的索引关键字，不需要回表取数据</li>
+</ul>
+<h2 id="类型">类型</h2>
+<h3 id="辅助索引">辅助索引</h3>
+<ul>
+<li>也叫二级索引，存储的是主索引的值</li>
+<li>唯一索引，普通索引，前缀索引，全文索引都是的</li>
+</ul>
+<p>sql语句</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#8b008b;font-weight:bold">alter</span><span style="color:#bbb"> </span><span style="color:#8b008b;font-weight:bold">table</span><span style="color:#bbb"> </span><span style="color:#8b008b;font-weight:bold">table_name</span><span style="color:#bbb"> </span><span style="color:#8b008b;font-weight:bold">add</span><span style="color:#bbb"> </span><span style="color:#8b008b;font-weight:bold">index</span>/fulltext<span style="color:#bbb"> </span><span style="color:#8b008b;font-weight:bold">index</span>/<span style="color:#8b008b;font-weight:bold">unique</span><span style="color:#bbb"> </span><span style="color:#8b008b;font-weight:bold">index</span><span style="color:#bbb">  </span><span style="color:#8b008b;font-weight:bold">column</span>(index_name);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#228b22">--前缀索引
+</span></span></span><span style="display:flex;"><span><span style="color:#228b22"></span><span style="color:#8b008b;font-weight:bold">create</span><span style="color:#bbb"> </span><span style="color:#8b008b;font-weight:bold">table</span><span style="color:#bbb"> </span><span style="color:#8b008b;font-weight:bold">table_name</span>(<span style="color:#bbb"> </span><span style="color:#8b008b;font-weight:bold">index</span>(<span style="color:#8b008b;font-weight:bold">column_name</span>(<span style="color:#8b008b;font-weight:bold">length</span>))<span style="color:#bbb"> </span>);<span style="color:#bbb"> 
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#8b008b;font-weight:bold">create</span><span style="color:#bbb"> </span><span style="color:#8b008b;font-weight:bold">index</span><span style="color:#bbb"> </span>index_name<span style="color:#bbb"> </span><span style="color:#8b008b;font-weight:bold">on</span><span style="color:#bbb"> </span><span style="color:#8b008b;font-weight:bold">table_name</span>(<span style="color:#bbb"> </span><span style="color:#8b008b;font-weight:bold">column_name</span>(<span style="color:#8b008b;font-weight:bold">length</span>)<span style="color:#bbb"> </span>);<span style="color:#bbb"> 
+</span></span></span></code></pre></div><h3 id="覆盖索引">覆盖索引</h3>
+<p>在简单查询的时候，解决回表查询。
+意思就是：如果查询的数据，正是索引关键字的属性，就直接返回，不用通过主键查询一次了</p>
+
+                    
+                    <HR width="100%" id="EOF">
+		    <p style="color:#777;">Last modified on 2024-05-24</p>
+                    
+                </div>
+            </div>
+            
+            
+            <nav class="post-pagination">
+
+                
+                <a class="newer-posts" href="/java/jvm/object/jvm_object/">
+			Next<br>对象
+                </a>
+                
+                
+                
+                <a class="older-posts" href="/database/log/">
+			Previous<br>日志
+                </a>
+                
+            </nav>
+            <div class="post-comment-wrapper">
+                
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="https://giscus.app/client.js"
+        data-repo="username/repo"
+        data-repo-id="**************************"
+        data-category="General"
+        data-category-id="*********************"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="en"
+        crossorigin="anonymous"
+        async>
+</script>
+
+            </div>
+        </div>
+    </div>
+
+
+                    </div>
+            </div><div id="sideContainer" class="side-container">
+    
+    <a class="a-block nav-head false" href="http://example.org/">
+    
+        <div class="nav-title">
+            小宋小宋?
+        </div>
+        
+        <div class="nav-subtitle">
+            在呢！
+        </div>
+        
+    </a>
+
+    <div class="nav-link-list">
+        
+        
+            
+            
+            
+            
+            
+            <a class="a-block nav-link-item false" href="/posts">
+                文章
+            </a>
+            
+        
+            
+            
+            
+            
+            
+            <a class="a-block nav-link-item false" href="/categories">
+                分类
+            </a>
+            
+        
+            
+            
+            
+            
+            
+            <a class="a-block nav-link-item false" href="/tags">
+                快速查找
+            </a>
+            
+        
+            
+            
+            
+                
+            
+            
+            
+            <a class="a-block nav-link-item active" href="/database">
+                MySQL
+            </a>
+            
+        
+            
+            
+            
+            
+            
+            <a class="a-block nav-link-item false" href="/spring">
+                Spring
+            </a>
+            
+        
+    </div>
+
+    
+
+    <div class="nav-footer">
+        
+Hugo Theme <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> by <a href="https://risehere.net/">Rise</a>
+<br>
+Ported from <a href="https://mak1t0.cc/" target="_blank" rel="noreferrer noopener">Makito</a>'s <a href="https://github.com/SumiMakito/hexo-theme-journal/" target="_blank" rel="noreferrer noopener">Journal.</a> <br>
+<br>
+
+&copy;
+	
+	This is a customized copyright.
+	
+
+    </div>
+    
+</div><div id="extraContainer" class="extra-container">
+    <div class="toc-wrapper">
+        
+
+        
+        <div class="toc">
+
+
+	<div class="toc-content">
+	
+		
+		
+		
+		<center>- CATALOG -</center>
+		
+		
+		<ul>
+			
+				
+				
+					
+						
+						
+						
+						
+							
+								
+									<ul>
+								
+							
+						
+						
+							<li>
+								<a href="#%e6%95%b0%e6%8d%ae%e7%bb%93%e6%9e%84%e7%b1%bb%e5%9e%8b" class="nav-数据结构类型">
+									数据结构类型
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#b%e6%a0%91" class="nav-b树">
+									B树
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#b%e6%a0%91-1" class="nav-b树-1">
+									B&#43;树
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#%e9%87%87%e7%94%a8b%e6%a0%91b%e6%a0%91%e5%9c%a8mysql%e7%9a%84%e5%a5%bd%e5%a4%84" class="nav-采用b树b树在mysql的好处">
+									采用B树、B&#43;树在mysql的好处
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#%e8%81%9a%e7%b0%87%e7%b4%a2%e5%bc%95%e9%9d%9e%e8%81%9a%e7%b0%87%e7%b4%a2%e5%bc%95" class="nav-聚簇索引非聚簇索引">
+									聚簇索引、非聚簇索引
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#%e7%b1%bb%e5%9e%8b" class="nav-类型">
+									类型
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+							
+								
+									<ul>
+								
+							
+						
+						
+							<li>
+								<a href="#%e8%be%85%e5%8a%a9%e7%b4%a2%e5%bc%95" class="nav-辅助索引">
+									辅助索引
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#%e8%a6%86%e7%9b%96%e7%b4%a2%e5%bc%95" class="nav-覆盖索引">
+									覆盖索引
+								</a>
+							</li>
+						
+						
+					
+				
+			
+		</ul>
+	</div>
+
+</div>
+        
+    </div>
+    <div class="pagination">
+        <a id="globalBackToTop" class="pagination-action animated-visibility" href="#top"
+            :class="{ invisible: scrollY == 0 }">
+            <i class="material-icons pagination-action-icon">
+                keyboard_arrow_up
+            </i>
+        </a>
+        
+        <a type="button" class="pagination-action" id="darkModeToggleButton">
+            <span class="material-icons pagination-action-icon" id="darkModeToggleIcon">
+                dark_mode
+            </span>
+        </a>
+        
+        
+    </div>
+</div>
+
+<div id="single-column-footer">
+Hugo Theme <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> by <a href="https://risehere.net/">Rise</a>
+<br>
+Ported from <a href="https://mak1t0.cc/" target="_blank" rel="noreferrer noopener">Makito</a>'s <a href="https://github.com/SumiMakito/hexo-theme-journal/" target="_blank" rel="noreferrer noopener">Journal.</a> <br>
+<br>
+
+&copy;
+	
+	This is a customized copyright.
+	
+</div>
+            </div>
+    
+    <script src="/js/journal.js"></script></body>
+</html>

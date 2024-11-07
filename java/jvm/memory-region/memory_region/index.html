@@ -1,0 +1,1154 @@
+<!DOCTYPE html>
+<html><head>
+<title>Java 内存区域</title>
+
+
+
+
+<meta charset="utf-8">
+<meta name="X-UA-Compatible" content="IE=edge">
+<meta name="google-site-verification" content="G-XXXXXXXXXX">
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+<meta content="telephone=no" name="format-detection">
+<meta name="description" content="">
+<meta name="renderer" content="webkit">
+<meta name="theme-color" content="#ffffff">
+
+
+
+<meta property="og:url" content="http://example.org/java/jvm/memory-region/memory_region/">
+  <meta property="og:site_name" content="小宋小宋?">
+  <meta property="og:title" content="Java 内存区域">
+  <meta property="og:description" content="Java内存区域 内存区域图 jdk1.8以前：
+jdk1.8及以后：
+对于线程和进程的职责：
+线程独有
+程序计数器、本地方法栈、虚拟机栈 线程共享
+堆区、元空间 程序计数器 在计组中，PC为控制器里面的一部分，它记录的是下一个指令所在的地址，用于指令跳转 在java中
+记录的是当前线程正在执行的字节码的指令地址，也就是行号 因为在多线程的情况下，每一个线程都会有自己的程序计数器，然后在线程切换的时候，用于恢复现场，继续执行 程序计数器是一个很小的内存空间，它仅仅记录的是一个指针 线程私有的，生命周期跟随线程 是唯一一个没有OOME的区域 虚拟机栈 栈是一个先进后出的数据结构，这就符合方法的递归调用的应用，一个方法调用另一个方法，这就符合栈的特性 在java中，虚拟机栈应用在存储方法调用使的局部变量、操作数等信息 异常
+StackOverflowError：方法调用太深，虚拟机栈太深 OutOfMemoryError：虚拟机栈申请不到内存 如图：
+局部变量表 存储方法的形参、方法内的局部变量，每一个局部变量有一个索引值，用于快速访问 局部变量必须初始化才能使用 操作栈 可以回想一下（2-3）*4，这个表达式的算法该怎么设计，利用两个栈，然后再利用操作符号的优先级，进行入栈、出栈的操作。还有前缀表达式、后缀表达式。 在java中
+是字节码指令执行过程的临时存储 由于局部变量表存储的是变量，而操作栈就可以动态的处理变量，进行一个中转站的使用 动态链接 回想多态特性的运行时多态，方法的具体调用要到运行期间也能确定 这个动态链接存储的是量池里的该方法的引用，支持调用过程中的动态链接。 方法返回地址 要保证每一个方法执行完之后应该返回到正确的位置，接着上一个方法的执行。 此时的操作就是弹出当前栈顶的栈帧 本地方法栈 和虚拟机栈类似，不过本地方法栈记录的是native方法的信息 native方法：
+用于在jvm上调用操作系统层面的方法，由c&#43;&#43;/c语言编写的 堆区（heap） 在该区域中，主要用来存放对象实例，也是垃圾收集器的主要工作区域。
+分代回收算法，越老的区，垃圾回收频率越低（使用次数晋升）堆区划分：
+新生代 老年代 逃逸分析
+如果某些方法中的对象引用没有被返回（return）或者未被外面使用（也就是未逃逸出去），那么对象可以直接在栈上分配内存 字符串常量池 因为在程序中字符串的使用占大量，所以单独开辟一个区域用于快速访问内存中字符串变量的信息。 字符串常量池可以看作是一个map，其中value用于映射堆区中的地址 它的实现是一个stringtable 历史
+jdk1.7以前，是在永久代中 jdk1.7及以后，移动到堆区中了 为什么：在永久代中垃圾回收效率低，没有堆区GC效率高 方法区 方法区是一个概念，它是一个逻辑区域，在运行时，需要读取各种类的信息，如字段信息、方法信息、常量、静态变量等等，方法区就是把这些信息划分出来的一个单独区域。 永久代、元空间
+它俩是方法区的实现方式 永久代是在jvm运行时内存区域，然后容易OOM 元空间是在本地内存上的实现 运行时常量池 用来存储class文件中的各种字面量和符号引用 它相当于是class文件常量池在内存中的映射 字面量：">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="java">
+    <meta property="article:published_time" content="2024-05-24T15:14:01+08:00">
+    <meta property="article:modified_time" content="2024-05-24T15:14:01+08:00">
+
+
+
+
+
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Java 内存区域">
+  <meta name="twitter:description" content="Java内存区域 内存区域图 jdk1.8以前：
+jdk1.8及以后：
+对于线程和进程的职责：
+线程独有
+程序计数器、本地方法栈、虚拟机栈 线程共享
+堆区、元空间 程序计数器 在计组中，PC为控制器里面的一部分，它记录的是下一个指令所在的地址，用于指令跳转 在java中
+记录的是当前线程正在执行的字节码的指令地址，也就是行号 因为在多线程的情况下，每一个线程都会有自己的程序计数器，然后在线程切换的时候，用于恢复现场，继续执行 程序计数器是一个很小的内存空间，它仅仅记录的是一个指针 线程私有的，生命周期跟随线程 是唯一一个没有OOME的区域 虚拟机栈 栈是一个先进后出的数据结构，这就符合方法的递归调用的应用，一个方法调用另一个方法，这就符合栈的特性 在java中，虚拟机栈应用在存储方法调用使的局部变量、操作数等信息 异常
+StackOverflowError：方法调用太深，虚拟机栈太深 OutOfMemoryError：虚拟机栈申请不到内存 如图：
+局部变量表 存储方法的形参、方法内的局部变量，每一个局部变量有一个索引值，用于快速访问 局部变量必须初始化才能使用 操作栈 可以回想一下（2-3）*4，这个表达式的算法该怎么设计，利用两个栈，然后再利用操作符号的优先级，进行入栈、出栈的操作。还有前缀表达式、后缀表达式。 在java中
+是字节码指令执行过程的临时存储 由于局部变量表存储的是变量，而操作栈就可以动态的处理变量，进行一个中转站的使用 动态链接 回想多态特性的运行时多态，方法的具体调用要到运行期间也能确定 这个动态链接存储的是量池里的该方法的引用，支持调用过程中的动态链接。 方法返回地址 要保证每一个方法执行完之后应该返回到正确的位置，接着上一个方法的执行。 此时的操作就是弹出当前栈顶的栈帧 本地方法栈 和虚拟机栈类似，不过本地方法栈记录的是native方法的信息 native方法：
+用于在jvm上调用操作系统层面的方法，由c&#43;&#43;/c语言编写的 堆区（heap） 在该区域中，主要用来存放对象实例，也是垃圾收集器的主要工作区域。
+分代回收算法，越老的区，垃圾回收频率越低（使用次数晋升）堆区划分：
+新生代 老年代 逃逸分析
+如果某些方法中的对象引用没有被返回（return）或者未被外面使用（也就是未逃逸出去），那么对象可以直接在栈上分配内存 字符串常量池 因为在程序中字符串的使用占大量，所以单独开辟一个区域用于快速访问内存中字符串变量的信息。 字符串常量池可以看作是一个map，其中value用于映射堆区中的地址 它的实现是一个stringtable 历史
+jdk1.7以前，是在永久代中 jdk1.7及以后，移动到堆区中了 为什么：在永久代中垃圾回收效率低，没有堆区GC效率高 方法区 方法区是一个概念，它是一个逻辑区域，在运行时，需要读取各种类的信息，如字段信息、方法信息、常量、静态变量等等，方法区就是把这些信息划分出来的一个单独区域。 永久代、元空间
+它俩是方法区的实现方式 永久代是在jvm运行时内存区域，然后容易OOM 元空间是在本地内存上的实现 运行时常量池 用来存储class文件中的各种字面量和符号引用 它相当于是class文件常量池在内存中的映射 字面量：">
+
+
+
+
+
+
+
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+      <script>
+        var doNotTrack = false;
+        if ( false ) {
+          var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+          var doNotTrack = (dnt == "1" || dnt == "yes");
+        }
+        if (!doNotTrack) {
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-XXXXXXXXXX');
+        }
+      </script>
+
+
+
+
+<script type="text/javascript">
+  (function(c,l,a,r,i,t,y){
+      c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+      t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+      y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+  })(window, document, "clarity", "script", "abcdefghzd");
+</script>
+
+
+
+  
+
+
+
+
+
+
+      <script src="/js/toc.js"></script>
+    
+    <link type="text/css" rel="stylesheet" href="/vendor/css/bootstrap.min.css">
+
+<link rel="stylesheet" href="/scss/dark-mode.min.cb53f1bee2b8900cb4f082afbf00175d6618f281cf9a2fe8619e3b52d20b5721.css" integrity="sha256-y1PxvuK4kAy08IKvvwAXXWYY8oHPmi/oYZ47UtILVyE=" media="screen">
+
+
+<link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Material+Icons">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+<body>
+    	<div id="app"><div class="single-column-drawer-container" id="drawer"
+     v-bind:class="{ 'single-column-drawer-container-active': isDrawerOpen }">
+    <div class="drawer-content">
+        <div class="drawer-menu">
+            
+            
+            
+                
+                
+                
+                
+                
+                <a class="a-block drawer-menu-item false" href="/posts">
+                    文章
+                </a>
+                
+            
+                
+                
+                
+                
+                
+                <a class="a-block drawer-menu-item false" href="/categories">
+                    分类
+                </a>
+                
+            
+                
+                
+                
+                
+                
+                <a class="a-block drawer-menu-item false" href="/tags">
+                    快速查找
+                </a>
+                
+            
+                
+                
+                
+                
+                
+                <a class="a-block drawer-menu-item false" href="/database">
+                    MySQL
+                </a>
+                
+            
+                
+                
+                
+                
+                
+                <a class="a-block drawer-menu-item false" href="/spring">
+                    Spring
+                </a>
+                
+            
+            
+            <div class="toc">
+
+
+	<div class="toc-content">
+	
+		
+		
+		
+		<center>- CATALOG -</center>
+		
+		
+		<ul>
+			
+				
+				
+					
+						
+						
+						
+						
+							
+								
+									<ul>
+								
+							
+						
+						
+							<li>
+								<a href="#java%e5%86%85%e5%ad%98%e5%8c%ba%e5%9f%9f" class="nav-java内存区域">
+									Java内存区域
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+							
+								
+									<ul>
+								
+							
+						
+						
+							<li>
+								<a href="#%e5%86%85%e5%ad%98%e5%8c%ba%e5%9f%9f%e5%9b%be" class="nav-内存区域图">
+									内存区域图
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#%e7%a8%8b%e5%ba%8f%e8%ae%a1%e6%95%b0%e5%99%a8" class="nav-程序计数器">
+									程序计数器
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#%e8%99%9a%e6%8b%9f%e6%9c%ba%e6%a0%88" class="nav-虚拟机栈">
+									虚拟机栈
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+							
+								
+									<ul>
+								
+							
+						
+						
+							<li>
+								<a href="#%e5%b1%80%e9%83%a8%e5%8f%98%e9%87%8f%e8%a1%a8" class="nav-局部变量表">
+									局部变量表
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#%e6%93%8d%e4%bd%9c%e6%a0%88" class="nav-操作栈">
+									操作栈
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#%e5%8a%a8%e6%80%81%e9%93%be%e6%8e%a5" class="nav-动态链接">
+									动态链接
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#%e6%96%b9%e6%b3%95%e8%bf%94%e5%9b%9e%e5%9c%b0%e5%9d%80" class="nav-方法返回地址">
+									方法返回地址
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+							
+								</ul>
+							
+						
+						
+						
+							<li>
+								<a href="#%e6%9c%ac%e5%9c%b0%e6%96%b9%e6%b3%95%e6%a0%88" class="nav-本地方法栈">
+									本地方法栈
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#%e5%a0%86%e5%8c%baheap" class="nav-堆区heap">
+									堆区（heap）
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+							
+								
+									<ul>
+								
+							
+						
+						
+							<li>
+								<a href="#%e5%ad%97%e7%ac%a6%e4%b8%b2%e5%b8%b8%e9%87%8f%e6%b1%a0" class="nav-字符串常量池">
+									字符串常量池
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+							
+								</ul>
+							
+						
+						
+						
+							<li>
+								<a href="#%e6%96%b9%e6%b3%95%e5%8c%ba" class="nav-方法区">
+									方法区
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+							
+								
+									<ul>
+								
+							
+						
+						
+							<li>
+								<a href="#%e8%bf%90%e8%a1%8c%e6%97%b6%e5%b8%b8%e9%87%8f%e6%b1%a0" class="nav-运行时常量池">
+									运行时常量池
+								</a>
+							</li>
+						
+						
+					
+				
+			
+		</ul>
+	</div>
+
+</div>
+            
+        </div>
+    </div>
+</div>
+<transition name="fade">
+    <div id="drawer-mask" v-bind:class="{ 'single-column-drawer-mask': mounted }" v-if="isDrawerOpen" v-on:click="toggleDrawer"></div>
+</transition>
+<nav id="navBar" class="navbar sticky-top navbar-light single-column-nav-container">
+    <div id="navBackground" class="nav-background"></div>
+    <div class="container container-narrow nav-content">
+        <button id="nav_dropdown_btn" class="nav-dropdown-toggle" type="button" v-on:click="toggleDrawer">
+            <i class="material-icons">
+                menu
+            </i>
+        </button>
+        <a id="navTitle" class="navbar-brand" href="http://example.org/">
+            小宋小宋?
+        </a>
+        
+        <button type="button" class="nav-darkmode-toggle" id="darkModeToggleButton2">
+            <i class="material-icons" id="darkModeToggleIcon2">
+                dark_mode
+            </i>
+        </button>
+        
+    </div>
+</nav>
+<div class="single-column-header-container" id="pageHead"
+     v-bind:style="{ transform: 'translateZ(0px) translateY('+.3*scrollY+'px)', opacity: 1-navOpacity }">
+    <a href="http://example.org/">
+        <div class="single-column-header-title">小宋小宋?</div>
+        
+        <div class="single-column-header-subtitle">在呢！</div>
+        
+
+    </a>
+</div>
+
+            <div id="content">
+                <div id="streamContainer" class="stream-container">
+
+    <div class="post-list-container post-list-container-shadow">
+        <div class="post">
+            
+            
+            
+
+            <div class="post-head-wrapper-text-only"
+                
+            >
+                <div class="post-title">
+                    Java 内存区域
+                    
+                    <div class="post-meta">
+                        
+                        <time itemprop="datePublished">
+                            2024-05-24 15:14
+                        </time>
+                        
+
+                        
+
+                        
+                        
+                    </div>
+                </div>
+            </div>
+            
+            <div class="post-body-wrapper">
+                
+                <div class="post-body" v-pre>
+                
+                    <h2 id="java内存区域">Java内存区域</h2>
+<h3 id="内存区域图">内存区域图</h3>
+<p>jdk1.8以前：</p>
+<p><img src="jdk1.7%E5%8F%8A%E4%B9%8B%E5%89%8D.png" alt="jdk1.7及之前.png"></p>
+<p>jdk1.8及以后：</p>
+<p><img src="jdk1.8%E4%B9%8B%E5%90%8E.png" alt="jdk1.8之后.png"></p>
+<p>对于线程和进程的职责：</p>
+<p>线程独有</p>
+<ul>
+<li>程序计数器、本地方法栈、虚拟机栈</li>
+</ul>
+<p>线程共享</p>
+<ul>
+<li>堆区、元空间</li>
+</ul>
+<h3 id="程序计数器">程序计数器</h3>
+<ul>
+<li>在计组中，PC为控制器里面的一部分，它记录的是下一个指令所在的地址，用于指令跳转</li>
+</ul>
+<p>在java中</p>
+<ul>
+<li>记录的是<code>当前线程正在执行的字节码的指令地址</code>，也就是行号</li>
+<li>因为在多线程的情况下，每一个线程都会有自己的程序计数器，然后在线程切换的时候，用于恢复现场，继续执行</li>
+<li>程序计数器是一个很小的内存空间，它仅仅记录的是一个指针</li>
+<li>线程私有的，生命周期跟随线程</li>
+<li>是唯一一个没有OOME的区域</li>
+</ul>
+<h3 id="虚拟机栈">虚拟机栈</h3>
+<ul>
+<li><code>栈</code>是一个先进后出的数据结构，这就符合方法的递归调用的应用，一个方法调用另一个方法，这就符合栈的特性</li>
+<li>在java中，虚拟机栈应用在<code>存储方法调用使的局部变量、操作数等信息</code></li>
+</ul>
+<p>异常</p>
+<ul>
+<li><code>StackOverflowError</code>：方法调用太深，虚拟机栈太深</li>
+<li><code>OutOfMemoryError</code>：虚拟机栈申请不到内存</li>
+</ul>
+<p>如图：</p>
+<p><img src="stack.png" alt="stack.png"></p>
+<h4 id="局部变量表">局部变量表</h4>
+<ul>
+<li>存储方法的形参、方法内的局部变量，每一个局部变量有一个索引值，用于快速访问</li>
+<li>局部变量必须初始化才能使用</li>
+</ul>
+<h4 id="操作栈">操作栈</h4>
+<ul>
+<li>可以回想一下<code>（2-3）*4</code>，这个表达式的算法该怎么设计，利用两个栈，然后再利用操作符号的优先级，进行入栈、出栈的操作。还有前缀表达式、后缀表达式。</li>
+</ul>
+<p>在java中</p>
+<ul>
+<li>是字节码指令执行过程的临时存储</li>
+<li>由于局部变量表存储的是变量，而操作栈就可以动态的处理变量，进行一个中转站的使用</li>
+</ul>
+<h4 id="动态链接">动态链接</h4>
+<ul>
+<li>回想多态特性的运行时多态，方法的具体调用要到运行期间也能确定</li>
+<li>这个动态链接存储的是量池里的该方法的引用，支持调用过程中的动态链接。</li>
+</ul>
+<h4 id="方法返回地址">方法返回地址</h4>
+<ul>
+<li>要保证每一个方法执行完之后应该返回到正确的位置，接着上一个方法的执行。</li>
+<li>此时的操作就是弹出当前栈顶的栈帧</li>
+</ul>
+<h3 id="本地方法栈">本地方法栈</h3>
+<ul>
+<li>和虚拟机栈类似，不过本地方法栈记录的是<code>native</code>方法的信息</li>
+</ul>
+<p>native方法：</p>
+<ul>
+<li>用于在jvm上调用操作系统层面的方法，由c++/c语言编写的</li>
+</ul>
+<h3 id="堆区heap">堆区（heap）</h3>
+<p>在该区域中，主要用来存放<code>对象实例</code>，也是垃圾收集器的主要工作区域。</p>
+<p>分代回收算法，越老的区，垃圾回收频率越低（使用次数晋升）堆区划分：</p>
+<ul>
+<li>新生代</li>
+<li>老年代</li>
+</ul>
+<p>逃逸分析</p>
+<ul>
+<li>如果某些方法中的对象引用没有被返回（return）或者未被外面使用（也就是未逃逸出去），那么对象可以直接在栈上分配内存</li>
+</ul>
+<h4 id="字符串常量池">字符串常量池</h4>
+<ul>
+<li>因为在程序中字符串的使用占大量，所以单独开辟一个区域用于快速访问内存中字符串变量的信息。</li>
+<li>字符串常量池可以看作是一个map，其中value用于映射堆区中的地址</li>
+<li>它的实现是一个stringtable</li>
+</ul>
+<p>历史</p>
+<ul>
+<li>jdk1.7以前，是在永久代中</li>
+<li>jdk1.7及以后，移动到堆区中了</li>
+<li>为什么：在永久代中垃圾回收效率低，没有堆区GC效率高</li>
+</ul>
+<h3 id="方法区">方法区</h3>
+<ul>
+<li>方法区是一个概念，它是一个逻辑区域，在运行时，需要读取各种类的信息，如字段信息、方法信息、常量、静态变量等等，方法区就是把这些信息划分出来的一个单独区域。</li>
+</ul>
+<p>永久代、元空间</p>
+<ul>
+<li>它俩是方法区的实现方式</li>
+<li>永久代是在jvm运行时内存区域，然后容易OOM</li>
+<li>元空间是在本地内存上的实现</li>
+</ul>
+<h4 id="运行时常量池">运行时常量池</h4>
+<ul>
+<li>用来存储class文件中的各种<code>字面量</code>和<code>符号引用</code></li>
+<li>它相当于是class文件常量池在内存中的映射</li>
+</ul>
+<p>字面量：</p>
+<ul>
+<li>是在源代码直接出现的值，可以是数字、字符</li>
+<li>如  int a=12;   String s=&ldquo;abc&rdquo;;</li>
+</ul>
+<p>class文件常量池</p>
+<ul>
+<li>常量池，名字没什么大不了，池没什么大不了</li>
+<li>这个东西就是编译器编译.java文件时，生成的.class文件，这个文件可以看作一个数据结构，存放类的信息，代码的信息，常量的信息等等。这些东西能够在编译器就能够确定，就先单独存储起来，以便快速的访问</li>
+</ul>
+<hr>
+<p><strong>符号引用和直接引用</strong></p>
+<p>符号引用</p>
+<p>直接引用</p>
+<hr>
+
+                    
+                    <HR width="100%" id="EOF">
+		    <p style="color:#777;">Last modified on 2024-05-24</p>
+                    
+                </div>
+            </div>
+            
+            
+            <nav class="post-pagination">
+
+                
+                <a class="newer-posts" href="/devframe/spring/ioc/">
+			Next<br>IoC
+                </a>
+                
+                
+                
+                <a class="older-posts" href="/database/basic/">
+			Previous<br>基础知识
+                </a>
+                
+            </nav>
+            <div class="post-comment-wrapper">
+                
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="https://giscus.app/client.js"
+        data-repo="username/repo"
+        data-repo-id="**************************"
+        data-category="General"
+        data-category-id="*********************"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="en"
+        crossorigin="anonymous"
+        async>
+</script>
+
+            </div>
+        </div>
+    </div>
+
+
+                    </div>
+            </div><div id="sideContainer" class="side-container">
+    
+    <a class="a-block nav-head false" href="http://example.org/">
+    
+        <div class="nav-title">
+            小宋小宋?
+        </div>
+        
+        <div class="nav-subtitle">
+            在呢！
+        </div>
+        
+    </a>
+
+    <div class="nav-link-list">
+        
+        
+            
+            
+            
+            
+            
+            <a class="a-block nav-link-item false" href="/posts">
+                文章
+            </a>
+            
+        
+            
+            
+            
+            
+            
+            <a class="a-block nav-link-item false" href="/categories">
+                分类
+            </a>
+            
+        
+            
+            
+            
+            
+            
+            <a class="a-block nav-link-item false" href="/tags">
+                快速查找
+            </a>
+            
+        
+            
+            
+            
+            
+            
+            <a class="a-block nav-link-item false" href="/database">
+                MySQL
+            </a>
+            
+        
+            
+            
+            
+            
+            
+            <a class="a-block nav-link-item false" href="/spring">
+                Spring
+            </a>
+            
+        
+    </div>
+
+    
+
+    <div class="nav-footer">
+        
+Hugo Theme <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> by <a href="https://risehere.net/">Rise</a>
+<br>
+Ported from <a href="https://mak1t0.cc/" target="_blank" rel="noreferrer noopener">Makito</a>'s <a href="https://github.com/SumiMakito/hexo-theme-journal/" target="_blank" rel="noreferrer noopener">Journal.</a> <br>
+<br>
+
+&copy;
+	
+	This is a customized copyright.
+	
+
+    </div>
+    
+</div><div id="extraContainer" class="extra-container">
+    <div class="toc-wrapper">
+        
+
+        
+        <div class="toc">
+
+
+	<div class="toc-content">
+	
+		
+		
+		
+		<center>- CATALOG -</center>
+		
+		
+		<ul>
+			
+				
+				
+					
+						
+						
+						
+						
+							
+								
+									<ul>
+								
+							
+						
+						
+							<li>
+								<a href="#java%e5%86%85%e5%ad%98%e5%8c%ba%e5%9f%9f" class="nav-java内存区域">
+									Java内存区域
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+							
+								
+									<ul>
+								
+							
+						
+						
+							<li>
+								<a href="#%e5%86%85%e5%ad%98%e5%8c%ba%e5%9f%9f%e5%9b%be" class="nav-内存区域图">
+									内存区域图
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#%e7%a8%8b%e5%ba%8f%e8%ae%a1%e6%95%b0%e5%99%a8" class="nav-程序计数器">
+									程序计数器
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#%e8%99%9a%e6%8b%9f%e6%9c%ba%e6%a0%88" class="nav-虚拟机栈">
+									虚拟机栈
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+							
+								
+									<ul>
+								
+							
+						
+						
+							<li>
+								<a href="#%e5%b1%80%e9%83%a8%e5%8f%98%e9%87%8f%e8%a1%a8" class="nav-局部变量表">
+									局部变量表
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#%e6%93%8d%e4%bd%9c%e6%a0%88" class="nav-操作栈">
+									操作栈
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#%e5%8a%a8%e6%80%81%e9%93%be%e6%8e%a5" class="nav-动态链接">
+									动态链接
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#%e6%96%b9%e6%b3%95%e8%bf%94%e5%9b%9e%e5%9c%b0%e5%9d%80" class="nav-方法返回地址">
+									方法返回地址
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+							
+								</ul>
+							
+						
+						
+						
+							<li>
+								<a href="#%e6%9c%ac%e5%9c%b0%e6%96%b9%e6%b3%95%e6%a0%88" class="nav-本地方法栈">
+									本地方法栈
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#%e5%a0%86%e5%8c%baheap" class="nav-堆区heap">
+									堆区（heap）
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+							
+								
+									<ul>
+								
+							
+						
+						
+							<li>
+								<a href="#%e5%ad%97%e7%ac%a6%e4%b8%b2%e5%b8%b8%e9%87%8f%e6%b1%a0" class="nav-字符串常量池">
+									字符串常量池
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+							
+								</ul>
+							
+						
+						
+						
+							<li>
+								<a href="#%e6%96%b9%e6%b3%95%e5%8c%ba" class="nav-方法区">
+									方法区
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+							
+								
+									<ul>
+								
+							
+						
+						
+							<li>
+								<a href="#%e8%bf%90%e8%a1%8c%e6%97%b6%e5%b8%b8%e9%87%8f%e6%b1%a0" class="nav-运行时常量池">
+									运行时常量池
+								</a>
+							</li>
+						
+						
+					
+				
+			
+		</ul>
+	</div>
+
+</div>
+        
+    </div>
+    <div class="pagination">
+        <a id="globalBackToTop" class="pagination-action animated-visibility" href="#top"
+            :class="{ invisible: scrollY == 0 }">
+            <i class="material-icons pagination-action-icon">
+                keyboard_arrow_up
+            </i>
+        </a>
+        
+        <a type="button" class="pagination-action" id="darkModeToggleButton">
+            <span class="material-icons pagination-action-icon" id="darkModeToggleIcon">
+                dark_mode
+            </span>
+        </a>
+        
+        
+    </div>
+</div>
+
+<div id="single-column-footer">
+Hugo Theme <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> by <a href="https://risehere.net/">Rise</a>
+<br>
+Ported from <a href="https://mak1t0.cc/" target="_blank" rel="noreferrer noopener">Makito</a>'s <a href="https://github.com/SumiMakito/hexo-theme-journal/" target="_blank" rel="noreferrer noopener">Journal.</a> <br>
+<br>
+
+&copy;
+	
+	This is a customized copyright.
+	
+</div>
+            </div>
+    
+    <script src="/js/journal.js"></script></body>
+</html>

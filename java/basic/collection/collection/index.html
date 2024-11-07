@@ -1,0 +1,1579 @@
+<!DOCTYPE html>
+<html><head>
+<title>集合</title>
+
+
+
+
+<meta charset="utf-8">
+<meta name="X-UA-Compatible" content="IE=edge">
+<meta name="google-site-verification" content="G-XXXXXXXXXX">
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+<meta content="telephone=no" name="format-detection">
+<meta name="description" content="">
+<meta name="renderer" content="webkit">
+<meta name="theme-color" content="#ffffff">
+
+
+
+<meta property="og:url" content="http://example.org/java/basic/collection/collection/">
+  <meta property="og:site_name" content="小宋小宋?">
+  <meta property="og:title" content="集合">
+  <meta property="og:description" content="集合是存放对象的容器，用来存放对象的引用 线程安全的集合类
+Vector：老版本的，加了一个synchronized HashTable：老版本的 ，加了一个synchronized ConcurrentHashMap：并发HashMap，以前是锁住一个段，现在是锁住一个桶 Set 在java的大部分实现类，都是采用了Map，value都是一个final Object对象，key算是自己添加的值，也就是集合的值 HashSet 集，存储的元素不相等的 无序，添加元素的顺序和存储的顺序是不一样的， 也可以保证有序，如LinkedHashSet，构建时传入一个dummy（true）作为第三个参数，会创建一个（LinkedHashMap） 底层直接使用HashMap存储，value是一个固定的对象，key的hash判断不相等是不添加的，相等时也就是默认的替换老值。 扩容机制都是采用HashMap的 是如何保证不重复的？
+是直接利用了HashMap的putVal方法 如果两个key相同，这直接替换掉了 LinkedHashSet 有序的集，直接继承HashSet 创建时dummy设为true，后续使用包级别的构造方法创建LinkedHashMap TreeSet 底层使用了TreeMap 采用红黑树，保证了元素的有序 List 是一个列表 就是数据结构的线性结构 ArrayList 存储数据还是 Object[]数组，返回元素时，是进行泛型类型的转换，也就是Object-&gt;变为 E 支持基于下标的快速访问 插入O(1)，删除O(N) 容量机制
+默认为 10个元素 扩容数组长度：1.5倍，new=old*1.5 size：数组实际元素的个数，也就是实际存在的元素 Array 是java用来存储相同类型元素，必须在使用前指定大小，通过索引机制访问元素 所以不可以扩缩容 是一种引用数据类型 如下，names、ages变量，它们是一种引用数据变量，当使用new关键字时，会在堆中创建连续的内存空间（每一个内存空间的大小，在类加载阶段就能确定），在虚拟机栈中会存储引用数据变量的具体指向地址 String[] names=new String[10]; int[] ages=new int[10]; User[] users=new User[10]; LinkedList 底层是 Node节点，使用链表的形式存储元素 默认是插入尾部 区别
+线程都不安全 ArrayList查询速度快 LinkedList插入，删除速度快 Queue 先进先出的特性 判断队满：head=(tail&#43;1)%size 判断队空：head=tail HashMap size：是key-value的个数 length：是Node数组的长度 初始容量：16 最大容量：2的30次方 默认加载因子：0.75 ，泊松分布确定 阈值：是扩容的时候，是size&gt;threshold 。每次扩容新的threshold=新的容量newcap*loadFactor；但是指定长度时，阈值为大于容量的最小2的次幂的值， 添加元素的流程 指定加载因子和阈值 默认Node数组长度为16 向map加入值时，先检查当前Node数组是否为空或者长度为0； 如果为空或者长度为0， 则进行Node数组的扩充 否则，进行hash求余，判断位置所在的Node元素是否为空， 如果为空，直接创建，填入。 否则，解决hash冲突，然后向链表/红黑树添加元素。 先判断是否是红黑树，如果是，则向红黑树添加元素。 如果是链表，则在尾部添加元素，如果链表长度大于等于 8,则需要转化红黑树。 数组的长度扩充 如果Node数组为空、长度为0或者Map键值对的数量大于阈值，会进行扩容 Node数组的长度以2的倍数进行扩充 new=old«1 final Node&lt;K,V&gt;[] resize() { Node&lt;K,V&gt;[] oldTab = table;//老的Node数组 int oldCap = (oldTab == null) ? 0 : oldTab.length;//数组长度 int oldThr = threshold;//老的阈值，阈值也是两倍扩容 int newCap, newThr = 0; if (oldCap &gt; 0) { if (oldCap &gt;= MAXIMUM_CAPACITY) { //这一步是容量最大了，不能扩容了 threshold = Integer.MAX_VALUE; return oldTab; } else if ( (newCap = oldCap &lt;&lt; 1) &lt; MAXIMUM_CAPACITY &amp;&amp; oldCap &gt;= DEFAULT_INITIAL_CAPACITY ) newThr = oldThr &lt;&lt; 1; // 双倍阈值 } //这一段都是初始化工作，这就是默认容量为16,阈值为16*0.75的原因 else if (oldThr &gt; 0) // initial capacity was placed in threshold newCap = oldThr; else { // zero initial threshold signifies using defaults newCap = DEFAULT_INITIAL_CAPACITY; newThr = (int)(DEFAULT_LOAD_FACTOR * DEFAULT_INITIAL_CAPACITY); } threshold = newThr;//属性重新赋值 Node&lt;K,V&gt;[] newTab = (Node&lt;K,V&gt;[])new Node[newCap]; //处理值 table = newTab; if (oldTab != null) { //这一段就是深度遍历Node[]数组，重新赋值 //如果没有冲突，重新利用key的hash和(新长度-1)异或运算即可 //有冲突，检查链表还是红黑树，之后重新赋值即可 } return newTab; } 确定hash值 HashMap的hash方法是Object的hashCode()，和hashCode的16位后缀进行异或运算。 key可以为null，hash值为0 key在Node数组的位置：i=(n-1)&amp;hash //这个是HashMap中求hash的值 static final int hash(Object key) { int h; return (key == null) ? 0 : (h = key.hashCode()) ^ (h &gt;&gt;&gt; 16); } //这个就是putVal方法中，计算索引下标 int i=(n - 1) &amp; hash; Node&lt;K,V&gt; p = tab[i]; 转化红黑树： 先判断当前Node结点所尾随的链表长度是否&gt;=8，如果大于则进行转换操作的判断 转化：首先判断Node结点数组的长度是否小于64 。 a. 如果小于64 ，则先进行数组扩容 只有链表长度&gt;=8 ，Node数组长度&gt;=64，才会转化红黑树 线程不安全 插入时：假定A,B两个线程处理的key出现冲突，并且计算的index一样；此时，A线程时间片使用完毕，B线程进行处理，插入数据，但是A线程活动时，会替换掉B线程处理的数据。 size：检查size和增加size ，这两个操作不是原子的；最终会导致size只增加1个。 LinkedHashMap 概念 继承了HashMap 采用双向链表，保证插入顺序和输出`顺序的一致性 图片">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="java">
+    <meta property="article:published_time" content="2024-05-24T15:14:01+08:00">
+    <meta property="article:modified_time" content="2024-05-24T15:14:01+08:00">
+
+
+
+
+
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="集合">
+  <meta name="twitter:description" content="集合是存放对象的容器，用来存放对象的引用 线程安全的集合类
+Vector：老版本的，加了一个synchronized HashTable：老版本的 ，加了一个synchronized ConcurrentHashMap：并发HashMap，以前是锁住一个段，现在是锁住一个桶 Set 在java的大部分实现类，都是采用了Map，value都是一个final Object对象，key算是自己添加的值，也就是集合的值 HashSet 集，存储的元素不相等的 无序，添加元素的顺序和存储的顺序是不一样的， 也可以保证有序，如LinkedHashSet，构建时传入一个dummy（true）作为第三个参数，会创建一个（LinkedHashMap） 底层直接使用HashMap存储，value是一个固定的对象，key的hash判断不相等是不添加的，相等时也就是默认的替换老值。 扩容机制都是采用HashMap的 是如何保证不重复的？
+是直接利用了HashMap的putVal方法 如果两个key相同，这直接替换掉了 LinkedHashSet 有序的集，直接继承HashSet 创建时dummy设为true，后续使用包级别的构造方法创建LinkedHashMap TreeSet 底层使用了TreeMap 采用红黑树，保证了元素的有序 List 是一个列表 就是数据结构的线性结构 ArrayList 存储数据还是 Object[]数组，返回元素时，是进行泛型类型的转换，也就是Object-&gt;变为 E 支持基于下标的快速访问 插入O(1)，删除O(N) 容量机制
+默认为 10个元素 扩容数组长度：1.5倍，new=old*1.5 size：数组实际元素的个数，也就是实际存在的元素 Array 是java用来存储相同类型元素，必须在使用前指定大小，通过索引机制访问元素 所以不可以扩缩容 是一种引用数据类型 如下，names、ages变量，它们是一种引用数据变量，当使用new关键字时，会在堆中创建连续的内存空间（每一个内存空间的大小，在类加载阶段就能确定），在虚拟机栈中会存储引用数据变量的具体指向地址 String[] names=new String[10]; int[] ages=new int[10]; User[] users=new User[10]; LinkedList 底层是 Node节点，使用链表的形式存储元素 默认是插入尾部 区别
+线程都不安全 ArrayList查询速度快 LinkedList插入，删除速度快 Queue 先进先出的特性 判断队满：head=(tail&#43;1)%size 判断队空：head=tail HashMap size：是key-value的个数 length：是Node数组的长度 初始容量：16 最大容量：2的30次方 默认加载因子：0.75 ，泊松分布确定 阈值：是扩容的时候，是size&gt;threshold 。每次扩容新的threshold=新的容量newcap*loadFactor；但是指定长度时，阈值为大于容量的最小2的次幂的值， 添加元素的流程 指定加载因子和阈值 默认Node数组长度为16 向map加入值时，先检查当前Node数组是否为空或者长度为0； 如果为空或者长度为0， 则进行Node数组的扩充 否则，进行hash求余，判断位置所在的Node元素是否为空， 如果为空，直接创建，填入。 否则，解决hash冲突，然后向链表/红黑树添加元素。 先判断是否是红黑树，如果是，则向红黑树添加元素。 如果是链表，则在尾部添加元素，如果链表长度大于等于 8,则需要转化红黑树。 数组的长度扩充 如果Node数组为空、长度为0或者Map键值对的数量大于阈值，会进行扩容 Node数组的长度以2的倍数进行扩充 new=old«1 final Node&lt;K,V&gt;[] resize() { Node&lt;K,V&gt;[] oldTab = table;//老的Node数组 int oldCap = (oldTab == null) ? 0 : oldTab.length;//数组长度 int oldThr = threshold;//老的阈值，阈值也是两倍扩容 int newCap, newThr = 0; if (oldCap &gt; 0) { if (oldCap &gt;= MAXIMUM_CAPACITY) { //这一步是容量最大了，不能扩容了 threshold = Integer.MAX_VALUE; return oldTab; } else if ( (newCap = oldCap &lt;&lt; 1) &lt; MAXIMUM_CAPACITY &amp;&amp; oldCap &gt;= DEFAULT_INITIAL_CAPACITY ) newThr = oldThr &lt;&lt; 1; // 双倍阈值 } //这一段都是初始化工作，这就是默认容量为16,阈值为16*0.75的原因 else if (oldThr &gt; 0) // initial capacity was placed in threshold newCap = oldThr; else { // zero initial threshold signifies using defaults newCap = DEFAULT_INITIAL_CAPACITY; newThr = (int)(DEFAULT_LOAD_FACTOR * DEFAULT_INITIAL_CAPACITY); } threshold = newThr;//属性重新赋值 Node&lt;K,V&gt;[] newTab = (Node&lt;K,V&gt;[])new Node[newCap]; //处理值 table = newTab; if (oldTab != null) { //这一段就是深度遍历Node[]数组，重新赋值 //如果没有冲突，重新利用key的hash和(新长度-1)异或运算即可 //有冲突，检查链表还是红黑树，之后重新赋值即可 } return newTab; } 确定hash值 HashMap的hash方法是Object的hashCode()，和hashCode的16位后缀进行异或运算。 key可以为null，hash值为0 key在Node数组的位置：i=(n-1)&amp;hash //这个是HashMap中求hash的值 static final int hash(Object key) { int h; return (key == null) ? 0 : (h = key.hashCode()) ^ (h &gt;&gt;&gt; 16); } //这个就是putVal方法中，计算索引下标 int i=(n - 1) &amp; hash; Node&lt;K,V&gt; p = tab[i]; 转化红黑树： 先判断当前Node结点所尾随的链表长度是否&gt;=8，如果大于则进行转换操作的判断 转化：首先判断Node结点数组的长度是否小于64 。 a. 如果小于64 ，则先进行数组扩容 只有链表长度&gt;=8 ，Node数组长度&gt;=64，才会转化红黑树 线程不安全 插入时：假定A,B两个线程处理的key出现冲突，并且计算的index一样；此时，A线程时间片使用完毕，B线程进行处理，插入数据，但是A线程活动时，会替换掉B线程处理的数据。 size：检查size和增加size ，这两个操作不是原子的；最终会导致size只增加1个。 LinkedHashMap 概念 继承了HashMap 采用双向链表，保证插入顺序和输出`顺序的一致性 图片">
+
+
+
+
+
+
+
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+      <script>
+        var doNotTrack = false;
+        if ( false ) {
+          var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+          var doNotTrack = (dnt == "1" || dnt == "yes");
+        }
+        if (!doNotTrack) {
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-XXXXXXXXXX');
+        }
+      </script>
+
+
+
+
+<script type="text/javascript">
+  (function(c,l,a,r,i,t,y){
+      c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+      t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+      y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+  })(window, document, "clarity", "script", "abcdefghzd");
+</script>
+
+
+
+  
+
+
+
+
+
+
+      <script src="/js/toc.js"></script>
+    
+    <link type="text/css" rel="stylesheet" href="/vendor/css/bootstrap.min.css">
+
+<link rel="stylesheet" href="/scss/dark-mode.min.cb53f1bee2b8900cb4f082afbf00175d6618f281cf9a2fe8619e3b52d20b5721.css" integrity="sha256-y1PxvuK4kAy08IKvvwAXXWYY8oHPmi/oYZ47UtILVyE=" media="screen">
+
+
+<link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Material+Icons">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+<body>
+    	<div id="app"><div class="single-column-drawer-container" id="drawer"
+     v-bind:class="{ 'single-column-drawer-container-active': isDrawerOpen }">
+    <div class="drawer-content">
+        <div class="drawer-menu">
+            
+            
+            
+                
+                
+                
+                
+                
+                <a class="a-block drawer-menu-item false" href="/posts">
+                    文章
+                </a>
+                
+            
+                
+                
+                
+                
+                
+                <a class="a-block drawer-menu-item false" href="/categories">
+                    分类
+                </a>
+                
+            
+                
+                
+                
+                
+                
+                <a class="a-block drawer-menu-item false" href="/tags">
+                    快速查找
+                </a>
+                
+            
+                
+                
+                
+                
+                
+                <a class="a-block drawer-menu-item false" href="/database">
+                    MySQL
+                </a>
+                
+            
+                
+                
+                
+                
+                
+                <a class="a-block drawer-menu-item false" href="/spring">
+                    Spring
+                </a>
+                
+            
+            
+            <div class="toc">
+
+
+	<div class="toc-content">
+	
+		
+		
+		
+		<center>- CATALOG -</center>
+		
+		
+		<ul>
+			
+				
+				
+					
+						
+						
+						
+						
+							
+								
+									<ul>
+								
+							
+						
+						
+							<li>
+								<a href="#set" class="nav-set">
+									Set
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+							
+								
+									<ul>
+								
+							
+						
+						
+							<li>
+								<a href="#hashset" class="nav-hashset">
+									HashSet
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+							
+								
+									<ul>
+								
+							
+						
+						
+							<li>
+								<a href="#linkedhashset" class="nav-linkedhashset">
+									LinkedHashSet
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#treeset" class="nav-treeset">
+									TreeSet
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+							
+								</ul>
+							
+								</ul>
+							
+						
+						
+						
+							<li>
+								<a href="#list" class="nav-list">
+									List
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+							
+								
+									<ul>
+								
+							
+								
+									<ul>
+								
+							
+						
+						
+							<li>
+								<a href="#arraylist" class="nav-arraylist">
+									ArrayList
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#array" class="nav-array">
+									Array
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#linkedlist" class="nav-linkedlist">
+									LinkedList
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+							
+								</ul>
+							
+								</ul>
+							
+						
+						
+						
+							<li>
+								<a href="#queue" class="nav-queue">
+									Queue
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#hashmap" class="nav-hashmap">
+									HashMap
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+							
+								
+									<ul>
+								
+							
+						
+						
+							<li>
+								<a href="#%e6%b7%bb%e5%8a%a0%e5%85%83%e7%b4%a0%e7%9a%84%e6%b5%81%e7%a8%8b" class="nav-添加元素的流程">
+									添加元素的流程
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#%e6%95%b0%e7%bb%84%e7%9a%84%e9%95%bf%e5%ba%a6%e6%89%a9%e5%85%85" class="nav-数组的长度扩充">
+									数组的长度扩充
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#%e7%a1%ae%e5%ae%9ahash%e5%80%bc" class="nav-确定hash值">
+									确定hash值
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#%e8%bd%ac%e5%8c%96%e7%ba%a2%e9%bb%91%e6%a0%91" class="nav-转化红黑树">
+									转化红黑树：
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#%e7%ba%bf%e7%a8%8b%e4%b8%8d%e5%ae%89%e5%85%a8" class="nav-线程不安全">
+									线程不安全
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+							
+								</ul>
+							
+						
+						
+						
+							<li>
+								<a href="#linkedhashmap" class="nav-linkedhashmap">
+									LinkedHashMap
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+							
+								
+									<ul>
+								
+							
+						
+						
+							<li>
+								<a href="#%e6%a6%82%e5%bf%b5" class="nav-概念">
+									概念
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#accessorder" class="nav-accessorder">
+									accessOrder
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#removeeldestentry" class="nav-removeeldestentry">
+									removeEldestEntry()
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+							
+								</ul>
+							
+						
+						
+						
+							<li>
+								<a href="#concurrenthashmap" class="nav-concurrenthashmap">
+									ConcurrentHashMap
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#hashtable--%e8%bf%87%e6%97%b6" class="nav-hashtable--过时">
+									HashTable 过时
+								</a>
+							</li>
+						
+						
+					
+				
+			
+		</ul>
+	</div>
+
+</div>
+            
+        </div>
+    </div>
+</div>
+<transition name="fade">
+    <div id="drawer-mask" v-bind:class="{ 'single-column-drawer-mask': mounted }" v-if="isDrawerOpen" v-on:click="toggleDrawer"></div>
+</transition>
+<nav id="navBar" class="navbar sticky-top navbar-light single-column-nav-container">
+    <div id="navBackground" class="nav-background"></div>
+    <div class="container container-narrow nav-content">
+        <button id="nav_dropdown_btn" class="nav-dropdown-toggle" type="button" v-on:click="toggleDrawer">
+            <i class="material-icons">
+                menu
+            </i>
+        </button>
+        <a id="navTitle" class="navbar-brand" href="http://example.org/">
+            小宋小宋?
+        </a>
+        
+        <button type="button" class="nav-darkmode-toggle" id="darkModeToggleButton2">
+            <i class="material-icons" id="darkModeToggleIcon2">
+                dark_mode
+            </i>
+        </button>
+        
+    </div>
+</nav>
+<div class="single-column-header-container" id="pageHead"
+     v-bind:style="{ transform: 'translateZ(0px) translateY('+.3*scrollY+'px)', opacity: 1-navOpacity }">
+    <a href="http://example.org/">
+        <div class="single-column-header-title">小宋小宋?</div>
+        
+        <div class="single-column-header-subtitle">在呢！</div>
+        
+
+    </a>
+</div>
+
+            <div id="content">
+                <div id="streamContainer" class="stream-container">
+
+    <div class="post-list-container post-list-container-shadow">
+        <div class="post">
+            
+            
+            
+
+            <div class="post-head-wrapper-text-only"
+                
+            >
+                <div class="post-title">
+                    集合
+                    
+                    <div class="post-meta">
+                        
+                        <time itemprop="datePublished">
+                            2024-05-24 15:14
+                        </time>
+                        
+
+                        
+
+                        
+                        
+                    </div>
+                </div>
+            </div>
+            
+            <div class="post-body-wrapper">
+                
+                <div class="post-body" v-pre>
+                
+                    <ul>
+<li>集合是存放对象的容器，用来存放<code>对象的引用</code></li>
+</ul>
+<p>线程安全的集合类</p>
+<ul>
+<li>Vector：老版本的，加了一个synchronized</li>
+<li>HashTable：老版本的 ，加了一个synchronized</li>
+<li>ConcurrentHashMap：并发HashMap，以前是锁住一个段，现在是锁住一个桶</li>
+</ul>
+<p><img src="collection.png" alt=""></p>
+<h2 id="set">Set</h2>
+<ul>
+<li>在java的大部分实现类，都是采用了Map，value都是一个final Object对象，key算是自己添加的值，也就是集合的值</li>
+</ul>
+<h3 id="hashset">HashSet</h3>
+<ul>
+<li>集，存储的元素不相等的</li>
+<li><code>无序</code>，添加元素的顺序和存储的顺序是不一样的，
+<ul>
+<li>也可以保证有序，如LinkedHashSet，构建时传入一个dummy（true）作为第三个参数，会创建一个（LinkedHashMap）</li>
+</ul>
+</li>
+<li>底层直接使用HashMap存储，value是一个固定的对象，key的hash判断不相等是不添加的，相等时也就是默认的替换老值。</li>
+<li>扩容机制都是采用<code>HashMap</code>的</li>
+</ul>
+<p>是如何保证不重复的？</p>
+<ul>
+<li>是直接利用了HashMap的putVal方法</li>
+<li>如果两个key相同，这直接替换掉了</li>
+</ul>
+<h4 id="linkedhashset">LinkedHashSet</h4>
+<ul>
+<li>有序的集，直接继承HashSet</li>
+<li>创建时dummy设为true，后续使用包级别的构造方法创建LinkedHashMap</li>
+</ul>
+<h4 id="treeset">TreeSet</h4>
+<ul>
+<li>底层使用了TreeMap</li>
+<li>采用红黑树，保证了元素的有序</li>
+</ul>
+<h2 id="list">List</h2>
+<ul>
+<li>是一个列表</li>
+<li>就是数据结构的线性结构</li>
+</ul>
+<h4 id="arraylist">ArrayList</h4>
+<ul>
+<li>存储数据还是 Object[]数组，返回元素时，是进行泛型类型的转换，也就是Object-&gt;变为 E</li>
+<li>支持基于下标的快速访问</li>
+<li>插入O(1)，删除O(N)</li>
+</ul>
+<p>容量机制</p>
+<ul>
+<li>默认为 10个元素</li>
+<li>扩容数组长度：1.5倍，new=old*1.5</li>
+<li>size：数组实际元素的个数，也就是实际存在的元素</li>
+</ul>
+<h4 id="array">Array</h4>
+<ul>
+<li>是java用来存储相同类型元素，必须在使用前指定大小，通过索引机制访问元素</li>
+<li>所以不可以扩缩容</li>
+<li>是一种引用数据类型</li>
+<li>如下，names、ages变量，它们是一种引用数据变量，当使用new关键字时，会在堆中创建连续的内存空间（每一个内存空间的大小，在类加载阶段就能确定），在虚拟机栈中会存储引用数据变量的具体指向地址</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>String[]<span style="color:#bbb"> </span>names=<span style="color:#8b008b;font-weight:bold">new</span><span style="color:#bbb"> </span>String[10];<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#00688b;font-weight:bold">int</span>[]<span style="color:#bbb"> </span>ages=<span style="color:#8b008b;font-weight:bold">new</span><span style="color:#bbb"> </span><span style="color:#00688b;font-weight:bold">int</span>[10];<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span>User[]<span style="color:#bbb"> </span>users=<span style="color:#8b008b;font-weight:bold">new</span><span style="color:#bbb"> </span>User[10];<span style="color:#bbb">
+</span></span></span></code></pre></div><h4 id="linkedlist">LinkedList</h4>
+<ul>
+<li>底层是 Node节点，使用链表的形式存储元素</li>
+<li>默认是插入尾部</li>
+</ul>
+<p>区别</p>
+<ul>
+<li>线程都不安全</li>
+<li>ArrayList查询速度快</li>
+<li>LinkedList插入，删除速度快</li>
+</ul>
+<h2 id="queue">Queue</h2>
+<ul>
+<li>先进先出的特性</li>
+<li>判断队满：head=(tail+1)%size</li>
+<li>判断队空：head=tail</li>
+</ul>
+<h2 id="hashmap">HashMap</h2>
+<ul>
+<li>size：是key-value的个数</li>
+<li>length：是Node数组的长度</li>
+<li>初始容量：16</li>
+<li>最大容量：2的30次方</li>
+<li>默认加载因子：0.75 ，泊松分布确定</li>
+<li>阈值：是扩容的时候，是size&gt;threshold 。每次扩容新的threshold=新的容量newcap*loadFactor；但是指定长度时，阈值为大于容量的最小2的次幂的值，</li>
+</ul>
+<h3 id="添加元素的流程">添加元素的流程</h3>
+<ol>
+<li>指定加载因子和阈值</li>
+<li>默认Node数组长度为16</li>
+<li>向map加入值时，先检查当前Node数组是否为空或者长度为0；</li>
+<li>如果为空或者长度为0， 则进行Node数组的扩充</li>
+<li>否则，进行<code>hash求余</code>，<code>判断位置</code>所在的Node元素是否为空，
+<ol>
+<li>如果为空，直接创建，填入。</li>
+</ol>
+</li>
+<li>否则，<code>解决hash冲突</code>，然后向<code>链表</code>/<code>红黑树</code>添加元素。</li>
+<li>先判断是否是红黑树，如果是，则向红黑树添加元素。</li>
+<li>如果是链表，则在尾部添加元素，如果链表长度大于等于 8,则需要转化红黑树。</li>
+</ol>
+<h3 id="数组的长度扩充">数组的长度扩充</h3>
+<ul>
+<li>如果Node数组为空、长度为0或者Map键值对的数量大于阈值，会进行扩容</li>
+<li>Node数组的长度以2的倍数进行扩充</li>
+<li>new=old&laquo;1</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">   </span><span style="color:#8b008b;font-weight:bold">final</span><span style="color:#bbb"> </span>Node&lt;K,V&gt;[]<span style="color:#bbb"> </span><span style="color:#008b45">resize</span>()<span style="color:#bbb"> </span>{<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>Node&lt;K,V&gt;[]<span style="color:#bbb"> </span>oldTab<span style="color:#bbb"> </span>=<span style="color:#bbb"> </span>table;<span style="color:#228b22">//老的Node数组</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#00688b;font-weight:bold">int</span><span style="color:#bbb"> </span>oldCap<span style="color:#bbb"> </span>=<span style="color:#bbb"> </span>(oldTab<span style="color:#bbb"> </span>==<span style="color:#bbb"> </span><span style="color:#8b008b;font-weight:bold">null</span>)<span style="color:#bbb"> </span>?<span style="color:#bbb"> </span>0<span style="color:#bbb"> </span>:<span style="color:#bbb"> </span>oldTab.<span style="color:#658b00">length</span>;<span style="color:#228b22">//数组长度</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#00688b;font-weight:bold">int</span><span style="color:#bbb"> </span>oldThr<span style="color:#bbb"> </span>=<span style="color:#bbb"> </span>threshold;<span style="color:#228b22">//老的阈值，阈值也是两倍扩容</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#00688b;font-weight:bold">int</span><span style="color:#bbb"> </span>newCap,<span style="color:#bbb"> </span>newThr<span style="color:#bbb"> </span>=<span style="color:#bbb"> </span>0;<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#8b008b;font-weight:bold">if</span><span style="color:#bbb"> </span>(oldCap<span style="color:#bbb"> </span>&gt;<span style="color:#bbb"> </span>0)<span style="color:#bbb"> </span>{<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span><span style="color:#8b008b;font-weight:bold">if</span><span style="color:#bbb"> </span>(oldCap<span style="color:#bbb"> </span>&gt;=<span style="color:#bbb"> </span>MAXIMUM_CAPACITY)<span style="color:#bbb"> </span>{<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span><span style="color:#228b22">//这一步是容量最大了，不能扩容了</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">                </span>threshold<span style="color:#bbb"> </span>=<span style="color:#bbb"> </span>Integer.<span style="color:#658b00">MAX_VALUE</span>;<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">                </span><span style="color:#8b008b;font-weight:bold">return</span><span style="color:#bbb"> </span>oldTab;<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span>}<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span><span style="color:#8b008b;font-weight:bold">else</span><span style="color:#bbb"> </span><span style="color:#8b008b;font-weight:bold">if</span><span style="color:#bbb"> </span>(<span style="color:#bbb"> </span>(newCap<span style="color:#bbb"> </span>=<span style="color:#bbb"> </span>oldCap<span style="color:#bbb"> </span>&lt;&lt;<span style="color:#bbb"> </span>1)<span style="color:#bbb"> </span>&lt;<span style="color:#bbb"> </span>MAXIMUM_CAPACITY<span style="color:#bbb"> </span>&amp;&amp;<span style="color:#bbb"> </span>oldCap<span style="color:#bbb"> </span>&gt;=<span style="color:#bbb"> </span>DEFAULT_INITIAL_CAPACITY<span style="color:#bbb"> </span>)<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">                </span>newThr<span style="color:#bbb"> </span>=<span style="color:#bbb"> </span>oldThr<span style="color:#bbb"> </span>&lt;&lt;<span style="color:#bbb"> </span>1;<span style="color:#bbb"> </span><span style="color:#228b22">// 双倍阈值</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>}<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#228b22">//这一段都是初始化工作，这就是默认容量为16,阈值为16*0.75的原因</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span><span style="color:#8b008b;font-weight:bold">else</span><span style="color:#bbb"> </span><span style="color:#8b008b;font-weight:bold">if</span><span style="color:#bbb"> </span>(oldThr<span style="color:#bbb"> </span>&gt;<span style="color:#bbb"> </span>0)<span style="color:#bbb"> </span><span style="color:#228b22">// initial capacity was placed in threshold</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">                </span>newCap<span style="color:#bbb"> </span>=<span style="color:#bbb"> </span>oldThr;<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span><span style="color:#8b008b;font-weight:bold">else</span><span style="color:#bbb"> </span>{<span style="color:#bbb">               </span><span style="color:#228b22">// zero initial threshold signifies using defaults</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">                </span>newCap<span style="color:#bbb"> </span>=<span style="color:#bbb"> </span>DEFAULT_INITIAL_CAPACITY;<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">                </span>newThr<span style="color:#bbb"> </span>=<span style="color:#bbb"> </span>(<span style="color:#00688b;font-weight:bold">int</span>)(DEFAULT_LOAD_FACTOR<span style="color:#bbb"> </span>*<span style="color:#bbb"> </span>DEFAULT_INITIAL_CAPACITY);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span>}<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>threshold<span style="color:#bbb"> </span>=<span style="color:#bbb"> </span>newThr;<span style="color:#228b22">//属性重新赋值</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>Node&lt;K,V&gt;[]<span style="color:#bbb"> </span>newTab<span style="color:#bbb"> </span>=<span style="color:#bbb"> </span>(Node&lt;K,V&gt;[])<span style="color:#8b008b;font-weight:bold">new</span><span style="color:#bbb"> </span>Node[newCap];<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#228b22">//处理值</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>table<span style="color:#bbb"> </span>=<span style="color:#bbb"> </span>newTab;<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#8b008b;font-weight:bold">if</span><span style="color:#bbb"> </span>(oldTab<span style="color:#bbb"> </span>!=<span style="color:#bbb"> </span><span style="color:#8b008b;font-weight:bold">null</span>)<span style="color:#bbb"> </span>{<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span><span style="color:#228b22">//这一段就是深度遍历Node[]数组，重新赋值</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span><span style="color:#228b22">//如果没有冲突，重新利用key的hash和(新长度-1)异或运算即可</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span><span style="color:#228b22">//有冲突，检查链表还是红黑树，之后重新赋值即可</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>}<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#8b008b;font-weight:bold">return</span><span style="color:#bbb"> </span>newTab;<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>}<span style="color:#bbb">
+</span></span></span></code></pre></div><h3 id="确定hash值">确定hash值</h3>
+<ol>
+<li>HashMap的hash方法是Object的hashCode()，和hashCode的16位后缀进行异或运算。</li>
+<li>key可以为null，hash值为0</li>
+<li>key在Node数组的位置：i=(n-1)&amp;hash</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#228b22">//这个是HashMap中求hash的值</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#8b008b;font-weight:bold">static</span><span style="color:#bbb"> </span><span style="color:#8b008b;font-weight:bold">final</span><span style="color:#bbb"> </span><span style="color:#00688b;font-weight:bold">int</span><span style="color:#bbb"> </span><span style="color:#008b45">hash</span>(Object<span style="color:#bbb"> </span>key)<span style="color:#bbb"> </span>{<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#00688b;font-weight:bold">int</span><span style="color:#bbb"> </span>h;<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#8b008b;font-weight:bold">return</span><span style="color:#bbb"> </span>(key<span style="color:#bbb"> </span>==<span style="color:#bbb"> </span><span style="color:#8b008b;font-weight:bold">null</span>)<span style="color:#bbb"> </span>?<span style="color:#bbb"> </span>0<span style="color:#bbb"> </span>:<span style="color:#bbb"> </span>(h<span style="color:#bbb"> </span>=<span style="color:#bbb"> </span>key.<span style="color:#658b00">hashCode</span>())<span style="color:#bbb"> </span>^<span style="color:#bbb"> </span>(h<span style="color:#bbb"> </span>&gt;&gt;&gt;<span style="color:#bbb"> </span>16);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>}<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#228b22">//这个就是putVal方法中，计算索引下标</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#00688b;font-weight:bold">int</span><span style="color:#bbb"> </span>i=(n<span style="color:#bbb"> </span>-<span style="color:#bbb"> </span>1)<span style="color:#bbb"> </span>&amp;<span style="color:#bbb"> </span>hash;<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span>Node&lt;K,V&gt;<span style="color:#bbb"> </span>p<span style="color:#bbb"> </span>=<span style="color:#bbb"> </span>tab[i];<span style="color:#bbb">
+</span></span></span></code></pre></div><h3 id="转化红黑树">转化红黑树：</h3>
+<ol>
+<li>先判断当前Node结点所尾随的链表长度是否&gt;=8，如果大于则进行转换操作的判断</li>
+<li>转化：首先判断Node结点数组的长度是否小于64 。
+a. 如果小于64 ，则先进行数组扩容</li>
+<li>只有链表长度&gt;=8 ，Node数组长度&gt;=64，才会转化红黑树</li>
+</ol>
+<h3 id="线程不安全">线程不安全</h3>
+<ol>
+<li>插入时：假定A,B两个线程处理的key出现冲突，并且计算的index一样；此时，A线程时间片使用完毕，B线程进行处理，插入数据，但是A线程活动时，会替换掉B线程处理的数据。</li>
+<li>size：检查size和增加size ，这两个操作不是原子的；最终会导致size只增加1个。</li>
+</ol>
+<h2 id="linkedhashmap">LinkedHashMap</h2>
+<h3 id="概念">概念</h3>
+<ul>
+<li>继承了HashMap</li>
+<li>采用双向链表，保证插入顺序和输出`顺序的一致性</li>
+<li>图片</li>
+</ul>
+<p><img src="linkedhashmap.png" alt="linkedhashmap.png"></p>
+<h3 id="accessorder">accessOrder</h3>
+<ul>
+<li>这个属性决定了 每次访问某个key-value之后是否移动到链表的尾部</li>
+<li>默认为false，在创建时可以指定</li>
+<li>使用这个可以实现 输出顺序和访问顺序一样，链表的头部是最久未访问的元素</li>
+</ul>
+<h3 id="removeeldestentry">removeEldestEntry()</h3>
+<ul>
+<li>结合accessOrder，可以包装一个简易的LRU缓存</li>
+<li>这个方法由afterNodeInsertion()调用，这个方法是进行<code>移除首节点</code>的操作，由一个参数evict控制。可以在HashMap的putVal()源码中看见最后调用了这个方法，只是HashMap里的是一个空方法。由于这个LinkedHashMap没有重写put操作，所以最后是否移除首节点，就有这个方法来控制了，</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#8b008b;font-weight:bold">public</span><span style="color:#bbb"> </span>V<span style="color:#bbb"> </span><span style="color:#008b45">put</span>(K<span style="color:#bbb"> </span>key,<span style="color:#bbb"> </span>V<span style="color:#bbb"> </span>value)<span style="color:#bbb"> </span>{<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#8b008b;font-weight:bold">return</span><span style="color:#bbb"> </span>putVal(hash(key),<span style="color:#bbb"> </span>key,<span style="color:#bbb"> </span>value,<span style="color:#bbb"> </span><span style="color:#8b008b;font-weight:bold">false</span>,<span style="color:#bbb"> </span>evict-&gt;<span style="color:#8b008b;font-weight:bold">true</span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>}<span style="color:#bbb">
+</span></span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#8b008b;font-weight:bold">protected</span><span style="color:#bbb"> </span><span style="color:#00688b;font-weight:bold">boolean</span><span style="color:#bbb"> </span><span style="color:#008b45">removeEldestEntry</span>(Map.<span style="color:#658b00">Entry</span>&lt;K,V&gt;<span style="color:#bbb"> </span>eldest)<span style="color:#bbb"> </span>{<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#8b008b;font-weight:bold">return</span><span style="color:#bbb"> </span><span style="color:#8b008b;font-weight:bold">false</span>;<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>}<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#228b22">//重写</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#8b008b;font-weight:bold">protected</span><span style="color:#bbb"> </span><span style="color:#00688b;font-weight:bold">boolean</span><span style="color:#bbb"> </span><span style="color:#008b45">removeEldestEntry</span>(Map.<span style="color:#658b00">Entry</span>&lt;K,V&gt;<span style="color:#bbb"> </span>eldest)<span style="color:#bbb"> </span>{<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">       </span><span style="color:#8b008b;font-weight:bold">return</span><span style="color:#bbb"> </span>size()<span style="color:#bbb"> </span>&gt;MAX_ENTRIES;<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>}<span style="color:#bbb">
+</span></span></span></code></pre></div><p>可以重写这个方法，返回true，就可以实现移除首节点，释放空间了</p>
+<h2 id="concurrenthashmap">ConcurrentHashMap</h2>
+<p>数据结构：</p>
+<ul>
+<li>1.7及以前：采用Segment数组+Entry数组+链表，可以代表着并发级别，每一个Segment锁住一部分数据，可以保护并发安全性。Segment继承了可重入锁</li>
+<li>1.8：采用Node数组+链表/红黑树，和HashMap一样。然后锁的层面采用synchronized+CAS。锁的粒度为 Node数组的节点，synchronized只锁定当前链表或红黑二叉树的首节点，也就是只对hash一样的节点加锁，粒度更低，并发量更高
+<ul>
+<li>cas操作，体现在经过hash判断节点没有值，采用CAS操作向Node数组添加值</li>
+<li>synchronized操作，体现在判断之后，出现冲突，加锁，处理冲突，添加值</li>
+</ul>
+</li>
+</ul>
+<p>复合操作的原子性</p>
+<ul>
+<li>当有检查操作之后还有添加操作，这两个操作不是原子的，会有线程不安全的问题</li>
+<li>CHM提供了方法可以直接使用，不建议加锁</li>
+</ul>
+<h2 id="hashtable--过时">HashTable  过时</h2>
+<ul>
+<li>也是key-value结构</li>
+<li>线程安全，所有的<code>公有方法</code>都用 <code>synchronized</code>关键字修饰</li>
+<li>解决冲突：<code>链表</code></li>
+<li>扩容：<code>2n+1</code>，初始默认11
+<ul>
+<li>先确定容量：2n+1</li>
+<li>再重构所有元素hash，然后确定新数组的index位置</li>
+</ul>
+</li>
+<li>添加元素
+<ul>
+<li>先判断index=hashCode()%len</li>
+<li>遍历entry.next，查看是否有相等的，若相等则直接替换，采用的是 头插法</li>
+</ul>
+</li>
+</ul>
+
+                    
+                    <HR width="100%" id="EOF">
+		    <p style="color:#777;">Last modified on 2024-05-24</p>
+                    
+                </div>
+            </div>
+            
+            
+            <nav class="post-pagination">
+
+                
+                <a class="newer-posts" href="/java/thread/pool/thread_pool/">
+			Next<br>线程池
+                </a>
+                
+                
+                
+                <a class="older-posts" href="/posts/vim/">
+			Previous<br>Vim
+                </a>
+                
+            </nav>
+            <div class="post-comment-wrapper">
+                
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="https://giscus.app/client.js"
+        data-repo="username/repo"
+        data-repo-id="**************************"
+        data-category="General"
+        data-category-id="*********************"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="en"
+        crossorigin="anonymous"
+        async>
+</script>
+
+            </div>
+        </div>
+    </div>
+
+
+                    </div>
+            </div><div id="sideContainer" class="side-container">
+    
+    <a class="a-block nav-head false" href="http://example.org/">
+    
+        <div class="nav-title">
+            小宋小宋?
+        </div>
+        
+        <div class="nav-subtitle">
+            在呢！
+        </div>
+        
+    </a>
+
+    <div class="nav-link-list">
+        
+        
+            
+            
+            
+            
+            
+            <a class="a-block nav-link-item false" href="/posts">
+                文章
+            </a>
+            
+        
+            
+            
+            
+            
+            
+            <a class="a-block nav-link-item false" href="/categories">
+                分类
+            </a>
+            
+        
+            
+            
+            
+            
+            
+            <a class="a-block nav-link-item false" href="/tags">
+                快速查找
+            </a>
+            
+        
+            
+            
+            
+            
+            
+            <a class="a-block nav-link-item false" href="/database">
+                MySQL
+            </a>
+            
+        
+            
+            
+            
+            
+            
+            <a class="a-block nav-link-item false" href="/spring">
+                Spring
+            </a>
+            
+        
+    </div>
+
+    
+
+    <div class="nav-footer">
+        
+Hugo Theme <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> by <a href="https://risehere.net/">Rise</a>
+<br>
+Ported from <a href="https://mak1t0.cc/" target="_blank" rel="noreferrer noopener">Makito</a>'s <a href="https://github.com/SumiMakito/hexo-theme-journal/" target="_blank" rel="noreferrer noopener">Journal.</a> <br>
+<br>
+
+&copy;
+	
+	This is a customized copyright.
+	
+
+    </div>
+    
+</div><div id="extraContainer" class="extra-container">
+    <div class="toc-wrapper">
+        
+
+        
+        <div class="toc">
+
+
+	<div class="toc-content">
+	
+		
+		
+		
+		<center>- CATALOG -</center>
+		
+		
+		<ul>
+			
+				
+				
+					
+						
+						
+						
+						
+							
+								
+									<ul>
+								
+							
+						
+						
+							<li>
+								<a href="#set" class="nav-set">
+									Set
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+							
+								
+									<ul>
+								
+							
+						
+						
+							<li>
+								<a href="#hashset" class="nav-hashset">
+									HashSet
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+							
+								
+									<ul>
+								
+							
+						
+						
+							<li>
+								<a href="#linkedhashset" class="nav-linkedhashset">
+									LinkedHashSet
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#treeset" class="nav-treeset">
+									TreeSet
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+							
+								</ul>
+							
+								</ul>
+							
+						
+						
+						
+							<li>
+								<a href="#list" class="nav-list">
+									List
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+							
+								
+									<ul>
+								
+							
+								
+									<ul>
+								
+							
+						
+						
+							<li>
+								<a href="#arraylist" class="nav-arraylist">
+									ArrayList
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#array" class="nav-array">
+									Array
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#linkedlist" class="nav-linkedlist">
+									LinkedList
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+							
+								</ul>
+							
+								</ul>
+							
+						
+						
+						
+							<li>
+								<a href="#queue" class="nav-queue">
+									Queue
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#hashmap" class="nav-hashmap">
+									HashMap
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+							
+								
+									<ul>
+								
+							
+						
+						
+							<li>
+								<a href="#%e6%b7%bb%e5%8a%a0%e5%85%83%e7%b4%a0%e7%9a%84%e6%b5%81%e7%a8%8b" class="nav-添加元素的流程">
+									添加元素的流程
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#%e6%95%b0%e7%bb%84%e7%9a%84%e9%95%bf%e5%ba%a6%e6%89%a9%e5%85%85" class="nav-数组的长度扩充">
+									数组的长度扩充
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#%e7%a1%ae%e5%ae%9ahash%e5%80%bc" class="nav-确定hash值">
+									确定hash值
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#%e8%bd%ac%e5%8c%96%e7%ba%a2%e9%bb%91%e6%a0%91" class="nav-转化红黑树">
+									转化红黑树：
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#%e7%ba%bf%e7%a8%8b%e4%b8%8d%e5%ae%89%e5%85%a8" class="nav-线程不安全">
+									线程不安全
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+							
+								</ul>
+							
+						
+						
+						
+							<li>
+								<a href="#linkedhashmap" class="nav-linkedhashmap">
+									LinkedHashMap
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+							
+								
+									<ul>
+								
+							
+						
+						
+							<li>
+								<a href="#%e6%a6%82%e5%bf%b5" class="nav-概念">
+									概念
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#accessorder" class="nav-accessorder">
+									accessOrder
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#removeeldestentry" class="nav-removeeldestentry">
+									removeEldestEntry()
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+							
+								</ul>
+							
+						
+						
+						
+							<li>
+								<a href="#concurrenthashmap" class="nav-concurrenthashmap">
+									ConcurrentHashMap
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#hashtable--%e8%bf%87%e6%97%b6" class="nav-hashtable--过时">
+									HashTable 过时
+								</a>
+							</li>
+						
+						
+					
+				
+			
+		</ul>
+	</div>
+
+</div>
+        
+    </div>
+    <div class="pagination">
+        <a id="globalBackToTop" class="pagination-action animated-visibility" href="#top"
+            :class="{ invisible: scrollY == 0 }">
+            <i class="material-icons pagination-action-icon">
+                keyboard_arrow_up
+            </i>
+        </a>
+        
+        <a type="button" class="pagination-action" id="darkModeToggleButton">
+            <span class="material-icons pagination-action-icon" id="darkModeToggleIcon">
+                dark_mode
+            </span>
+        </a>
+        
+        
+    </div>
+</div>
+
+<div id="single-column-footer">
+Hugo Theme <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> by <a href="https://risehere.net/">Rise</a>
+<br>
+Ported from <a href="https://mak1t0.cc/" target="_blank" rel="noreferrer noopener">Makito</a>'s <a href="https://github.com/SumiMakito/hexo-theme-journal/" target="_blank" rel="noreferrer noopener">Journal.</a> <br>
+<br>
+
+&copy;
+	
+	This is a customized copyright.
+	
+</div>
+            </div>
+    
+    <script src="/js/journal.js"></script></body>
+</html>

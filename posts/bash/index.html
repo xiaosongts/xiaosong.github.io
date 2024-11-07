@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html><head>
+<title>终端</title>
+
+
+
+
+<meta charset="utf-8">
+<meta name="X-UA-Compatible" content="IE=edge">
+<meta name="google-site-verification" content="G-XXXXXXXXXX">
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+<meta content="telephone=no" name="format-detection">
+<meta name="description" content="">
+<meta name="renderer" content="webkit">
+<meta name="theme-color" content="#ffffff">
+
+
+
+<meta property="og:url" content="http://example.org/posts/bash/">
+  <meta property="og:site_name" content="小宋小宋?">
+  <meta property="og:title" content="终端">
+  <meta property="og:description" content="概念 简单的概念就是linux是一个内核，然后需要一个shell来和linux内核打交道，bash就是shell的一种，其他的还有ksh,zsh,sh，和用户打交道的就是终端，它来接收用户输入的信息，传递到使用的bash里，终端比如konsole,zutty,terminator，很多……
+终端：人机接口的工具，输入shell命令的工具，如konsole，zutty bash：是shell的一种类型，其他的还有zsh ，sh ，dash shell：是“壳”的意思，是在计算机内核之上套了一层，用来接收用户指令的界面 shell 分类：
+图形界面shell：如linux的ghome， kde， 命令式shell：如sh/bash/zsh/ksh 交互式和非交互式 交互式shell：是与用户交互的，等待用户输入的命令的shell， 非交互式shell：是以脚本运行的，比如编写一个start.sh，就可以用bash工具运行它 登录式和非登录式 这个是根据两种shell所读取的配置文件不同而区分的 登录式shell：当第一次登录linux系统时，分配的shell就是登录shell，还有在终端使用su命令登录后，只能使用logout命令退出的就是登录式shell，比如使用虚拟机时没有安装GUI，那个使用root提示的就是登录shell，还有ssh远程连接时，那个也是登录shell，读取文件： /etc/profile /etc/profile.d/*.sh ~/.bash_profile ~/.bashrc /etc/bashrc 非登录式shell：和用户无关的shell，比如在linux系统里，使用终端打开的shell，那是非登录的，它读取的文件是不一样的。 ~/.bashrc /etc/bashrc /etc/profile.d/*.sh 判断 要进行测试的话，在每个文件内添加echo命令就可 判断是哪个shell，-bash是登录式shell 使用">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2024-05-24T15:14:11+08:00">
+    <meta property="article:modified_time" content="2024-05-24T15:14:11+08:00">
+
+
+
+
+
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="终端">
+  <meta name="twitter:description" content="概念 简单的概念就是linux是一个内核，然后需要一个shell来和linux内核打交道，bash就是shell的一种，其他的还有ksh,zsh,sh，和用户打交道的就是终端，它来接收用户输入的信息，传递到使用的bash里，终端比如konsole,zutty,terminator，很多……
+终端：人机接口的工具，输入shell命令的工具，如konsole，zutty bash：是shell的一种类型，其他的还有zsh ，sh ，dash shell：是“壳”的意思，是在计算机内核之上套了一层，用来接收用户指令的界面 shell 分类：
+图形界面shell：如linux的ghome， kde， 命令式shell：如sh/bash/zsh/ksh 交互式和非交互式 交互式shell：是与用户交互的，等待用户输入的命令的shell， 非交互式shell：是以脚本运行的，比如编写一个start.sh，就可以用bash工具运行它 登录式和非登录式 这个是根据两种shell所读取的配置文件不同而区分的 登录式shell：当第一次登录linux系统时，分配的shell就是登录shell，还有在终端使用su命令登录后，只能使用logout命令退出的就是登录式shell，比如使用虚拟机时没有安装GUI，那个使用root提示的就是登录shell，还有ssh远程连接时，那个也是登录shell，读取文件： /etc/profile /etc/profile.d/*.sh ~/.bash_profile ~/.bashrc /etc/bashrc 非登录式shell：和用户无关的shell，比如在linux系统里，使用终端打开的shell，那是非登录的，它读取的文件是不一样的。 ~/.bashrc /etc/bashrc /etc/profile.d/*.sh 判断 要进行测试的话，在每个文件内添加echo命令就可 判断是哪个shell，-bash是登录式shell 使用">
+
+
+
+
+
+
+
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+      <script>
+        var doNotTrack = false;
+        if ( false ) {
+          var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+          var doNotTrack = (dnt == "1" || dnt == "yes");
+        }
+        if (!doNotTrack) {
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-XXXXXXXXXX');
+        }
+      </script>
+
+
+
+
+<script type="text/javascript">
+  (function(c,l,a,r,i,t,y){
+      c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+      t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+      y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+  })(window, document, "clarity", "script", "abcdefghzd");
+</script>
+
+
+
+  
+
+
+
+
+
+
+      <script src="/js/toc.js"></script>
+    
+    <link type="text/css" rel="stylesheet" href="/vendor/css/bootstrap.min.css">
+
+<link rel="stylesheet" href="/scss/dark-mode.min.cb53f1bee2b8900cb4f082afbf00175d6618f281cf9a2fe8619e3b52d20b5721.css" integrity="sha256-y1PxvuK4kAy08IKvvwAXXWYY8oHPmi/oYZ47UtILVyE=" media="screen">
+
+
+<link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Material+Icons">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+<body>
+    	<div id="app"><div class="single-column-drawer-container" id="drawer"
+     v-bind:class="{ 'single-column-drawer-container-active': isDrawerOpen }">
+    <div class="drawer-content">
+        <div class="drawer-menu">
+            
+            
+            
+                
+                
+                
+                    
+                
+                
+                
+                <a class="a-block drawer-menu-item active" href="/posts">
+                    文章
+                </a>
+                
+            
+                
+                
+                
+                
+                
+                <a class="a-block drawer-menu-item false" href="/categories">
+                    分类
+                </a>
+                
+            
+                
+                
+                
+                
+                
+                <a class="a-block drawer-menu-item false" href="/tags">
+                    快速查找
+                </a>
+                
+            
+                
+                
+                
+                
+                
+                <a class="a-block drawer-menu-item false" href="/database">
+                    MySQL
+                </a>
+                
+            
+                
+                
+                
+                
+                
+                <a class="a-block drawer-menu-item false" href="/spring">
+                    Spring
+                </a>
+                
+            
+            
+            <div class="toc">
+
+
+	<div class="toc-content">
+	
+		
+		
+		
+		<center>- CATALOG -</center>
+		
+		
+		<ul>
+			
+				
+				
+					
+						
+						
+						
+						
+							
+								
+									<ul>
+								
+							
+						
+						
+							<li>
+								<a href="#%e6%a6%82%e5%bf%b5" class="nav-概念">
+									概念
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#shell" class="nav-shell">
+									shell
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+							
+								
+									<ul>
+								
+							
+						
+						
+							<li>
+								<a href="#%e4%ba%a4%e4%ba%92%e5%bc%8f%e5%92%8c%e9%9d%9e%e4%ba%a4%e4%ba%92%e5%bc%8f" class="nav-交互式和非交互式">
+									交互式和非交互式
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#%e7%99%bb%e5%bd%95%e5%bc%8f%e5%92%8c%e9%9d%9e%e7%99%bb%e5%bd%95%e5%bc%8f" class="nav-登录式和非登录式">
+									登录式和非登录式
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#%e5%88%a4%e6%96%ad" class="nav-判断">
+									判断
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+							
+								</ul>
+							
+						
+						
+						
+							<li>
+								<a href="#%e4%bd%bf%e7%94%a8" class="nav-使用">
+									使用
+								</a>
+							</li>
+						
+						
+					
+				
+			
+		</ul>
+	</div>
+
+</div>
+            
+        </div>
+    </div>
+</div>
+<transition name="fade">
+    <div id="drawer-mask" v-bind:class="{ 'single-column-drawer-mask': mounted }" v-if="isDrawerOpen" v-on:click="toggleDrawer"></div>
+</transition>
+<nav id="navBar" class="navbar sticky-top navbar-light single-column-nav-container">
+    <div id="navBackground" class="nav-background"></div>
+    <div class="container container-narrow nav-content">
+        <button id="nav_dropdown_btn" class="nav-dropdown-toggle" type="button" v-on:click="toggleDrawer">
+            <i class="material-icons">
+                menu
+            </i>
+        </button>
+        <a id="navTitle" class="navbar-brand" href="http://example.org/">
+            小宋小宋?
+        </a>
+        
+        <button type="button" class="nav-darkmode-toggle" id="darkModeToggleButton2">
+            <i class="material-icons" id="darkModeToggleIcon2">
+                dark_mode
+            </i>
+        </button>
+        
+    </div>
+</nav>
+<div class="single-column-header-container" id="pageHead"
+     v-bind:style="{ transform: 'translateZ(0px) translateY('+.3*scrollY+'px)', opacity: 1-navOpacity }">
+    <a href="http://example.org/">
+        <div class="single-column-header-title">小宋小宋?</div>
+        
+        <div class="single-column-header-subtitle">在呢！</div>
+        
+
+    </a>
+</div>
+
+            <div id="content">
+                <div id="streamContainer" class="stream-container">
+
+    <div class="post-list-container post-list-container-shadow">
+        <div class="post">
+            
+            
+            
+
+            <div class="post-head-wrapper-text-only"
+                
+            >
+                <div class="post-title">
+                    终端
+                    
+                    <div class="post-meta">
+                        
+                        <time itemprop="datePublished">
+                            2024-05-24 15:14
+                        </time>
+                        
+
+                        
+
+                        
+                        
+                    </div>
+                </div>
+            </div>
+            
+            <div class="post-body-wrapper">
+                
+                <div class="post-body" v-pre>
+                
+                    <h2 id="概念">概念</h2>
+<p>简单的概念就是linux是一个内核，然后需要一个shell来和linux内核打交道，bash就是shell的一种，其他的还有ksh,zsh,sh，和用户打交道的就是终端，它来接收用户输入的信息，传递到使用的bash里，终端比如konsole,zutty,terminator，很多……</p>
+<ul>
+<li>终端：人机接口的工具，输入shell命令的工具，如konsole，zutty</li>
+<li>bash：是shell的一种类型，其他的还有zsh ，sh ，dash</li>
+<li>shell：是“壳”的意思，是在计算机内核之上套了一层，用来接收用户指令的界面</li>
+</ul>
+<h2 id="shell">shell</h2>
+<p>分类：</p>
+<ul>
+<li>图形界面shell：如linux的ghome， kde，</li>
+<li>命令式shell：如sh/bash/zsh/ksh</li>
+</ul>
+<h3 id="交互式和非交互式">交互式和非交互式</h3>
+<ul>
+<li>交互式shell：是与用户交互的，等待用户输入的命令的shell，</li>
+<li>非交互式shell：是以脚本运行的，比如编写一个<code>start.sh</code>，就可以用bash工具运行它</li>
+</ul>
+<h3 id="登录式和非登录式">登录式和非登录式</h3>
+<ul>
+<li>这个是根据两种shell所读取的配置文件不同而区分的</li>
+<li>登录式shell：当第一次登录linux系统时，分配的shell就是登录shell，还有在终端使用<code>su</code>命令登录后，只能使用<code>logout</code>命令退出的就是登录式shell，比如使用虚拟机时没有安装GUI，那个使用root提示的就是登录shell，还有ssh远程连接时，那个也是登录shell，读取文件：
+<ol>
+<li>/etc/profile</li>
+<li>/etc/profile.d/*.sh</li>
+<li>~/.bash_profile</li>
+<li>~/.bashrc</li>
+<li>/etc/bashrc</li>
+</ol>
+</li>
+<li>非登录式shell：和用户无关的shell，比如在linux系统里，使用终端打开的shell，那是非登录的，它读取的文件是不一样的。
+<ol>
+<li>~/.bashrc</li>
+<li>/etc/bashrc</li>
+<li>/etc/profile.d/*.sh</li>
+</ol>
+</li>
+</ul>
+<h3 id="判断">判断</h3>
+<ul>
+<li>要进行测试的话，在每个文件内添加<code>echo</code>命令就可</li>
+<li>判断是哪个shell，-bash是登录式shell</li>
+</ul>
+<p><img src="shell.png" alt="shell.png"></p>
+<h2 id="使用">使用</h2>
+
+                    
+                    <HR width="100%" id="EOF">
+		    <p style="color:#777;">Last modified on 2024-05-24</p>
+                    
+                </div>
+            </div>
+            
+            
+            <nav class="post-pagination">
+
+                
+                <a class="newer-posts" href="/posts/git/">
+			Next<br>Git
+                </a>
+                
+                
+                
+                <a class="older-posts" href="/java/basic/basicknowledge/java_basic/">
+			Previous<br>Java基础知识
+                </a>
+                
+            </nav>
+            <div class="post-comment-wrapper">
+                
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="https://giscus.app/client.js"
+        data-repo="username/repo"
+        data-repo-id="**************************"
+        data-category="General"
+        data-category-id="*********************"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="en"
+        crossorigin="anonymous"
+        async>
+</script>
+
+            </div>
+        </div>
+    </div>
+
+
+                    </div>
+            </div><div id="sideContainer" class="side-container">
+    
+    <a class="a-block nav-head false" href="http://example.org/">
+    
+        <div class="nav-title">
+            小宋小宋?
+        </div>
+        
+        <div class="nav-subtitle">
+            在呢！
+        </div>
+        
+    </a>
+
+    <div class="nav-link-list">
+        
+        
+            
+            
+            
+                
+            
+            
+            
+            <a class="a-block nav-link-item active" href="/posts">
+                文章
+            </a>
+            
+        
+            
+            
+            
+            
+            
+            <a class="a-block nav-link-item false" href="/categories">
+                分类
+            </a>
+            
+        
+            
+            
+            
+            
+            
+            <a class="a-block nav-link-item false" href="/tags">
+                快速查找
+            </a>
+            
+        
+            
+            
+            
+            
+            
+            <a class="a-block nav-link-item false" href="/database">
+                MySQL
+            </a>
+            
+        
+            
+            
+            
+            
+            
+            <a class="a-block nav-link-item false" href="/spring">
+                Spring
+            </a>
+            
+        
+    </div>
+
+    
+
+    <div class="nav-footer">
+        
+Hugo Theme <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> by <a href="https://risehere.net/">Rise</a>
+<br>
+Ported from <a href="https://mak1t0.cc/" target="_blank" rel="noreferrer noopener">Makito</a>'s <a href="https://github.com/SumiMakito/hexo-theme-journal/" target="_blank" rel="noreferrer noopener">Journal.</a> <br>
+<br>
+
+&copy;
+	
+	This is a customized copyright.
+	
+
+    </div>
+    
+</div><div id="extraContainer" class="extra-container">
+    <div class="toc-wrapper">
+        
+
+        
+        <div class="toc">
+
+
+	<div class="toc-content">
+	
+		
+		
+		
+		<center>- CATALOG -</center>
+		
+		
+		<ul>
+			
+				
+				
+					
+						
+						
+						
+						
+							
+								
+									<ul>
+								
+							
+						
+						
+							<li>
+								<a href="#%e6%a6%82%e5%bf%b5" class="nav-概念">
+									概念
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#shell" class="nav-shell">
+									shell
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+							
+								
+									<ul>
+								
+							
+						
+						
+							<li>
+								<a href="#%e4%ba%a4%e4%ba%92%e5%bc%8f%e5%92%8c%e9%9d%9e%e4%ba%a4%e4%ba%92%e5%bc%8f" class="nav-交互式和非交互式">
+									交互式和非交互式
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#%e7%99%bb%e5%bd%95%e5%bc%8f%e5%92%8c%e9%9d%9e%e7%99%bb%e5%bd%95%e5%bc%8f" class="nav-登录式和非登录式">
+									登录式和非登录式
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#%e5%88%a4%e6%96%ad" class="nav-判断">
+									判断
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+							
+								</ul>
+							
+						
+						
+						
+							<li>
+								<a href="#%e4%bd%bf%e7%94%a8" class="nav-使用">
+									使用
+								</a>
+							</li>
+						
+						
+					
+				
+			
+		</ul>
+	</div>
+
+</div>
+        
+    </div>
+    <div class="pagination">
+        <a id="globalBackToTop" class="pagination-action animated-visibility" href="#top"
+            :class="{ invisible: scrollY == 0 }">
+            <i class="material-icons pagination-action-icon">
+                keyboard_arrow_up
+            </i>
+        </a>
+        
+        <a type="button" class="pagination-action" id="darkModeToggleButton">
+            <span class="material-icons pagination-action-icon" id="darkModeToggleIcon">
+                dark_mode
+            </span>
+        </a>
+        
+        
+    </div>
+</div>
+
+<div id="single-column-footer">
+Hugo Theme <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> by <a href="https://risehere.net/">Rise</a>
+<br>
+Ported from <a href="https://mak1t0.cc/" target="_blank" rel="noreferrer noopener">Makito</a>'s <a href="https://github.com/SumiMakito/hexo-theme-journal/" target="_blank" rel="noreferrer noopener">Journal.</a> <br>
+<br>
+
+&copy;
+	
+	This is a customized copyright.
+	
+</div>
+            </div>
+    
+    <script src="/js/journal.js"></script></body>
+</html>

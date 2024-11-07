@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Java on 小宋小宋?</title>
+    <link>http://example.org/java/</link>
+    <description>Recent content in Java on 小宋小宋?</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <copyright>This is a customized copyright.</copyright>
+    <lastBuildDate>Sat, 14 Sep 2024 12:00:00 +0800</lastBuildDate>
+    <atom:link href="http://example.org/java/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>相关信息</title>
+      <link>http://example.org/java/infos/info/</link>
+      <pubDate>Sat, 14 Sep 2024 12:00:00 +0800</pubDate>
+      <guid>http://example.org/java/infos/info/</guid>
+      <description>&lt;h2 id=&#34;基本信息&#34;&gt;基本信息&lt;/h2&gt;&#xA;&lt;p&gt;查看电脑上Java的配置信息&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;java -XshowSettings:properties -version&#xD;&#xA;Property settings:&#xD;&#xA;    file.encoding = UTF-8&#xD;&#xA;    file.separator = /&#xD;&#xA;    java.class.path =&#xD;&#xA;    java.class.version = 61.0&#xD;&#xA;    java.home = /usr/lib/jvm/java-17-openjdk-amd64&#xD;&#xA;    java.io.tmpdir = /tmp&#xD;&#xA;    java.library.path = /usr/java/packages/lib&#xD;&#xA;        /usr/lib/x86_64-linux-gnu/jni&#xD;&#xA;        /lib/x86_64-linux-gnu&#xD;&#xA;        /usr/lib/x86_64-linux-gnu&#xD;&#xA;        /usr/lib/jni&#xD;&#xA;        /lib&#xD;&#xA;        /usr/lib&#xD;&#xA;    java.runtime.name = OpenJDK Runtime Environment&#xD;&#xA;    java.runtime.version = 17.0.12+7-Debian-2deb12u1&#xD;&#xA;    java.specification.name = Java Platform API Specification&#xD;&#xA;    java.specification.vendor = Oracle Corporation&#xD;&#xA;    java.specification.version = 17&#xD;&#xA;    java.vendor = Debian&#xD;&#xA;    java.vendor.url = https://tracker.debian.org/openjdk-17&#xD;&#xA;    java.vendor.url.bug = https://bugs.debian.org/openjdk-17&#xD;&#xA;    java.version = 17.0.12&#xD;&#xA;    java.version.date = 2024-07-16&#xD;&#xA;    java.vm.compressedOopsMode = Zero based&#xD;&#xA;    java.vm.info = mixed mode, sharing&#xD;&#xA;    java.vm.name = OpenJDK 64-Bit Server VM&#xD;&#xA;    java.vm.specification.name = Java Virtual Machine Specification&#xD;&#xA;    java.vm.specification.vendor = Oracle Corporation&#xD;&#xA;    java.vm.specification.version = 17&#xD;&#xA;    java.vm.vendor = Debian&#xD;&#xA;    java.vm.version = 17.0.12+7-Debian-2deb12u1&#xD;&#xA;    jdk.debug = release&#xD;&#xA;    line.separator = \n&#xD;&#xA;    native.encoding = UTF-8&#xD;&#xA;    os.arch = amd64&#xD;&#xA;    os.name = Linux&#xD;&#xA;    os.version = 4.4.0-19041-Microsoft&#xD;&#xA;    path.separator = :&#xD;&#xA;    sun.arch.data.model = 64&#xD;&#xA;    sun.boot.library.path = /usr/lib/jvm/java-17-openjdk-amd64/lib&#xD;&#xA;    sun.cpu.endian = little&#xD;&#xA;    sun.io.unicode.encoding = UnicodeLittle&#xD;&#xA;    sun.java.launcher = SUN_STANDARD&#xD;&#xA;    sun.jnu.encoding = UTF-8&#xD;&#xA;    sun.management.compiler = HotSpot 64-Bit Tiered Compilers&#xD;&#xA;    sun.stderr.encoding = UTF-8&#xD;&#xA;    sun.stdout.encoding = UTF-8&#xD;&#xA;    user.country = US&#xD;&#xA;    user.dir = /home/yushan&#xD;&#xA;    user.home = /home/yushan&#xD;&#xA;    user.language = en&#xD;&#xA;    user.name = yushan&#xD;&#xA;&#xD;&#xA;openjdk version &amp;#34;17.0.12&amp;#34; 2024-07-16&#xD;&#xA;OpenJDK Runtime Environment (build 17.0.12+7-Debian-2deb12u1)&#xD;&#xA;OpenJDK 64-Bit Server VM (build 17.0.12+7-Debian-2deb12u1, mixed mode, sharing)&#xA;&lt;/code&gt;&lt;/pre&gt;</description>
+    </item>
+  </channel>
+</rss>

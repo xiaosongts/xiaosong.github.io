@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+<title>Spring MVC</title>
+
+
+
+
+<meta charset="utf-8">
+<meta name="X-UA-Compatible" content="IE=edge">
+<meta name="google-site-verification" content="G-XXXXXXXXXX">
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+<meta content="telephone=no" name="format-detection">
+<meta name="description" content="">
+<meta name="renderer" content="webkit">
+<meta name="theme-color" content="#ffffff">
+
+
+
+<meta property="og:url" content="http://localhost:1313/spring/springmvc/springmvc/">
+  <meta property="og:site_name" content="小宋小宋?">
+  <meta property="og:title" content="Spring MVC">
+  <meta property="og:description" content="MVC MVC是一种软件架构模式，Model-View-Controller。作为一个服务端，要接收若干请求，然后进行相应处理，还要返还给客户端数据，所以这一套流程，如果都糅合在一个代码块里，对于系统的维护是非常复杂的。所以采用MVC模式
+Model：模型，代表着业务逻辑和数据部分，如客户端发送的数据，服务端处理好的数据 View：视图，代表着和客户端展示结果的部分，比如可以返回一个页面 Controller：控制，代表着和客户端交互的部分，接收客户端的输入，处理模型数据，返回试图 Spring Web MVC 流程 就是Servlet的封装，建立在Servlet API上的原始Web框架 大致的流程就是
+由一个调度器接收请求uri 通过map&lt;uri,handler&gt;，查找获得一个处理器 再将这个处理器交给执行器 执行器执行的结果返回给调度器 调度器将结果给视图部分，返回给调度器 调度器返回给客户端 网上具体的
+用户发送出请求被前端控制器DispatcherServlet拦截进行处理。 DispatcherServlet收到请求调用HandlerMapping（处理器映射器）。 HandlerMapping找到具体的处理器(查找xml配置或注解配置)，生成处理器对象及处理器拦截器(如果有，也就是执行器链)，再一起返回给DispatcherServlet。 DispatcherServlet调用HandlerAdapter（处理器适配器）。 HandlerAdapter经过适配调用具体的处理器（Handler/Controller）。 Controller执行完成返回ModelAndView对象。 HandlerAdapter将Controller执行结果ModelAndView返回给DispatcherServlet。 DispatcherServlet将ModelAndView传给ViewReslover（视图解析器）。 ViewReslover解析ModelAndView后返回具体View（视图）给DispatcherServlet。 DispatcherServlet根据View进行渲染视图（即将模型数据填充至视图中）。 DispatcherServlet响应View给用户。">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="spring">
+    <meta property="article:published_time" content="2024-05-24T15:12:02+08:00">
+    <meta property="article:modified_time" content="2024-05-24T15:12:02+08:00">
+
+
+
+
+
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Spring MVC">
+  <meta name="twitter:description" content="MVC MVC是一种软件架构模式，Model-View-Controller。作为一个服务端，要接收若干请求，然后进行相应处理，还要返还给客户端数据，所以这一套流程，如果都糅合在一个代码块里，对于系统的维护是非常复杂的。所以采用MVC模式
+Model：模型，代表着业务逻辑和数据部分，如客户端发送的数据，服务端处理好的数据 View：视图，代表着和客户端展示结果的部分，比如可以返回一个页面 Controller：控制，代表着和客户端交互的部分，接收客户端的输入，处理模型数据，返回试图 Spring Web MVC 流程 就是Servlet的封装，建立在Servlet API上的原始Web框架 大致的流程就是
+由一个调度器接收请求uri 通过map&lt;uri,handler&gt;，查找获得一个处理器 再将这个处理器交给执行器 执行器执行的结果返回给调度器 调度器将结果给视图部分，返回给调度器 调度器返回给客户端 网上具体的
+用户发送出请求被前端控制器DispatcherServlet拦截进行处理。 DispatcherServlet收到请求调用HandlerMapping（处理器映射器）。 HandlerMapping找到具体的处理器(查找xml配置或注解配置)，生成处理器对象及处理器拦截器(如果有，也就是执行器链)，再一起返回给DispatcherServlet。 DispatcherServlet调用HandlerAdapter（处理器适配器）。 HandlerAdapter经过适配调用具体的处理器（Handler/Controller）。 Controller执行完成返回ModelAndView对象。 HandlerAdapter将Controller执行结果ModelAndView返回给DispatcherServlet。 DispatcherServlet将ModelAndView传给ViewReslover（视图解析器）。 ViewReslover解析ModelAndView后返回具体View（视图）给DispatcherServlet。 DispatcherServlet根据View进行渲染视图（即将模型数据填充至视图中）。 DispatcherServlet响应View给用户。">
+
+
+
+
+
+
+
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+      <script>
+        var doNotTrack = false;
+        if ( false ) {
+          var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+          var doNotTrack = (dnt == "1" || dnt == "yes");
+        }
+        if (!doNotTrack) {
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-XXXXXXXXXX');
+        }
+      </script>
+
+
+
+
+<script type="text/javascript">
+  (function(c,l,a,r,i,t,y){
+      c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+      t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+      y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+  })(window, document, "clarity", "script", "abcdefghzd");
+</script>
+
+
+
+  
+
+
+
+
+
+
+      <script src="/js/toc.js"></script>
+    
+    <link type="text/css" rel="stylesheet" href="/vendor/css/bootstrap.min.css">
+
+<link rel="stylesheet" href="/scss/dark-mode.min.cb53f1bee2b8900cb4f082afbf00175d6618f281cf9a2fe8619e3b52d20b5721.css" integrity="sha256-y1PxvuK4kAy08IKvvwAXXWYY8oHPmi/oYZ47UtILVyE=" media="screen">
+
+
+<link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Material+Icons">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+<body>
+    	<div id="app"><div class="single-column-drawer-container" id="drawer"
+     v-bind:class="{ 'single-column-drawer-container-active': isDrawerOpen }">
+    <div class="drawer-content">
+        <div class="drawer-menu">
+            
+            
+            
+                
+                
+                
+                
+                
+                <a class="a-block drawer-menu-item false" href="/posts">
+                    文章
+                </a>
+                
+            
+                
+                
+                
+                
+                
+                <a class="a-block drawer-menu-item false" href="/categories">
+                    分类
+                </a>
+                
+            
+                
+                
+                
+                
+                
+                <a class="a-block drawer-menu-item false" href="/tags">
+                    快速查找
+                </a>
+                
+            
+                
+                
+                
+                
+                
+                <a class="a-block drawer-menu-item false" href="/database">
+                    MySQL
+                </a>
+                
+            
+                
+                
+                
+                    
+                
+                
+                
+                <a class="a-block drawer-menu-item active" href="/spring">
+                    Spring
+                </a>
+                
+            
+            
+            <div class="toc">
+
+
+	<div class="toc-content">
+	
+		
+		
+		
+		<center>- CATALOG -</center>
+		
+		
+		<ul>
+			
+				
+				
+					
+						
+						
+						
+						
+							
+								
+									<ul>
+								
+							
+						
+						
+							<li>
+								<a href="#mvc" class="nav-mvc">
+									MVC
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+							
+								</ul>
+							
+						
+						
+						
+							<li>
+								<a href="#spring-web-mvc-%e6%b5%81%e7%a8%8b" class="nav-spring-web-mvc-流程">
+									Spring Web MVC 流程
+								</a>
+							</li>
+						
+						
+					
+				
+			
+		</ul>
+	</div>
+
+</div>
+            
+        </div>
+    </div>
+</div>
+<transition name="fade">
+    <div id="drawer-mask" v-bind:class="{ 'single-column-drawer-mask': mounted }" v-if="isDrawerOpen" v-on:click="toggleDrawer"></div>
+</transition>
+<nav id="navBar" class="navbar sticky-top navbar-light single-column-nav-container">
+    <div id="navBackground" class="nav-background"></div>
+    <div class="container container-narrow nav-content">
+        <button id="nav_dropdown_btn" class="nav-dropdown-toggle" type="button" v-on:click="toggleDrawer">
+            <i class="material-icons">
+                menu
+            </i>
+        </button>
+        <a id="navTitle" class="navbar-brand" href="http://localhost:1313/">
+            小宋小宋?
+        </a>
+        
+        <button type="button" class="nav-darkmode-toggle" id="darkModeToggleButton2">
+            <i class="material-icons" id="darkModeToggleIcon2">
+                dark_mode
+            </i>
+        </button>
+        
+    </div>
+</nav>
+<div class="single-column-header-container" id="pageHead"
+     v-bind:style="{ transform: 'translateZ(0px) translateY('+.3*scrollY+'px)', opacity: 1-navOpacity }">
+    <a href="http://localhost:1313/">
+        <div class="single-column-header-title">小宋小宋?</div>
+        
+        <div class="single-column-header-subtitle">在呢！</div>
+        
+
+    </a>
+</div>
+
+            <div id="content">
+                <div id="streamContainer" class="stream-container">
+
+    <div class="post-list-container post-list-container-shadow">
+        <div class="post">
+            
+            
+            
+
+            <div class="post-head-wrapper-text-only"
+                
+            >
+                <div class="post-title">
+                    Spring MVC
+                    
+                    <div class="post-meta">
+                        
+                        <time itemprop="datePublished">
+                            2024-05-24 15:12
+                        </time>
+                        
+
+                        
+
+                        
+                        
+                    </div>
+                </div>
+            </div>
+            
+            <div class="post-body-wrapper">
+                
+                <div class="post-body" v-pre>
+                
+                    <h2 id="mvc">MVC</h2>
+<p>MVC是一种软件架构模式，Model-View-Controller。作为一个服务端，要接收若干请求，然后进行相应处理，还要返还给客户端数据，所以这一套流程，如果都糅合在一个代码块里，对于系统的维护是非常复杂的。所以采用MVC模式</p>
+<ul>
+<li>Model：模型，代表着业务逻辑和数据部分，如客户端发送的数据，服务端处理好的数据</li>
+<li>View：视图，代表着和客户端展示结果的部分，比如可以返回一个页面</li>
+<li>Controller：控制，代表着和客户端交互的部分，接收客户端的输入，处理模型数据，返回试图</li>
+</ul>
+<p><img src="mvc.png" alt="image.png"></p>
+<h1 id="spring-web-mvc-流程">Spring Web MVC 流程</h1>
+<ul>
+<li>就是Servlet的封装，建立在Servlet API上的原始Web框架</li>
+</ul>
+<p>大致的流程就是</p>
+<ol>
+<li>由一个调度器接收请求uri</li>
+<li>通过map&lt;uri,handler&gt;，查找获得一个处理器</li>
+<li>再将这个处理器交给执行器</li>
+<li>执行器执行的结果返回给调度器</li>
+<li>调度器将结果给视图部分，返回给调度器</li>
+<li>调度器返回给客户端</li>
+</ol>
+<p>网上具体的</p>
+<ol>
+<li>用户发送出请求被前端控制器<code>DispatcherServlet</code>拦截进行处理。</li>
+<li>DispatcherServlet收到请求调用<code>HandlerMapping</code>（处理器映射器）。</li>
+<li>HandlerMapping找到具体的处理器(查找xml配置或注解配置)，生成处理器对象及处理器拦截器(如果有，也就是执行器链)，再一起返回给DispatcherServlet。</li>
+<li>DispatcherServlet调用<code>HandlerAdapter</code>（处理器适配器）。</li>
+<li>HandlerAdapter经过适配调用具体的处理器（Handler/Controller）。</li>
+<li>Controller执行完成返回<code>ModelAndView</code>对象。</li>
+<li>HandlerAdapter将Controller执行结果ModelAndView返回给DispatcherServlet。</li>
+<li>DispatcherServlet将ModelAndView传给ViewReslover（视图解析器）。</li>
+<li><code>ViewReslover</code>解析ModelAndView后返回具体View（视图）给DispatcherServlet。</li>
+<li>DispatcherServlet根据View进行渲染视图（即将模型数据填充至视图中）。</li>
+<li>DispatcherServlet响应View给用户。</li>
+</ol>
+
+                    
+                    <HR width="100%" id="EOF">
+		    <p style="color:#777;">Last modified on 2024-05-24</p>
+                    
+                </div>
+            </div>
+            
+            
+            <nav class="post-pagination">
+
+                
+                <a class="newer-posts" href="/database/engines/">
+			Next<br>存储引擎
+                </a>
+                
+                
+                
+                <a class="older-posts" href="/java/jvm/object/jvm_object/">
+			Previous<br>对象
+                </a>
+                
+            </nav>
+            <div class="post-comment-wrapper">
+                
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="https://giscus.app/client.js"
+        data-repo="username/repo"
+        data-repo-id="**************************"
+        data-category="General"
+        data-category-id="*********************"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="en"
+        crossorigin="anonymous"
+        async>
+</script>
+
+            </div>
+        </div>
+    </div>
+
+
+                    </div>
+            </div><div id="sideContainer" class="side-container">
+    
+    <a class="a-block nav-head false" href="http://localhost:1313/">
+    
+        <div class="nav-title">
+            小宋小宋?
+        </div>
+        
+        <div class="nav-subtitle">
+            在呢！
+        </div>
+        
+    </a>
+
+    <div class="nav-link-list">
+        
+        
+            
+            
+            
+            
+            
+            <a class="a-block nav-link-item false" href="/posts">
+                文章
+            </a>
+            
+        
+            
+            
+            
+            
+            
+            <a class="a-block nav-link-item false" href="/categories">
+                分类
+            </a>
+            
+        
+            
+            
+            
+            
+            
+            <a class="a-block nav-link-item false" href="/tags">
+                快速查找
+            </a>
+            
+        
+            
+            
+            
+            
+            
+            <a class="a-block nav-link-item false" href="/database">
+                MySQL
+            </a>
+            
+        
+            
+            
+            
+                
+            
+            
+            
+            <a class="a-block nav-link-item active" href="/spring">
+                Spring
+            </a>
+            
+        
+    </div>
+
+    
+
+    <div class="nav-footer">
+        
+Hugo Theme <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> by <a href="https://risehere.net/">Rise</a>
+<br>
+Ported from <a href="https://mak1t0.cc/" target="_blank" rel="noreferrer noopener">Makito</a>'s <a href="https://github.com/SumiMakito/hexo-theme-journal/" target="_blank" rel="noreferrer noopener">Journal.</a> <br>
+<br>
+
+&copy;
+	
+	This is a customized copyright.
+	
+
+    </div>
+    
+</div><div id="extraContainer" class="extra-container">
+    <div class="toc-wrapper">
+        
+
+        
+        <div class="toc">
+
+
+	<div class="toc-content">
+	
+		
+		
+		
+		<center>- CATALOG -</center>
+		
+		
+		<ul>
+			
+				
+				
+					
+						
+						
+						
+						
+							
+								
+									<ul>
+								
+							
+						
+						
+							<li>
+								<a href="#mvc" class="nav-mvc">
+									MVC
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+							
+								</ul>
+							
+						
+						
+						
+							<li>
+								<a href="#spring-web-mvc-%e6%b5%81%e7%a8%8b" class="nav-spring-web-mvc-流程">
+									Spring Web MVC 流程
+								</a>
+							</li>
+						
+						
+					
+				
+			
+		</ul>
+	</div>
+
+</div>
+        
+    </div>
+    <div class="pagination">
+        <a id="globalBackToTop" class="pagination-action animated-visibility" href="#top"
+            :class="{ invisible: scrollY == 0 }">
+            <i class="material-icons pagination-action-icon">
+                keyboard_arrow_up
+            </i>
+        </a>
+        
+        <a type="button" class="pagination-action" id="darkModeToggleButton">
+            <span class="material-icons pagination-action-icon" id="darkModeToggleIcon">
+                dark_mode
+            </span>
+        </a>
+        
+        
+    </div>
+</div>
+
+<div id="single-column-footer">
+Hugo Theme <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> by <a href="https://risehere.net/">Rise</a>
+<br>
+Ported from <a href="https://mak1t0.cc/" target="_blank" rel="noreferrer noopener">Makito</a>'s <a href="https://github.com/SumiMakito/hexo-theme-journal/" target="_blank" rel="noreferrer noopener">Journal.</a> <br>
+<br>
+
+&copy;
+	
+	This is a customized copyright.
+	
+</div>
+            </div>
+    
+    <script src="/js/journal.js"></script></body>
+</html>

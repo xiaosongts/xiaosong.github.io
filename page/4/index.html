@@ -1,0 +1,966 @@
+<!DOCTYPE html>
+<html><head>
+	<meta name="generator" content="Hugo 0.136.5">
+<title>小宋小宋?</title>
+
+
+
+  
+
+
+<meta charset="utf-8">
+<meta name="X-UA-Compatible" content="IE=edge">
+<meta name="google-site-verification" content="G-XXXXXXXXXX">
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+<meta content="telephone=no" name="format-detection">
+<meta name="description" content="My HomePage Description">
+<meta name="renderer" content="webkit">
+<meta name="theme-color" content="#ffffff">
+
+
+
+<meta property="og:url" content="http://example.org/">
+  <meta property="og:site_name" content="小宋小宋?">
+  <meta property="og:title" content="小宋小宋?">
+  <meta property="og:description" content="My HomePage Description">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="website">
+
+
+
+
+
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="小宋小宋?">
+  <meta name="twitter:description" content="My HomePage Description">
+
+
+
+
+
+
+
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+      <script>
+        var doNotTrack = false;
+        if ( false ) {
+          var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+          var doNotTrack = (dnt == "1" || dnt == "yes");
+        }
+        if (!doNotTrack) {
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-XXXXXXXXXX');
+        }
+      </script>
+
+
+
+
+<script type="text/javascript">
+  (function(c,l,a,r,i,t,y){
+      c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+      t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+      y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+  })(window, document, "clarity", "script", "abcdefghzd");
+</script>
+
+
+
+  
+
+
+
+
+
+
+    <link type="text/css" rel="stylesheet" href="/vendor/css/bootstrap.min.css">
+
+<link rel="stylesheet" href="/scss/dark-mode.min.cb53f1bee2b8900cb4f082afbf00175d6618f281cf9a2fe8619e3b52d20b5721.css" integrity="sha256-y1PxvuK4kAy08IKvvwAXXWYY8oHPmi/oYZ47UtILVyE=" media="screen">
+
+
+<link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Material+Icons">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+<body>
+    	<div id="app"><div class="single-column-drawer-container" id="drawer"
+     v-bind:class="{ 'single-column-drawer-container-active': isDrawerOpen }">
+    <div class="drawer-content">
+        <div class="drawer-menu">
+            
+            
+            
+                
+                
+                
+                
+                
+                <a class="a-block drawer-menu-item false" href="/posts">
+                    文章
+                </a>
+                
+            
+                
+                
+                
+                
+                
+                <a class="a-block drawer-menu-item false" href="/categories">
+                    分类
+                </a>
+                
+            
+                
+                
+                
+                
+                
+                <a class="a-block drawer-menu-item false" href="/tags">
+                    快速查找
+                </a>
+                
+            
+                
+                
+                
+                
+                
+                <a class="a-block drawer-menu-item false" href="/database">
+                    MySQL
+                </a>
+                
+            
+                
+                
+                
+                
+                
+                <a class="a-block drawer-menu-item false" href="/spring">
+                    Spring
+                </a>
+                
+            
+            
+        </div>
+    </div>
+</div>
+<transition name="fade">
+    <div id="drawer-mask" v-bind:class="{ 'single-column-drawer-mask': mounted }" v-if="isDrawerOpen" v-on:click="toggleDrawer"></div>
+</transition>
+<nav id="navBar" class="navbar sticky-top navbar-light single-column-nav-container">
+    <div id="navBackground" class="nav-background"></div>
+    <div class="container container-narrow nav-content">
+        <button id="nav_dropdown_btn" class="nav-dropdown-toggle" type="button" v-on:click="toggleDrawer">
+            <i class="material-icons">
+                menu
+            </i>
+        </button>
+        <a id="navTitle" class="navbar-brand" href="http://example.org/">
+            小宋小宋?
+        </a>
+        
+        <button type="button" class="nav-darkmode-toggle" id="darkModeToggleButton2">
+            <i class="material-icons" id="darkModeToggleIcon2">
+                dark_mode
+            </i>
+        </button>
+        
+    </div>
+</nav>
+<div class="single-column-header-container" id="pageHead"
+     v-bind:style="{ transform: 'translateZ(0px) translateY('+.3*scrollY+'px)', opacity: 1-navOpacity }">
+    <a href="http://example.org/">
+        <div class="single-column-header-title">小宋小宋?</div>
+        
+        <div class="single-column-header-subtitle">在呢！</div>
+        
+
+    </a>
+</div>
+
+            <div id="content">
+                <div id="streamContainer" class="stream-container">
+
+    <div class="post-list-container post-list-container-no-background">
+        
+        
+            <a href="/java/thread/basic/thread_basic/" class="a-block">
+                <div class="post-item-wrapper">
+                    <div class="post-item post-item-no-divider">
+                        <div class="post-item-info-wrapper">
+                            <div class="post-item-title">
+                                基础概念
+                            </div>
+                            <div class="post-item-summary">
+                                
+                                    <h1 id="进程线程">进程/线程</h1>
+<p>cpu:</p>
+<ul>
+<li>中央处理器</li>
+<li>是一个特殊的处理器，负责解析和执行计算机程序的指令</li>
+<li>架构：
+<ul>
+<li>SMP：对称多处理器，多个cpu相同对待，共享内存、总线</li>
+<li>AMP：异步多处理器，每个cpu有自己的内存、总线资源，通信采用共享内存</li>
+</ul>
+</li>
+</ul>
+<p>多核：</p>
+<ul>
+<li>将cpu划分为多个core，形成一个个独立单元，可以独立执行任务</li>
+<li>所以并行执行进程/线程是可以的</li>
+<li>intel 4核8线程：这个8线程是指超线程，将每个核心划分两个逻辑核心，防止资源的浪费，4核就是cpu具体的核心数了。</li>
+</ul>
+<p>内核：</p>
+<ul>
+<li>是指在一个cpu处理器中，划分出来的一部分，主要功能和其他部分不同</li>
+<li>它负责管理软件部件（进程）</li>
+</ul>
+<p>虚拟内存：</p>
+<ul>
+<li>它是假的“内存”，让程序认为他自己所占用的内存空间是连续的，实际上是有可能不连续的。</li>
+<li>它和物理内存的映射关系，将采用页表的形式记录下来，还有快表这个缓存。</li>
+<li>它通过文件的形式记录程序的数据和地址，在所需要的数据不再内存中时，才加载到物理内存中。</li>
+</ul>
+<h2 id="进程">进程</h2>
+<ul>
+<li>用来支撑程序运行的东西，用来分配和管理程序所要使用的资源，当然也是计算机分配资源的基本单位</li>
+<li>由操作系统进行管理<code>进程</code></li>
+</ul>
+<h2 id="线程">线程</h2>
+<ul>
+<li>是更小的单位了，在进程运行时可以产生多个线程，每个线程可以处理自己的资源，并且还会共享进程的内存空间和资源量。</li>
+<li>CPU进行使用的基本单位</li>
+</ul>
+<h2 id="用户线程内核线程">用户线程/内核线程</h2>
+<ul>
+<li>用户线程：由用户空间程序管理的线程，创建和切换成本低，不可以利用多核</li>
+<li>内核线程：由内核管理的线程，创建和切换成本高，可以利用多核</li>
+</ul>
+<h2 id="线程模型">线程模型</h2>
+<p>用户线程和内核线程之间的关联方式、调度方式，用户线程的创建、操作都会映射到内核线程上，处理多线程的并发执行</p>
+<ul>
+<li>一对一：一个内核线程对应一个用户线程</li>
+<li>一对多：一个内核线程对应多个用户线程</li>
+<li>多对多：多个内核线程对应多个用户线程</li>
+</ul>
+<p>为什么会有呢？</p>
+<ul>
+<li>时间片切换：在资源方面，出现竞争关系，将采用时间片切换算法，将每一个进程分配一定的时间，比如50ms，时间一到，将保存该进程运行的状态，如内存里的值、寄存器状态，这些关于自己的状态，被称为<code>上下文</code>。这些操作需要大量的时间，进程的消费比较大，进程有自己的虚拟地址空间，然而线程就可以共享进程的空间，在切换时消耗小。
+<ul>
+<li>虚拟内存：进程在运行初，会申请内存；虚拟内存和物理内存存在映射，也就是页表，切换时需要保存页表，还有其他的快表（TLB、缓存），切换会被清空</li>
+</ul>
+</li>
+<li>任务并发：在一个程序运行时，当有多个独立任务时，采用多个线程可以快速的完成，再加上会共享进程的内存空间，而且线程不会切换上下文，很快。</li>
+</ul>
+<h1 id="并发并行">并发/并行？</h1>
+<p>并发（Concurrent）：</p>
+<ul>
+<li>是指在一个时间段内，多个线程争抢一个cpu资源，然后无法并行操作，cpu只能进行时间片切换，会出现线程的挂起等操作，这中现象就是并发。</li>
+</ul>
+<p>并行（Parallel）：</p>
+<ul>
+<li>是指在某一时刻（同时），多个任务一起执行</li>
+<li>在cpu的核心数足够的时候，多个进程可以很好的运行在多个核心上，不出现竞争关系，这称为并行。</li>
+</ul>
+<h1 id="java层面">Java层面</h1>
+<h2 id="多线程">多线程</h2>
+<p>为什么要有多线程？</p>
+<ul>
+<li>一个线程处理任务慢，采用多个线程利用多个核心运行，在不出现竞争资源的时候，执行速度杠杠的。</li>
+</ul>
+<p>带来的问题：</p>
+<ol>
+<li>共享进程的内存空间，若是出现竞争资源的关系，需要额外的处理</li>
+<li>死锁问题：两个线程都“吃着碗里，看着锅里”</li>
+<li>内存泄漏：线程创建的对象没有释放</li>
+</ol>
+<p>在单核cpu运行多线程呢？</p>
+<ul>
+<li>这要取决与线程的任务类型，比如cpu密集型，它所消费cpu是比较久的，这时候要采用多线程效率就低了。</li>
+<li>还有IO密集型，线程的任务主要是完成IO操作，所以线程可以利用完成IO的时间，利用cpu</li>
+</ul>
+<h2 id="线程状态">线程状态</h2>
+<p>线程由进程创建后，会有一定的生命周期，在java中，有以下状态：</p>
+<ol>
+<li><code>NEW</code>：新建状态，是new了之后，没有后续动作的时候</li>
+<li><code>RUNNABLE</code>：运行状态，是start后，正在运行的时候</li>
+<li><code>BLOCKED</code>：阻塞状态，被动的阻塞了，比如竞争资源失败了</li>
+<li><code>WAITING</code>：等待状态，调用了wait/join之后的状态，这时候必须需要别的线程来呼叫，叫醒这个线程，然后进入运行状态。</li>
+<li><code>TIME_WAITING</code>：超时等待状态，调用了sleep之后的状态，需要别人来叫醒，或者自然醒。</li>
+<li><code>TERMINATED</code>：死亡状态，终止状态，run方法结束之后的状态。</li>
+</ol>
+<p><img src="threadstate.png" alt="threadstate.png"></p>
+<h3 id="阻塞和等待">阻塞和等待</h3>
+<p>阻塞状态：</p>
+<ul>
+<li>这是线程去竞争临界区的锁失败后的状态</li>
+<li>之后，还可以去竞争，继续运行</li>
+</ul>
+<p>等待状态：</p>
+<ul>
+<li>这是线程主动等待，释放锁，也就代表释放占用的资源了。</li>
+<li>这都是获取到锁之后，才能去操作的。</li>
+</ul>
+<h2 id="线程死锁">线程死锁</h2>
+<p>死锁：</p>
+                                
+                            </div>
+                            <div class="post-item-meta">
+    2024-05-24
+    &emsp;
+    
+    
+    
+    &emsp;
+    
+</div>
+
+                        </div>
+                        
+                        
+                    </div>
+                </div>
+        
+            <a href="/java/thread/pool/thread_pool/" class="a-block">
+                <div class="post-item-wrapper">
+                    <div class="post-item post-item-no-divider">
+                        <div class="post-item-info-wrapper">
+                            <div class="post-item-title">
+                                线程池
+                            </div>
+                            <div class="post-item-summary">
+                                
+                                    <h1 id="线程池">线程池</h1>
+<ul>
+<li>池化技术，对于线程来说，在一个池中存放许多<code>线程对象</code>，当来一个任务的时候，不需要创建新的线程对象，而是直接从池中拿一个线程对象来使用，进行处理任务</li>
+</ul>
+<p>好处：</p>
+<ul>
+<li><strong>降低资源消耗</strong>。通过重复利用已创建的线程降低线程创建和销毁造成的消耗。</li>
+<li><strong>提高响应速度</strong>。当任务到达时，任务可以不需要等到线程创建就能立即执行。</li>
+<li><strong>提高线程的可管理性</strong>。线程是稀缺资源，如果无限制的创建，不仅会消耗系统资源，还会降低系统的稳定性，使用线程池可以进行统一的分配，调优和监控。</li>
+</ul>
+<h1 id="executor接口">Executor接口</h1>
+<ul>
+<li>用来在未来某个时间执行Runnable的任务</li>
+<li>执行程序可以在调用者的线程中立即运行已提交的任务，当然也可以在execute方法中新开一个线程执行run方法</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#8b008b;font-weight:bold">public</span><span style="color:#bbb"> </span><span style="color:#8b008b;font-weight:bold">class</span> <span style="color:#008b45;font-weight:bold">ExecutorOne</span><span style="color:#bbb"> </span><span style="color:#8b008b;font-weight:bold">implements</span><span style="color:#bbb"> </span>Executor<span style="color:#bbb"> </span>{<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">	
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#707a7c">@Override</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#8b008b;font-weight:bold">public</span><span style="color:#bbb"> </span><span style="color:#00688b;font-weight:bold">void</span><span style="color:#bbb"> </span><span style="color:#008b45">execute</span>(Runnable<span style="color:#bbb"> </span>command)<span style="color:#bbb"> </span>{<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>command.<span style="color:#658b00">run</span>();<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>}<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#8b008b;font-weight:bold">public</span><span style="color:#bbb"> </span><span style="color:#8b008b;font-weight:bold">static</span><span style="color:#bbb"> </span><span style="color:#00688b;font-weight:bold">void</span><span style="color:#bbb"> </span><span style="color:#008b45">main</span>(String[]<span style="color:#bbb"> </span>args)<span style="color:#bbb"> </span>{<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>ExecutorOne<span style="color:#bbb"> </span>exec<span style="color:#bbb"> </span>=<span style="color:#bbb"> </span><span style="color:#8b008b;font-weight:bold">new</span><span style="color:#bbb"> </span>ExecutorOne();<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>exec.<span style="color:#658b00">execute</span>(()-&gt;<span style="color:#bbb"> </span>System.<span style="color:#658b00">out</span>.<span style="color:#658b00">println</span>(<span style="color:#cd5555">&#34;hello,world！&#34;</span>));<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>}<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span>}<span style="color:#bbb">
+</span></span></span></code></pre></div><h1 id="callable">Callable</h1>
+<div class="highlight"><pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#707a7c">@FunctionalInterface</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#8b008b;font-weight:bold">public</span><span style="color:#bbb"> </span><span style="color:#8b008b;font-weight:bold">interface</span> <span style="color:#008b45;font-weight:bold">Callable</span>&lt;V&gt;<span style="color:#bbb"> </span>{<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#228b22">//计算结果，无法计算抛出异常</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>V<span style="color:#bbb"> </span><span style="color:#008b45">call</span>()<span style="color:#bbb"> </span><span style="color:#8b008b;font-weight:bold">throws</span><span style="color:#bbb"> </span>Exception;<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span>}<span style="color:#bbb">
+</span></span></span></code></pre></div><ul>
+<li>和Runnable类似，但Runnable无法返回结果</li>
+<li>该接口提供了一个call的动作，所以任何实现该接口的类，都会有这一个动作，此时可以结合其他类，利用实现Callable接口的类做一些功能，如果结合线程，就可以不占用主线程做一些异步任务，并且可以获取计算的结果，挺好！</li>
+</ul>
+<h1 id="future">Future</h1>
+<div class="highlight"><pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#8b008b;font-weight:bold">public</span><span style="color:#bbb"> </span><span style="color:#8b008b;font-weight:bold">interface</span> <span style="color:#008b45;font-weight:bold">Future</span>&lt;V&gt;<span style="color:#bbb"> </span>{<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#00688b;font-weight:bold">boolean</span><span style="color:#bbb"> </span><span style="color:#008b45">cancel</span>(<span style="color:#00688b;font-weight:bold">boolean</span><span style="color:#bbb"> </span>mayInterruptIfRunning);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#00688b;font-weight:bold">boolean</span><span style="color:#bbb"> </span><span style="color:#008b45">isCancelled</span>();<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#00688b;font-weight:bold">boolean</span><span style="color:#bbb"> </span><span style="color:#008b45">isDone</span>();<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>V<span style="color:#bbb"> </span><span style="color:#008b45">get</span>()<span style="color:#bbb"> </span><span style="color:#8b008b;font-weight:bold">throws</span><span style="color:#bbb"> </span>InterruptedException,<span style="color:#bbb"> </span>ExecutionException;<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>V<span style="color:#bbb"> </span><span style="color:#008b45">get</span>(<span style="color:#00688b;font-weight:bold">long</span><span style="color:#bbb"> </span>timeout,<span style="color:#bbb"> </span>TimeUnit<span style="color:#bbb"> </span>unit)<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#8b008b;font-weight:bold">throws</span><span style="color:#bbb"> </span>InterruptedException,<span style="color:#bbb"> </span>ExecutionException,<span style="color:#bbb"> </span>TimeoutException;<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span>}<span style="color:#bbb">
+</span></span></span></code></pre></div><ul>
+<li>代表的是<code>异步计算的结果</code>，允许程序员对异步执行的任务进行控制和<code>获取结果</code></li>
+<li>接口的功能主要关注的是任务的结果，和Runnable不同，Runnable只有一个run方法，只是可以利用线程完成一系列不关心结果的任务</li>
+</ul>
+<h1 id="executorservice">ExecutorService</h1>
+<div class="highlight"><pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#8b008b;font-weight:bold">public</span><span style="color:#bbb"> </span><span style="color:#8b008b;font-weight:bold">interface</span> <span style="color:#008b45;font-weight:bold">ExecutorService</span><span style="color:#bbb"> </span><span style="color:#8b008b;font-weight:bold">extends</span><span style="color:#bbb"> </span>Executor<span style="color:#bbb"> </span>{<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#00688b;font-weight:bold">void</span><span style="color:#bbb"> </span><span style="color:#008b45">shutdown</span>();<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>List&lt;Runnable&gt;<span style="color:#bbb"> </span><span style="color:#008b45">shutdownNow</span>();<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#00688b;font-weight:bold">boolean</span><span style="color:#bbb"> </span><span style="color:#008b45">isShutdown</span>();<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#00688b;font-weight:bold">boolean</span><span style="color:#bbb"> </span><span style="color:#008b45">isTerminated</span>();<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#228b22">//执行一个任务</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>&lt;T&gt;<span style="color:#bbb"> </span>Future&lt;T&gt;<span style="color:#bbb"> </span><span style="color:#008b45">submit</span>(Callable&lt;T&gt;<span style="color:#bbb"> </span>task);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>&lt;T&gt;<span style="color:#bbb"> </span>Future&lt;T&gt;<span style="color:#bbb"> </span><span style="color:#008b45">submit</span>(Runnable<span style="color:#bbb"> </span>task,<span style="color:#bbb"> </span>T<span style="color:#bbb"> </span>result);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>Future&lt;?&gt;<span style="color:#bbb"> </span>submit(Runnable<span style="color:#bbb"> </span>task);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#228b22">//执行所有的任务</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>&lt;T&gt;<span style="color:#bbb"> </span>List&lt;Future&lt;T&gt;&gt;<span style="color:#bbb"> </span><span style="color:#008b45">invokeAll</span>(Collection&lt;?<span style="color:#bbb"> </span><span style="color:#8b008b;font-weight:bold">extends</span><span style="color:#bbb"> </span>Callable&lt;T&gt;&gt;<span style="color:#bbb"> </span>tasks)<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#8b008b;font-weight:bold">throws</span><span style="color:#bbb"> </span>InterruptedException;<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#228b22">//执行一个成功的任务</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>&lt;T&gt;<span style="color:#bbb"> </span>T<span style="color:#bbb"> </span><span style="color:#008b45">invokeAny</span>(Collection&lt;?<span style="color:#bbb"> </span><span style="color:#8b008b;font-weight:bold">extends</span><span style="color:#bbb"> </span>Callable&lt;T&gt;&gt;<span style="color:#bbb"> </span>tasks)<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#8b008b;font-weight:bold">throws</span><span style="color:#bbb"> </span>InterruptedException,<span style="color:#bbb"> </span>ExecutionException;<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span>}<span style="color:#bbb">
+</span></span></span></code></pre></div><ul>
+<li>本质上是一个为异步任务执行提供机制的<code>接口</code>，从接口定义的动作来看，就是为了执行任务，并且返回任务计算的结果的。</li>
+</ul>
+<h1 id="threadpoolexecutor">ThreadPoolExecutor</h1>
+<ul>
+<li>是一个<code>线程池</code>的实现框架，它通过几个重要的参数来定义池中的信息，用以控制线程的信息</li>
+<li>类名的意思应该是，最顶层接口是一个Executor，它用来执行一个任务，然后这个类代表的是用一个线程池来执行很多的任务</li>
+</ul>
+<h2 id="参数">参数</h2>
+<div class="highlight"><pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#8b008b;font-weight:bold">public</span><span style="color:#bbb"> </span><span style="color:#008b45">ThreadPoolExecutor</span>(<span style="color:#00688b;font-weight:bold">int</span><span style="color:#bbb"> </span>corePoolSize,<span style="color:#bbb"> </span><span style="color:#00688b;font-weight:bold">int</span><span style="color:#bbb"> </span>maximumPoolSize,<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">                          </span><span style="color:#00688b;font-weight:bold">long</span><span style="color:#bbb"> </span>keepAliveTime,<span style="color:#bbb"> </span>TimeUnit<span style="color:#bbb"> </span>unit,<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">                          </span>BlockingQueue&lt;Runnable&gt;<span style="color:#bbb"> </span>workQueue,<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">                          </span>ThreadFactory<span style="color:#bbb"> </span>threadFactory,<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">                          </span>RejectedExecutionHandler<span style="color:#bbb"> </span>handler)<span style="color:#bbb"> </span>{<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#8b008b;font-weight:bold">if</span><span style="color:#bbb"> </span>(corePoolSize<span style="color:#bbb"> </span>&lt;<span style="color:#bbb"> </span>0<span style="color:#bbb"> </span>||<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>maximumPoolSize<span style="color:#bbb"> </span>&lt;=<span style="color:#bbb"> </span>0<span style="color:#bbb"> </span>||<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>maximumPoolSize<span style="color:#bbb"> </span>&lt;<span style="color:#bbb"> </span>corePoolSize<span style="color:#bbb"> </span>||<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>keepAliveTime<span style="color:#bbb"> </span>&lt;<span style="color:#bbb"> </span>0)<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#8b008b;font-weight:bold">throw</span><span style="color:#bbb"> </span><span style="color:#8b008b;font-weight:bold">new</span><span style="color:#bbb"> </span>IllegalArgumentException();<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#8b008b;font-weight:bold">if</span><span style="color:#bbb"> </span>(workQueue<span style="color:#bbb"> </span>==<span style="color:#bbb"> </span><span style="color:#8b008b;font-weight:bold">null</span><span style="color:#bbb"> </span>||<span style="color:#bbb"> </span>threadFactory<span style="color:#bbb"> </span>==<span style="color:#bbb"> </span><span style="color:#8b008b;font-weight:bold">null</span><span style="color:#bbb"> </span>||<span style="color:#bbb"> </span>handler<span style="color:#bbb"> </span>==<span style="color:#bbb"> </span><span style="color:#8b008b;font-weight:bold">null</span>)<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#8b008b;font-weight:bold">throw</span><span style="color:#bbb"> </span><span style="color:#8b008b;font-weight:bold">new</span><span style="color:#bbb"> </span>NullPointerException();<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#8b008b;font-weight:bold">this</span>.<span style="color:#658b00">acc</span><span style="color:#bbb"> </span>=<span style="color:#bbb"> </span>System.<span style="color:#658b00">getSecurityManager</span>()<span style="color:#bbb"> </span>==<span style="color:#bbb"> </span><span style="color:#8b008b;font-weight:bold">null</span><span style="color:#bbb"> </span>?<span style="color:#bbb"> </span><span style="color:#8b008b;font-weight:bold">null</span><span style="color:#bbb"> </span>:AccessController.<span style="color:#658b00">getContext</span>();<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span>}<span style="color:#bbb">
+</span></span></span></code></pre></div><ul>
+<li>corePoolSize – 线程池的核心线程数量</li>
+<li>maximumPoolSize – 线程池的最大线程数量</li>
+<li>keepAliveTime –当线程数大于核心线程数时，空闲线程的等待任务的时间，时间一过，终止线程</li>
+<li>unit – 时间单位</li>
+<li>workQueue – 保存未执行的任务。仅仅保存由execute方法执行的Runnable任务</li>
+<li>threadFactory – 创建新线程的工厂</li>
+<li>handler – 拒绝执行策略，当提交的任务过多而不能及时处理时，我们可以定制策略来处理任务</li>
+</ul>
+<h2 id="线程数量的控制"><strong>线程数量的控制</strong></h2>
+<ul>
+<li>新任务来时，判断<code>当前运行的线程数量</code>
+<ul>
+<li>小于corePoolSize，则创建新线程</li>
+<li>[corePoolSize，maximumPoolSize)，判断任务队列
+<ul>
+<li>任务队列没满，继续等待</li>
+<li>任务队列满，创建新线程</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>当然也可以使用方法，在接收任务之前，预先创建核心线程</li>
+</ul>
+<h2 id="拒绝策略"><strong>拒绝策略</strong></h2>
+<ul>
+<li>当任务队列满，且线程数量达到最大，新的任务将被拒绝</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#8b008b;font-weight:bold">public</span><span style="color:#bbb"> </span><span style="color:#8b008b;font-weight:bold">interface</span> <span style="color:#008b45;font-weight:bold">RejectedExecutionHandler</span><span style="color:#bbb"> </span>{<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#00688b;font-weight:bold">void</span><span style="color:#bbb"> </span><span style="color:#008b45">rejectedExecution</span>(Runnable<span style="color:#bbb"> </span>r,<span style="color:#bbb"> </span>ThreadPoolExecutor<span style="color:#bbb"> </span>executor);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span>}<span style="color:#bbb">
+</span></span></span></code></pre></div><p>在该类中定义了四个静态内部类，用于拒绝策略</p>
+                                
+                            </div>
+                            <div class="post-item-meta">
+    2024-05-24
+    &emsp;
+    
+    
+    
+    &emsp;
+    
+</div>
+
+                        </div>
+                        
+                        
+                    </div>
+                </div>
+        
+            <a href="/java/basic/collection/collection/" class="a-block">
+                <div class="post-item-wrapper">
+                    <div class="post-item post-item-no-divider">
+                        <div class="post-item-info-wrapper">
+                            <div class="post-item-title">
+                                集合
+                            </div>
+                            <div class="post-item-summary">
+                                
+                                    <ul>
+<li>集合是存放对象的容器，用来存放<code>对象的引用</code></li>
+</ul>
+<p>线程安全的集合类</p>
+<ul>
+<li>Vector：老版本的，加了一个synchronized</li>
+<li>HashTable：老版本的 ，加了一个synchronized</li>
+<li>ConcurrentHashMap：并发HashMap，以前是锁住一个段，现在是锁住一个桶</li>
+</ul>
+<p><img src="collection.png" alt=""></p>
+<h2 id="set">Set</h2>
+<ul>
+<li>在java的大部分实现类，都是采用了Map，value都是一个final Object对象，key算是自己添加的值，也就是集合的值</li>
+</ul>
+<h3 id="hashset">HashSet</h3>
+<ul>
+<li>集，存储的元素不相等的</li>
+<li><code>无序</code>，添加元素的顺序和存储的顺序是不一样的，
+<ul>
+<li>也可以保证有序，如LinkedHashSet，构建时传入一个dummy（true）作为第三个参数，会创建一个（LinkedHashMap）</li>
+</ul>
+</li>
+<li>底层直接使用HashMap存储，value是一个固定的对象，key的hash判断不相等是不添加的，相等时也就是默认的替换老值。</li>
+<li>扩容机制都是采用<code>HashMap</code>的</li>
+</ul>
+<p>是如何保证不重复的？</p>
+<ul>
+<li>是直接利用了HashMap的putVal方法</li>
+<li>如果两个key相同，这直接替换掉了</li>
+</ul>
+<h4 id="linkedhashset">LinkedHashSet</h4>
+<ul>
+<li>有序的集，直接继承HashSet</li>
+<li>创建时dummy设为true，后续使用包级别的构造方法创建LinkedHashMap</li>
+</ul>
+<h4 id="treeset">TreeSet</h4>
+<ul>
+<li>底层使用了TreeMap</li>
+<li>采用红黑树，保证了元素的有序</li>
+</ul>
+<h2 id="list">List</h2>
+<ul>
+<li>是一个列表</li>
+<li>就是数据结构的线性结构</li>
+</ul>
+<h4 id="arraylist">ArrayList</h4>
+<ul>
+<li>存储数据还是 Object[]数组，返回元素时，是进行泛型类型的转换，也就是Object-&gt;变为 E</li>
+<li>支持基于下标的快速访问</li>
+<li>插入O(1)，删除O(N)</li>
+</ul>
+<p>容量机制</p>
+<ul>
+<li>默认为 10个元素</li>
+<li>扩容数组长度：1.5倍，new=old*1.5</li>
+<li>size：数组实际元素的个数，也就是实际存在的元素</li>
+</ul>
+<h4 id="array">Array</h4>
+<ul>
+<li>是java用来存储相同类型元素，必须在使用前指定大小，通过索引机制访问元素</li>
+<li>所以不可以扩缩容</li>
+<li>是一种引用数据类型</li>
+<li>如下，names、ages变量，它们是一种引用数据变量，当使用new关键字时，会在堆中创建连续的内存空间（每一个内存空间的大小，在类加载阶段就能确定），在虚拟机栈中会存储引用数据变量的具体指向地址</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>String[]<span style="color:#bbb"> </span>names=<span style="color:#8b008b;font-weight:bold">new</span><span style="color:#bbb"> </span>String[10];<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#00688b;font-weight:bold">int</span>[]<span style="color:#bbb"> </span>ages=<span style="color:#8b008b;font-weight:bold">new</span><span style="color:#bbb"> </span><span style="color:#00688b;font-weight:bold">int</span>[10];<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span>User[]<span style="color:#bbb"> </span>users=<span style="color:#8b008b;font-weight:bold">new</span><span style="color:#bbb"> </span>User[10];<span style="color:#bbb">
+</span></span></span></code></pre></div><h4 id="linkedlist">LinkedList</h4>
+<ul>
+<li>底层是 Node节点，使用链表的形式存储元素</li>
+<li>默认是插入尾部</li>
+</ul>
+<p>区别</p>
+<ul>
+<li>线程都不安全</li>
+<li>ArrayList查询速度快</li>
+<li>LinkedList插入，删除速度快</li>
+</ul>
+<h2 id="queue">Queue</h2>
+<ul>
+<li>先进先出的特性</li>
+<li>判断队满：head=(tail+1)%size</li>
+<li>判断队空：head=tail</li>
+</ul>
+<h2 id="hashmap">HashMap</h2>
+<ul>
+<li>size：是key-value的个数</li>
+<li>length：是Node数组的长度</li>
+<li>初始容量：16</li>
+<li>最大容量：2的30次方</li>
+<li>默认加载因子：0.75 ，泊松分布确定</li>
+<li>阈值：是扩容的时候，是size&gt;threshold 。每次扩容新的threshold=新的容量newcap*loadFactor；但是指定长度时，阈值为大于容量的最小2的次幂的值，</li>
+</ul>
+<h3 id="添加元素的流程">添加元素的流程</h3>
+<ol>
+<li>指定加载因子和阈值</li>
+<li>默认Node数组长度为16</li>
+<li>向map加入值时，先检查当前Node数组是否为空或者长度为0；</li>
+<li>如果为空或者长度为0， 则进行Node数组的扩充</li>
+<li>否则，进行<code>hash求余</code>，<code>判断位置</code>所在的Node元素是否为空，
+<ol>
+<li>如果为空，直接创建，填入。</li>
+</ol>
+</li>
+<li>否则，<code>解决hash冲突</code>，然后向<code>链表</code>/<code>红黑树</code>添加元素。</li>
+<li>先判断是否是红黑树，如果是，则向红黑树添加元素。</li>
+<li>如果是链表，则在尾部添加元素，如果链表长度大于等于 8,则需要转化红黑树。</li>
+</ol>
+<h3 id="数组的长度扩充">数组的长度扩充</h3>
+<ul>
+<li>如果Node数组为空、长度为0或者Map键值对的数量大于阈值，会进行扩容</li>
+<li>Node数组的长度以2的倍数进行扩充</li>
+<li>new=old&laquo;1</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">   </span><span style="color:#8b008b;font-weight:bold">final</span><span style="color:#bbb"> </span>Node&lt;K,V&gt;[]<span style="color:#bbb"> </span><span style="color:#008b45">resize</span>()<span style="color:#bbb"> </span>{<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>Node&lt;K,V&gt;[]<span style="color:#bbb"> </span>oldTab<span style="color:#bbb"> </span>=<span style="color:#bbb"> </span>table;<span style="color:#228b22">//老的Node数组</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#00688b;font-weight:bold">int</span><span style="color:#bbb"> </span>oldCap<span style="color:#bbb"> </span>=<span style="color:#bbb"> </span>(oldTab<span style="color:#bbb"> </span>==<span style="color:#bbb"> </span><span style="color:#8b008b;font-weight:bold">null</span>)<span style="color:#bbb"> </span>?<span style="color:#bbb"> </span>0<span style="color:#bbb"> </span>:<span style="color:#bbb"> </span>oldTab.<span style="color:#658b00">length</span>;<span style="color:#228b22">//数组长度</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#00688b;font-weight:bold">int</span><span style="color:#bbb"> </span>oldThr<span style="color:#bbb"> </span>=<span style="color:#bbb"> </span>threshold;<span style="color:#228b22">//老的阈值，阈值也是两倍扩容</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#00688b;font-weight:bold">int</span><span style="color:#bbb"> </span>newCap,<span style="color:#bbb"> </span>newThr<span style="color:#bbb"> </span>=<span style="color:#bbb"> </span>0;<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#8b008b;font-weight:bold">if</span><span style="color:#bbb"> </span>(oldCap<span style="color:#bbb"> </span>&gt;<span style="color:#bbb"> </span>0)<span style="color:#bbb"> </span>{<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span><span style="color:#8b008b;font-weight:bold">if</span><span style="color:#bbb"> </span>(oldCap<span style="color:#bbb"> </span>&gt;=<span style="color:#bbb"> </span>MAXIMUM_CAPACITY)<span style="color:#bbb"> </span>{<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span><span style="color:#228b22">//这一步是容量最大了，不能扩容了</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">                </span>threshold<span style="color:#bbb"> </span>=<span style="color:#bbb"> </span>Integer.<span style="color:#658b00">MAX_VALUE</span>;<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">                </span><span style="color:#8b008b;font-weight:bold">return</span><span style="color:#bbb"> </span>oldTab;<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span>}<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span><span style="color:#8b008b;font-weight:bold">else</span><span style="color:#bbb"> </span><span style="color:#8b008b;font-weight:bold">if</span><span style="color:#bbb"> </span>(<span style="color:#bbb"> </span>(newCap<span style="color:#bbb"> </span>=<span style="color:#bbb"> </span>oldCap<span style="color:#bbb"> </span>&lt;&lt;<span style="color:#bbb"> </span>1)<span style="color:#bbb"> </span>&lt;<span style="color:#bbb"> </span>MAXIMUM_CAPACITY<span style="color:#bbb"> </span>&amp;&amp;<span style="color:#bbb"> </span>oldCap<span style="color:#bbb"> </span>&gt;=<span style="color:#bbb"> </span>DEFAULT_INITIAL_CAPACITY<span style="color:#bbb"> </span>)<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">                </span>newThr<span style="color:#bbb"> </span>=<span style="color:#bbb"> </span>oldThr<span style="color:#bbb"> </span>&lt;&lt;<span style="color:#bbb"> </span>1;<span style="color:#bbb"> </span><span style="color:#228b22">// 双倍阈值</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>}<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#228b22">//这一段都是初始化工作，这就是默认容量为16,阈值为16*0.75的原因</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span><span style="color:#8b008b;font-weight:bold">else</span><span style="color:#bbb"> </span><span style="color:#8b008b;font-weight:bold">if</span><span style="color:#bbb"> </span>(oldThr<span style="color:#bbb"> </span>&gt;<span style="color:#bbb"> </span>0)<span style="color:#bbb"> </span><span style="color:#228b22">// initial capacity was placed in threshold</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">                </span>newCap<span style="color:#bbb"> </span>=<span style="color:#bbb"> </span>oldThr;<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span><span style="color:#8b008b;font-weight:bold">else</span><span style="color:#bbb"> </span>{<span style="color:#bbb">               </span><span style="color:#228b22">// zero initial threshold signifies using defaults</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">                </span>newCap<span style="color:#bbb"> </span>=<span style="color:#bbb"> </span>DEFAULT_INITIAL_CAPACITY;<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">                </span>newThr<span style="color:#bbb"> </span>=<span style="color:#bbb"> </span>(<span style="color:#00688b;font-weight:bold">int</span>)(DEFAULT_LOAD_FACTOR<span style="color:#bbb"> </span>*<span style="color:#bbb"> </span>DEFAULT_INITIAL_CAPACITY);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span>}<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>threshold<span style="color:#bbb"> </span>=<span style="color:#bbb"> </span>newThr;<span style="color:#228b22">//属性重新赋值</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>Node&lt;K,V&gt;[]<span style="color:#bbb"> </span>newTab<span style="color:#bbb"> </span>=<span style="color:#bbb"> </span>(Node&lt;K,V&gt;[])<span style="color:#8b008b;font-weight:bold">new</span><span style="color:#bbb"> </span>Node[newCap];<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#228b22">//处理值</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>table<span style="color:#bbb"> </span>=<span style="color:#bbb"> </span>newTab;<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#8b008b;font-weight:bold">if</span><span style="color:#bbb"> </span>(oldTab<span style="color:#bbb"> </span>!=<span style="color:#bbb"> </span><span style="color:#8b008b;font-weight:bold">null</span>)<span style="color:#bbb"> </span>{<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span><span style="color:#228b22">//这一段就是深度遍历Node[]数组，重新赋值</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span><span style="color:#228b22">//如果没有冲突，重新利用key的hash和(新长度-1)异或运算即可</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span><span style="color:#228b22">//有冲突，检查链表还是红黑树，之后重新赋值即可</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>}<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#8b008b;font-weight:bold">return</span><span style="color:#bbb"> </span>newTab;<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>}<span style="color:#bbb">
+</span></span></span></code></pre></div><h3 id="确定hash值">确定hash值</h3>
+<ol>
+<li>HashMap的hash方法是Object的hashCode()，和hashCode的16位后缀进行异或运算。</li>
+<li>key可以为null，hash值为0</li>
+<li>key在Node数组的位置：i=(n-1)&amp;hash</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#228b22">//这个是HashMap中求hash的值</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#8b008b;font-weight:bold">static</span><span style="color:#bbb"> </span><span style="color:#8b008b;font-weight:bold">final</span><span style="color:#bbb"> </span><span style="color:#00688b;font-weight:bold">int</span><span style="color:#bbb"> </span><span style="color:#008b45">hash</span>(Object<span style="color:#bbb"> </span>key)<span style="color:#bbb"> </span>{<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#00688b;font-weight:bold">int</span><span style="color:#bbb"> </span>h;<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#8b008b;font-weight:bold">return</span><span style="color:#bbb"> </span>(key<span style="color:#bbb"> </span>==<span style="color:#bbb"> </span><span style="color:#8b008b;font-weight:bold">null</span>)<span style="color:#bbb"> </span>?<span style="color:#bbb"> </span>0<span style="color:#bbb"> </span>:<span style="color:#bbb"> </span>(h<span style="color:#bbb"> </span>=<span style="color:#bbb"> </span>key.<span style="color:#658b00">hashCode</span>())<span style="color:#bbb"> </span>^<span style="color:#bbb"> </span>(h<span style="color:#bbb"> </span>&gt;&gt;&gt;<span style="color:#bbb"> </span>16);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>}<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#228b22">//这个就是putVal方法中，计算索引下标</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#00688b;font-weight:bold">int</span><span style="color:#bbb"> </span>i=(n<span style="color:#bbb"> </span>-<span style="color:#bbb"> </span>1)<span style="color:#bbb"> </span>&amp;<span style="color:#bbb"> </span>hash;<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span>Node&lt;K,V&gt;<span style="color:#bbb"> </span>p<span style="color:#bbb"> </span>=<span style="color:#bbb"> </span>tab[i];<span style="color:#bbb">
+</span></span></span></code></pre></div><h3 id="转化红黑树">转化红黑树：</h3>
+<ol>
+<li>先判断当前Node结点所尾随的链表长度是否&gt;=8，如果大于则进行转换操作的判断</li>
+<li>转化：首先判断Node结点数组的长度是否小于64 。
+a. 如果小于64 ，则先进行数组扩容</li>
+<li>只有链表长度&gt;=8 ，Node数组长度&gt;=64，才会转化红黑树</li>
+</ol>
+<h3 id="线程不安全">线程不安全</h3>
+<ol>
+<li>插入时：假定A,B两个线程处理的key出现冲突，并且计算的index一样；此时，A线程时间片使用完毕，B线程进行处理，插入数据，但是A线程活动时，会替换掉B线程处理的数据。</li>
+<li>size：检查size和增加size ，这两个操作不是原子的；最终会导致size只增加1个。</li>
+</ol>
+<h2 id="linkedhashmap">LinkedHashMap</h2>
+<h3 id="概念">概念</h3>
+<ul>
+<li>继承了HashMap</li>
+<li>采用双向链表，保证插入顺序和输出`顺序的一致性</li>
+<li>图片</li>
+</ul>
+<p><img src="linkedhashmap.png" alt="linkedhashmap.png"></p>
+                                
+                            </div>
+                            <div class="post-item-meta">
+    2024-05-24
+    &emsp;
+    
+    
+    
+    &emsp;
+    
+</div>
+
+                        </div>
+                        
+                        
+                    </div>
+                </div>
+        
+            <a href="/posts/vim/" class="a-block">
+                <div class="post-item-wrapper">
+                    <div class="post-item post-item-no-divider">
+                        <div class="post-item-info-wrapper">
+                            <div class="post-item-title">
+                                Vim
+                            </div>
+                            <div class="post-item-summary">
+                                
+                                    <h1 id="伟人">伟人</h1>
+<p>Bram Moolenaar （1961—2023.8.3），编辑器之神Vim之父</p>
+<p>1961年——出生在荷兰莱斯镇 <!-- raw HTML omitted -->
+1985年——代尔夫特理工大学毕业，获得电气工程学士学位<!-- raw HTML omitted -->
+1988年——开发Vim<!-- raw HTML omitted -->
+<img src="BramMoolenaar.png" alt="BramMoolenaar.png"></p>
+<h1 id="简介">简介</h1>
+<ol>
+<li>Vim开源、免费的文本编辑器</li>
+<li>Vim初始是根据Vi来编写的</li>
+<li>初始版本为“Vi IMitation”，1992年，在版本1.22中改名为“Vi IMproved”</li>
+</ol>
+<p>优点</p>
+<ul>
+<li>persistent, multi-level undo tree 持久的、多层次的undo树</li>
+<li>extensive plugin system 广泛的插件系统</li>
+<li>support for hundreds of programming languages and file formats 支持数百种编程语言和文件格式</li>
+<li>powerful search and replace 强大的搜索和替换能力</li>
+<li>integrates with many tools 集成了许多工具</li>
+</ul>
+<p>Vim官方网站<a href="https://www.vim.org/">vim.org</a></p>
+<h1 id="善举">善举</h1>
+<p>ICCF（International Child Care Fund）国际儿童保育基金，是一个慈善组织。Bram Moolenaar还通过Vim项目鼓励开发者对乌干达的艾滋孤儿捐赠。将网站的收入和赞助全部捐赠给这个组织，帮助乌干达的孤儿。</p>
+<h1 id="结构">结构</h1>
+<h2 id="命令模式">命令模式</h2>
+<ul>
+<li>进入vim时，就是命令模式</li>
+<li>可以移动光标</li>
+<li>可以删除、复制、粘贴文本</li>
+<li>可以撤销、反撤销</li>
+</ul>
+<h2 id="输入模式">输入模式</h2>
+<ul>
+<li>在<code>命令模式</code>下按 <code>i</code>或者<code>a</code>或者<code>o</code>即可进入该模式</li>
+<li>在该模式中就可以输入文本了</li>
+<li>按<code>Esc</code>就可以回到命令模式</li>
+</ul>
+<h2 id="命令行模式">命令行模式</h2>
+<ul>
+<li>在<code>命令模式</code>下按 <code>:</code>即可进入该模式</li>
+<li>在模式中，有大量的命令可以输入</li>
+<li>比如常用的保存<code>w</code>、退出<code>q</code></li>
+</ul>
+<h1 id="操作">操作</h1>
+<ul>
+<li>全文复制
+思路 第一行为gg,最后一行为G,复制为yy，结合起来，在可视令模式下输入 ggyG</li>
+</ul>
+<p><img src="vim.png" alt="vim快捷键"></p>
+                                
+                            </div>
+                            <div class="post-item-meta">
+    2024-05-14
+    &emsp;
+    
+    
+    
+    &emsp;
+    
+</div>
+
+                        </div>
+                        
+                        
+                    </div>
+                </div>
+        
+        </a>
+    </div>
+
+
+                    </div>
+            </div><div id="sideContainer" class="side-container">
+    
+    <a class="a-block nav-head active" href="http://example.org/">
+    
+        <div class="nav-title">
+            小宋小宋?
+        </div>
+        
+        <div class="nav-subtitle">
+            在呢！
+        </div>
+        
+    </a>
+
+    <div class="nav-link-list">
+        
+        
+            
+            
+            
+            
+            
+            <a class="a-block nav-link-item false" href="/posts">
+                文章
+            </a>
+            
+        
+            
+            
+            
+            
+            
+            <a class="a-block nav-link-item false" href="/categories">
+                分类
+            </a>
+            
+        
+            
+            
+            
+            
+            
+            <a class="a-block nav-link-item false" href="/tags">
+                快速查找
+            </a>
+            
+        
+            
+            
+            
+            
+            
+            <a class="a-block nav-link-item false" href="/database">
+                MySQL
+            </a>
+            
+        
+            
+            
+            
+            
+            
+            <a class="a-block nav-link-item false" href="/spring">
+                Spring
+            </a>
+            
+        
+    </div>
+
+    
+
+    <div class="nav-footer">
+        
+Hugo Theme <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> by <a href="https://risehere.net/">Rise</a>
+<br>
+Ported from <a href="https://mak1t0.cc/" target="_blank" rel="noreferrer noopener">Makito</a>'s <a href="https://github.com/SumiMakito/hexo-theme-journal/" target="_blank" rel="noreferrer noopener">Journal.</a> <br>
+<br>
+
+&copy;
+	
+	This is a customized copyright.
+	
+
+    </div>
+    
+</div><div id="extraContainer" class="extra-container">
+    <div class="toc-wrapper">
+        
+
+        
+    </div>
+    <div class="pagination">
+        <a id="globalBackToTop" class="pagination-action animated-visibility" href="#top"
+            :class="{ invisible: scrollY == 0 }">
+            <i class="material-icons pagination-action-icon">
+                keyboard_arrow_up
+            </i>
+        </a>
+        
+        <a type="button" class="pagination-action" id="darkModeToggleButton">
+            <span class="material-icons pagination-action-icon" id="darkModeToggleIcon">
+                dark_mode
+            </span>
+        </a>
+        
+        
+        
+
+        <a class="pagination-action"  href="/page/3/">
+            
+            <i class="material-icons pagination-action-icon">
+                chevron_left
+            </i>
+        </a>
+
+        <div class="pagination-indicator">
+            <span style="text-align: center">
+                4<br>
+                <div style="display: inline-block; transform: rotate(-28deg)">-</div><br>4
+            </span>
+        </div>
+
+
+        <a class="pagination-action" 
+            style="visibility:hidden">
+            
+            <i class="material-icons pagination-action-icon">
+                chevron_right
+            </i>
+        </a>
+        
+        
+    </div>
+</div>
+
+
+<div class="pagination">
+    
+    <a class="pagination-action" href="/page/3/" style="opacity:1">
+    
+        <i class="material-icons pagination-action-icon">
+            chevron_left
+        </i>
+    </a>
+
+        <div class="pagination-indicator">
+            <span>4/4</span>
+        </div>
+
+        
+            <a class="pagination-action" style="opacity:0">
+        
+                <i class="material-icons pagination-action-icon">
+                    chevron_right
+                </i>
+            </a>
+</div>
+
+
+
+<div id="single-column-footer">
+Hugo Theme <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> by <a href="https://risehere.net/">Rise</a>
+<br>
+Ported from <a href="https://mak1t0.cc/" target="_blank" rel="noreferrer noopener">Makito</a>'s <a href="https://github.com/SumiMakito/hexo-theme-journal/" target="_blank" rel="noreferrer noopener">Journal.</a> <br>
+<br>
+
+&copy;
+	
+	This is a customized copyright.
+	
+</div>
+            </div>
+    
+    <script src="/js/journal.js"></script></body>
+</html>

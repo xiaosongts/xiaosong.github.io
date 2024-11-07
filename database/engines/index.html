@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html><head>
+<title>存储引擎</title>
+
+
+
+
+<meta charset="utf-8">
+<meta name="X-UA-Compatible" content="IE=edge">
+<meta name="google-site-verification" content="G-XXXXXXXXXX">
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+<meta content="telephone=no" name="format-detection">
+<meta name="description" content="">
+<meta name="renderer" content="webkit">
+<meta name="theme-color" content="#ffffff">
+
+
+
+<meta property="og:url" content="http://example.org/database/engines/">
+  <meta property="og:site_name" content="小宋小宋?">
+  <meta property="og:title" content="存储引擎">
+  <meta property="og:description" content="存储引擎 一些命令：
+show engines; select version(); select variables like ‘%storage_engine%’ 存储引擎是什么？ 数据需要存储，但按照什么方式进行存储，这是多种多样的。这些方式就是各种各样的存储引擎，它可以定义自己的方式，进行存储数据、检索数据、管理数据。MySQL提供了一个存储引擎的抽象概念，市面上有各种各样的存储引擎，innodb、myisam。 存储引擎是作用在表上的，每个表的存储引擎可以不相同。 区别： 索引：InnoDB和MyISAM都支持索引，都采用B&#43;树作为索引的数据结构。但是 InnoDB 索引文件和数据文件在一起的，每个节点都存储。 MyISAM 是分开的，非聚簇索引，节点指向数据文件的位置。 行锁：InnoDB支持行锁，MyISAM支持表锁。粒度不一样。 事务：InnoDB支持事务，提供隔离级别；MyISAM不支持事务。 外键：InnoDB支持外键；MyISAM不支持。但是当更新操作时，外键会触发级联更新，性能会慢，而且可能会出错。 InnoDB是以页为单位存储数据的">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="database">
+    <meta property="article:published_time" content="2024-05-24T15:14:01+08:00">
+    <meta property="article:modified_time" content="2024-05-24T15:14:01+08:00">
+
+
+
+
+
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="存储引擎">
+  <meta name="twitter:description" content="存储引擎 一些命令：
+show engines; select version(); select variables like ‘%storage_engine%’ 存储引擎是什么？ 数据需要存储，但按照什么方式进行存储，这是多种多样的。这些方式就是各种各样的存储引擎，它可以定义自己的方式，进行存储数据、检索数据、管理数据。MySQL提供了一个存储引擎的抽象概念，市面上有各种各样的存储引擎，innodb、myisam。 存储引擎是作用在表上的，每个表的存储引擎可以不相同。 区别： 索引：InnoDB和MyISAM都支持索引，都采用B&#43;树作为索引的数据结构。但是 InnoDB 索引文件和数据文件在一起的，每个节点都存储。 MyISAM 是分开的，非聚簇索引，节点指向数据文件的位置。 行锁：InnoDB支持行锁，MyISAM支持表锁。粒度不一样。 事务：InnoDB支持事务，提供隔离级别；MyISAM不支持事务。 外键：InnoDB支持外键；MyISAM不支持。但是当更新操作时，外键会触发级联更新，性能会慢，而且可能会出错。 InnoDB是以页为单位存储数据的">
+
+
+
+
+
+
+
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+      <script>
+        var doNotTrack = false;
+        if ( false ) {
+          var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+          var doNotTrack = (dnt == "1" || dnt == "yes");
+        }
+        if (!doNotTrack) {
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-XXXXXXXXXX');
+        }
+      </script>
+
+
+
+
+<script type="text/javascript">
+  (function(c,l,a,r,i,t,y){
+      c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+      t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+      y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+  })(window, document, "clarity", "script", "abcdefghzd");
+</script>
+
+
+
+  
+
+
+
+
+
+
+      <script src="/js/toc.js"></script>
+    
+    <link type="text/css" rel="stylesheet" href="/vendor/css/bootstrap.min.css">
+
+<link rel="stylesheet" href="/scss/dark-mode.min.cb53f1bee2b8900cb4f082afbf00175d6618f281cf9a2fe8619e3b52d20b5721.css" integrity="sha256-y1PxvuK4kAy08IKvvwAXXWYY8oHPmi/oYZ47UtILVyE=" media="screen">
+
+
+<link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Material+Icons">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+<body>
+    	<div id="app"><div class="single-column-drawer-container" id="drawer"
+     v-bind:class="{ 'single-column-drawer-container-active': isDrawerOpen }">
+    <div class="drawer-content">
+        <div class="drawer-menu">
+            
+            
+            
+                
+                
+                
+                
+                
+                <a class="a-block drawer-menu-item false" href="/posts">
+                    文章
+                </a>
+                
+            
+                
+                
+                
+                
+                
+                <a class="a-block drawer-menu-item false" href="/categories">
+                    分类
+                </a>
+                
+            
+                
+                
+                
+                
+                
+                <a class="a-block drawer-menu-item false" href="/tags">
+                    快速查找
+                </a>
+                
+            
+                
+                
+                
+                    
+                
+                
+                
+                <a class="a-block drawer-menu-item active" href="/database">
+                    MySQL
+                </a>
+                
+            
+                
+                
+                
+                
+                
+                <a class="a-block drawer-menu-item false" href="/spring">
+                    Spring
+                </a>
+                
+            
+            
+            <div class="toc">
+
+
+	<div class="toc-content">
+	
+		
+		
+		
+		<center>- CATALOG -</center>
+		
+		
+		<ul>
+			
+				
+				
+					
+						
+						
+						
+						
+							
+								
+									<ul>
+								
+							
+						
+						
+							<li>
+								<a href="#%e5%ad%98%e5%82%a8%e5%bc%95%e6%93%8e" class="nav-存储引擎">
+									存储引擎
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#%e5%ad%98%e5%82%a8%e5%bc%95%e6%93%8e%e6%98%af%e4%bb%80%e4%b9%88" class="nav-存储引擎是什么">
+									存储引擎是什么？
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#%e5%8c%ba%e5%88%ab" class="nav-区别">
+									区别：
+								</a>
+							</li>
+						
+						
+					
+				
+			
+		</ul>
+	</div>
+
+</div>
+            
+        </div>
+    </div>
+</div>
+<transition name="fade">
+    <div id="drawer-mask" v-bind:class="{ 'single-column-drawer-mask': mounted }" v-if="isDrawerOpen" v-on:click="toggleDrawer"></div>
+</transition>
+<nav id="navBar" class="navbar sticky-top navbar-light single-column-nav-container">
+    <div id="navBackground" class="nav-background"></div>
+    <div class="container container-narrow nav-content">
+        <button id="nav_dropdown_btn" class="nav-dropdown-toggle" type="button" v-on:click="toggleDrawer">
+            <i class="material-icons">
+                menu
+            </i>
+        </button>
+        <a id="navTitle" class="navbar-brand" href="http://example.org/">
+            小宋小宋?
+        </a>
+        
+        <button type="button" class="nav-darkmode-toggle" id="darkModeToggleButton2">
+            <i class="material-icons" id="darkModeToggleIcon2">
+                dark_mode
+            </i>
+        </button>
+        
+    </div>
+</nav>
+<div class="single-column-header-container" id="pageHead"
+     v-bind:style="{ transform: 'translateZ(0px) translateY('+.3*scrollY+'px)', opacity: 1-navOpacity }">
+    <a href="http://example.org/">
+        <div class="single-column-header-title">小宋小宋?</div>
+        
+        <div class="single-column-header-subtitle">在呢！</div>
+        
+
+    </a>
+</div>
+
+            <div id="content">
+                <div id="streamContainer" class="stream-container">
+
+    <div class="post-list-container post-list-container-shadow">
+        <div class="post">
+            
+            
+            
+
+            <div class="post-head-wrapper-text-only"
+                
+            >
+                <div class="post-title">
+                    存储引擎
+                    
+                    <div class="post-meta">
+                        
+                        <time itemprop="datePublished">
+                            2024-05-24 15:14
+                        </time>
+                        
+
+                        
+
+                        
+                        
+                    </div>
+                </div>
+            </div>
+            
+            <div class="post-body-wrapper">
+                
+                <div class="post-body" v-pre>
+                
+                    <h2 id="存储引擎">存储引擎</h2>
+<p>一些命令：</p>
+<ul>
+<li>show engines;</li>
+<li>select version();</li>
+<li>select variables like &lsquo;%storage_engine%&rsquo;</li>
+</ul>
+<h2 id="存储引擎是什么">存储引擎是什么？</h2>
+<ul>
+<li>数据需要存储，但按照什么方式进行存储，这是多种多样的。这些方式就是各种各样的存储引擎，它可以定义自己的方式，进行存储数据、检索数据、管理数据。MySQL提供了一个存储引擎的抽象概念，市面上有各种各样的存储引擎，innodb、myisam。</li>
+<li>存储引擎是作用在表上的，每个表的存储引擎可以不相同。</li>
+</ul>
+<h2 id="区别">区别：</h2>
+<ul>
+<li>索引：InnoDB和MyISAM都支持索引，都采用B+树作为索引的数据结构。但是
+<ul>
+<li>InnoDB 索引文件和数据文件在一起的，每个节点都存储。</li>
+<li>MyISAM 是分开的，非聚簇索引，节点指向数据文件的位置。</li>
+</ul>
+</li>
+<li>行锁：InnoDB支持行锁，MyISAM支持表锁。粒度不一样。</li>
+<li>事务：InnoDB支持事务，提供隔离级别；MyISAM不支持事务。</li>
+<li>外键：InnoDB支持外键；MyISAM不支持。但是当更新操作时，外键会触发级联更新，性能会慢，而且可能会出错。</li>
+<li>InnoDB是以页为单位存储数据的</li>
+</ul>
+
+                    
+                    <HR width="100%" id="EOF">
+		    <p style="color:#777;">Last modified on 2024-05-24</p>
+                    
+                </div>
+            </div>
+            
+            
+            <nav class="post-pagination">
+
+                
+                <a class="newer-posts" href="/java/jvm/class/class/">
+			Next<br>Class文件
+                </a>
+                
+                
+                
+                <a class="older-posts" href="/spring/springmvc/">
+			Previous<br>mvc流程
+                </a>
+                
+            </nav>
+            <div class="post-comment-wrapper">
+                
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="https://giscus.app/client.js"
+        data-repo="username/repo"
+        data-repo-id="**************************"
+        data-category="General"
+        data-category-id="*********************"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="en"
+        crossorigin="anonymous"
+        async>
+</script>
+
+            </div>
+        </div>
+    </div>
+
+
+                    </div>
+            </div><div id="sideContainer" class="side-container">
+    
+    <a class="a-block nav-head false" href="http://example.org/">
+    
+        <div class="nav-title">
+            小宋小宋?
+        </div>
+        
+        <div class="nav-subtitle">
+            在呢！
+        </div>
+        
+    </a>
+
+    <div class="nav-link-list">
+        
+        
+            
+            
+            
+            
+            
+            <a class="a-block nav-link-item false" href="/posts">
+                文章
+            </a>
+            
+        
+            
+            
+            
+            
+            
+            <a class="a-block nav-link-item false" href="/categories">
+                分类
+            </a>
+            
+        
+            
+            
+            
+            
+            
+            <a class="a-block nav-link-item false" href="/tags">
+                快速查找
+            </a>
+            
+        
+            
+            
+            
+                
+            
+            
+            
+            <a class="a-block nav-link-item active" href="/database">
+                MySQL
+            </a>
+            
+        
+            
+            
+            
+            
+            
+            <a class="a-block nav-link-item false" href="/spring">
+                Spring
+            </a>
+            
+        
+    </div>
+
+    
+
+    <div class="nav-footer">
+        
+Hugo Theme <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> by <a href="https://risehere.net/">Rise</a>
+<br>
+Ported from <a href="https://mak1t0.cc/" target="_blank" rel="noreferrer noopener">Makito</a>'s <a href="https://github.com/SumiMakito/hexo-theme-journal/" target="_blank" rel="noreferrer noopener">Journal.</a> <br>
+<br>
+
+&copy;
+	
+	This is a customized copyright.
+	
+
+    </div>
+    
+</div><div id="extraContainer" class="extra-container">
+    <div class="toc-wrapper">
+        
+
+        
+        <div class="toc">
+
+
+	<div class="toc-content">
+	
+		
+		
+		
+		<center>- CATALOG -</center>
+		
+		
+		<ul>
+			
+				
+				
+					
+						
+						
+						
+						
+							
+								
+									<ul>
+								
+							
+						
+						
+							<li>
+								<a href="#%e5%ad%98%e5%82%a8%e5%bc%95%e6%93%8e" class="nav-存储引擎">
+									存储引擎
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#%e5%ad%98%e5%82%a8%e5%bc%95%e6%93%8e%e6%98%af%e4%bb%80%e4%b9%88" class="nav-存储引擎是什么">
+									存储引擎是什么？
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#%e5%8c%ba%e5%88%ab" class="nav-区别">
+									区别：
+								</a>
+							</li>
+						
+						
+					
+				
+			
+		</ul>
+	</div>
+
+</div>
+        
+    </div>
+    <div class="pagination">
+        <a id="globalBackToTop" class="pagination-action animated-visibility" href="#top"
+            :class="{ invisible: scrollY == 0 }">
+            <i class="material-icons pagination-action-icon">
+                keyboard_arrow_up
+            </i>
+        </a>
+        
+        <a type="button" class="pagination-action" id="darkModeToggleButton">
+            <span class="material-icons pagination-action-icon" id="darkModeToggleIcon">
+                dark_mode
+            </span>
+        </a>
+        
+        
+    </div>
+</div>
+
+<div id="single-column-footer">
+Hugo Theme <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> by <a href="https://risehere.net/">Rise</a>
+<br>
+Ported from <a href="https://mak1t0.cc/" target="_blank" rel="noreferrer noopener">Makito</a>'s <a href="https://github.com/SumiMakito/hexo-theme-journal/" target="_blank" rel="noreferrer noopener">Journal.</a> <br>
+<br>
+
+&copy;
+	
+	This is a customized copyright.
+	
+</div>
+            </div>
+    
+    <script src="/js/journal.js"></script></body>
+</html>

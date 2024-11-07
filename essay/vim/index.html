@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+<title>Vim</title>
+
+
+
+
+<meta charset="utf-8">
+<meta name="X-UA-Compatible" content="IE=edge">
+<meta name="google-site-verification" content="G-XXXXXXXXXX">
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+<meta content="telephone=no" name="format-detection">
+<meta name="description" content="">
+<meta name="renderer" content="webkit">
+<meta name="theme-color" content="#ffffff">
+
+
+
+<meta property="og:url" content="http://localhost:1313/essay/vim/">
+  <meta property="og:site_name" content="小宋小宋?">
+  <meta property="og:title" content="Vim">
+  <meta property="og:description" content="伟人 Bram Moolenaar （1961—2023.8.3），编辑器之神Vim之父
+1961年——出生在荷兰莱斯镇 1985年——代尔夫特理工大学毕业，获得电气工程学士学位 1988年——开发Vim 简介 Vim开源、免费的文本编辑器 Vim初始是根据Vi来编写的 初始版本为“Vi IMitation”，1992年，在版本1.22中改名为“Vi IMproved” 优点
+persistent, multi-level undo tree 持久的、多层次的undo树 extensive plugin system 广泛的插件系统 support for hundreds of programming languages and file formats 支持数百种编程语言和文件格式 powerful search and replace 强大的搜索和替换能力 integrates with many tools 集成了许多工具 Vim官方网站vim.org
+善举 ICCF（International Child Care Fund）国际儿童保育基金，是一个慈善组织。Bram Moolenaar还通过Vim项目鼓励开发者对乌干达的艾滋孤儿捐赠。将网站的收入和赞助全部捐赠给这个组织，帮助乌干达的孤儿。
+结构 命令模式 进入vim时，就是命令模式 可以移动光标 可以删除、复制、粘贴文本 可以撤销、反撤销 输入模式 在命令模式下按 i或者a或者o即可进入该模式 在该模式中就可以输入文本了 按Esc就可以回到命令模式 命令行模式 在命令模式下按 :即可进入该模式 在模式中，有大量的命令可以输入 比如常用的保存w、退出q 操作 全文复制 思路 第一行为gg,最后一行为G,复制为yy，结合起来，在可视令模式下输入 ggyG">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="essay">
+    <meta property="article:published_time" content="2024-05-14T00:00:00+00:00">
+    <meta property="article:modified_time" content="2024-05-14T00:00:00+00:00">
+
+
+
+
+
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Vim">
+  <meta name="twitter:description" content="伟人 Bram Moolenaar （1961—2023.8.3），编辑器之神Vim之父
+1961年——出生在荷兰莱斯镇 1985年——代尔夫特理工大学毕业，获得电气工程学士学位 1988年——开发Vim 简介 Vim开源、免费的文本编辑器 Vim初始是根据Vi来编写的 初始版本为“Vi IMitation”，1992年，在版本1.22中改名为“Vi IMproved” 优点
+persistent, multi-level undo tree 持久的、多层次的undo树 extensive plugin system 广泛的插件系统 support for hundreds of programming languages and file formats 支持数百种编程语言和文件格式 powerful search and replace 强大的搜索和替换能力 integrates with many tools 集成了许多工具 Vim官方网站vim.org
+善举 ICCF（International Child Care Fund）国际儿童保育基金，是一个慈善组织。Bram Moolenaar还通过Vim项目鼓励开发者对乌干达的艾滋孤儿捐赠。将网站的收入和赞助全部捐赠给这个组织，帮助乌干达的孤儿。
+结构 命令模式 进入vim时，就是命令模式 可以移动光标 可以删除、复制、粘贴文本 可以撤销、反撤销 输入模式 在命令模式下按 i或者a或者o即可进入该模式 在该模式中就可以输入文本了 按Esc就可以回到命令模式 命令行模式 在命令模式下按 :即可进入该模式 在模式中，有大量的命令可以输入 比如常用的保存w、退出q 操作 全文复制 思路 第一行为gg,最后一行为G,复制为yy，结合起来，在可视令模式下输入 ggyG">
+
+
+
+
+
+
+
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+      <script>
+        var doNotTrack = false;
+        if ( false ) {
+          var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+          var doNotTrack = (dnt == "1" || dnt == "yes");
+        }
+        if (!doNotTrack) {
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-XXXXXXXXXX');
+        }
+      </script>
+
+
+
+
+<script type="text/javascript">
+  (function(c,l,a,r,i,t,y){
+      c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+      t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+      y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+  })(window, document, "clarity", "script", "abcdefghzd");
+</script>
+
+
+
+  
+
+
+
+
+
+
+      <script src="/js/toc.js"></script>
+    
+    <link type="text/css" rel="stylesheet" href="/vendor/css/bootstrap.min.css">
+
+<link rel="stylesheet" href="/scss/dark-mode.min.cb53f1bee2b8900cb4f082afbf00175d6618f281cf9a2fe8619e3b52d20b5721.css" integrity="sha256-y1PxvuK4kAy08IKvvwAXXWYY8oHPmi/oYZ47UtILVyE=" media="screen">
+
+
+<link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Material+Icons">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+<body>
+    	<div id="app"><div class="single-column-drawer-container" id="drawer"
+     v-bind:class="{ 'single-column-drawer-container-active': isDrawerOpen }">
+    <div class="drawer-content">
+        <div class="drawer-menu">
+            
+            
+            
+                
+                
+                
+                
+                
+                <a class="a-block drawer-menu-item false" href="/categories">
+                    分类
+                </a>
+                
+            
+                
+                
+                
+                
+                
+                <a class="a-block drawer-menu-item false" href="/tags">
+                    快速查找
+                </a>
+                
+            
+                
+                
+                
+                    
+                
+                
+                
+                <a class="a-block drawer-menu-item active" href="/essay">
+                    文章
+                </a>
+                
+            
+            
+            <div class="toc">
+
+
+	<div class="toc-content">
+	
+		
+		
+		
+		<center>- CATALOG -</center>
+		
+		
+		<ul>
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#%e4%bc%9f%e4%ba%ba" class="nav-伟人">
+									伟人
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#%e7%ae%80%e4%bb%8b" class="nav-简介">
+									简介
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#%e5%96%84%e4%b8%be" class="nav-善举">
+									善举
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#%e7%bb%93%e6%9e%84" class="nav-结构">
+									结构
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+							
+								
+									<ul>
+								
+							
+						
+						
+							<li>
+								<a href="#%e5%91%bd%e4%bb%a4%e6%a8%a1%e5%bc%8f" class="nav-命令模式">
+									命令模式
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#%e8%be%93%e5%85%a5%e6%a8%a1%e5%bc%8f" class="nav-输入模式">
+									输入模式
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#%e5%91%bd%e4%bb%a4%e8%a1%8c%e6%a8%a1%e5%bc%8f" class="nav-命令行模式">
+									命令行模式
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+							
+								</ul>
+							
+						
+						
+						
+							<li>
+								<a href="#%e6%93%8d%e4%bd%9c" class="nav-操作">
+									操作
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#%e9%85%8d%e7%bd%ae" class="nav-配置">
+									配置
+								</a>
+							</li>
+						
+						
+					
+				
+			
+		</ul>
+	</div>
+
+</div>
+            
+        </div>
+    </div>
+</div>
+<transition name="fade">
+    <div id="drawer-mask" v-bind:class="{ 'single-column-drawer-mask': mounted }" v-if="isDrawerOpen" v-on:click="toggleDrawer"></div>
+</transition>
+<nav id="navBar" class="navbar sticky-top navbar-light single-column-nav-container">
+    <div id="navBackground" class="nav-background"></div>
+    <div class="container container-narrow nav-content">
+        <button id="nav_dropdown_btn" class="nav-dropdown-toggle" type="button" v-on:click="toggleDrawer">
+            <i class="material-icons">
+                menu
+            </i>
+        </button>
+        <a id="navTitle" class="navbar-brand" href="http://localhost:1313/">
+            小宋小宋?
+        </a>
+        
+        <button type="button" class="nav-darkmode-toggle" id="darkModeToggleButton2">
+            <i class="material-icons" id="darkModeToggleIcon2">
+                dark_mode
+            </i>
+        </button>
+        
+    </div>
+</nav>
+<div class="single-column-header-container" id="pageHead"
+     v-bind:style="{ transform: 'translateZ(0px) translateY('+.3*scrollY+'px)', opacity: 1-navOpacity }">
+    <a href="http://localhost:1313/">
+        <div class="single-column-header-title">小宋小宋?</div>
+        
+        <div class="single-column-header-subtitle">在呢！</div>
+        
+
+    </a>
+</div>
+
+            <div id="content">
+                <div id="streamContainer" class="stream-container">
+
+    <div class="post-list-container post-list-container-shadow">
+        <div class="post">
+            
+            
+            
+
+            <div class="post-head-wrapper-text-only"
+                
+            >
+                <div class="post-title">
+                    Vim
+                    
+                    <div class="post-meta">
+                        
+                        <time itemprop="datePublished">
+                            2024-05-14 00:00
+                        </time>
+                        
+
+                        
+
+                        
+                        
+                    </div>
+                </div>
+            </div>
+            
+            <div class="post-body-wrapper">
+                
+                <div class="post-body" v-pre>
+                
+                    <h1 id="伟人">伟人</h1>
+<p>Bram Moolenaar （1961—2023.8.3），编辑器之神Vim之父</p>
+<p>1961年——出生在荷兰莱斯镇 <!-- raw HTML omitted -->
+1985年——代尔夫特理工大学毕业，获得电气工程学士学位<!-- raw HTML omitted -->
+1988年——开发Vim<!-- raw HTML omitted -->
+<img src="BramMoolenaar.png" alt="BramMoolenaar.png"></p>
+<h1 id="简介">简介</h1>
+<ol>
+<li>Vim开源、免费的文本编辑器</li>
+<li>Vim初始是根据Vi来编写的</li>
+<li>初始版本为“Vi IMitation”，1992年，在版本1.22中改名为“Vi IMproved”</li>
+</ol>
+<p>优点</p>
+<ul>
+<li>persistent, multi-level undo tree 持久的、多层次的undo树</li>
+<li>extensive plugin system 广泛的插件系统</li>
+<li>support for hundreds of programming languages and file formats 支持数百种编程语言和文件格式</li>
+<li>powerful search and replace 强大的搜索和替换能力</li>
+<li>integrates with many tools 集成了许多工具</li>
+</ul>
+<p>Vim官方网站<a href="https://www.vim.org/">vim.org</a></p>
+<h1 id="善举">善举</h1>
+<p>ICCF（International Child Care Fund）国际儿童保育基金，是一个慈善组织。Bram Moolenaar还通过Vim项目鼓励开发者对乌干达的艾滋孤儿捐赠。将网站的收入和赞助全部捐赠给这个组织，帮助乌干达的孤儿。</p>
+<h1 id="结构">结构</h1>
+<h2 id="命令模式">命令模式</h2>
+<ul>
+<li>进入vim时，就是命令模式</li>
+<li>可以移动光标</li>
+<li>可以删除、复制、粘贴文本</li>
+<li>可以撤销、反撤销</li>
+</ul>
+<h2 id="输入模式">输入模式</h2>
+<ul>
+<li>在<code>命令模式</code>下按 <code>i</code>或者<code>a</code>或者<code>o</code>即可进入该模式</li>
+<li>在该模式中就可以输入文本了</li>
+<li>按<code>Esc</code>就可以回到命令模式</li>
+</ul>
+<h2 id="命令行模式">命令行模式</h2>
+<ul>
+<li>在<code>命令模式</code>下按 <code>:</code>即可进入该模式</li>
+<li>在模式中，有大量的命令可以输入</li>
+<li>比如常用的保存<code>w</code>、退出<code>q</code></li>
+</ul>
+<h1 id="操作">操作</h1>
+<ul>
+<li>全文复制
+思路 第一行为gg,最后一行为G,复制为yy，结合起来，在可视令模式下输入 ggyG</li>
+</ul>
+<p><img src="vim.png" alt="vim快捷键"></p>
+<h1 id="配置">配置</h1>
+<ul>
+<li>可以使用Vbundle进行插件配置</li>
+<li>主要是vimrc文件，可以在~/.vimrc中配置自己想要的配置</li>
+<li>在github中，有很多vimrc，可以一键安装</li>
+</ul>
+<p>R.I.P</p>
+
+                    
+                    <HR width="100%" id="EOF">
+		    <p style="color:#777;">Last modified on 2024-05-14</p>
+                    
+                </div>
+            </div>
+            
+            
+            <nav class="post-pagination">
+
+                
+                <a class="newer-posts" href="/essay/bash/">
+			Next<br>终端
+                </a>
+                
+                
+                
+                <a class="older-posts" href="/posts/chinese/">
+			Previous<br>中文文本测试
+                </a>
+                
+            </nav>
+            <div class="post-comment-wrapper">
+                
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="https://giscus.app/client.js"
+        data-repo="username/repo"
+        data-repo-id="**************************"
+        data-category="General"
+        data-category-id="*********************"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="en"
+        crossorigin="anonymous"
+        async>
+</script>
+
+            </div>
+        </div>
+    </div>
+
+
+                    </div>
+            </div><div id="sideContainer" class="side-container">
+    
+    <a class="a-block nav-head false" href="http://localhost:1313/">
+    
+        <div class="nav-title">
+            小宋小宋?
+        </div>
+        
+        <div class="nav-subtitle">
+            在呢！
+        </div>
+        
+    </a>
+
+    <div class="nav-link-list">
+        
+        
+            
+            
+            
+            
+            
+            <a class="a-block nav-link-item false" href="/categories">
+                分类
+            </a>
+            
+        
+            
+            
+            
+            
+            
+            <a class="a-block nav-link-item false" href="/tags">
+                快速查找
+            </a>
+            
+        
+            
+            
+            
+                
+            
+            
+            
+            <a class="a-block nav-link-item active" href="/essay">
+                文章
+            </a>
+            
+        
+    </div>
+
+    
+
+    <div class="nav-footer">
+        
+Hugo Theme <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> by <a href="https://risehere.net/">Rise</a>
+<br>
+Ported from <a href="https://mak1t0.cc/" target="_blank" rel="noreferrer noopener">Makito</a>'s <a href="https://github.com/SumiMakito/hexo-theme-journal/" target="_blank" rel="noreferrer noopener">Journal.</a> <br>
+<br>
+
+&copy;
+	
+	This is a customized copyright.
+	
+
+    </div>
+    
+</div><div id="extraContainer" class="extra-container">
+    <div class="toc-wrapper">
+        
+
+        
+        <div class="toc">
+
+
+	<div class="toc-content">
+	
+		
+		
+		
+		<center>- CATALOG -</center>
+		
+		
+		<ul>
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#%e4%bc%9f%e4%ba%ba" class="nav-伟人">
+									伟人
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#%e7%ae%80%e4%bb%8b" class="nav-简介">
+									简介
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#%e5%96%84%e4%b8%be" class="nav-善举">
+									善举
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#%e7%bb%93%e6%9e%84" class="nav-结构">
+									结构
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+							
+								
+									<ul>
+								
+							
+						
+						
+							<li>
+								<a href="#%e5%91%bd%e4%bb%a4%e6%a8%a1%e5%bc%8f" class="nav-命令模式">
+									命令模式
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#%e8%be%93%e5%85%a5%e6%a8%a1%e5%bc%8f" class="nav-输入模式">
+									输入模式
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#%e5%91%bd%e4%bb%a4%e8%a1%8c%e6%a8%a1%e5%bc%8f" class="nav-命令行模式">
+									命令行模式
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+							
+								</ul>
+							
+						
+						
+						
+							<li>
+								<a href="#%e6%93%8d%e4%bd%9c" class="nav-操作">
+									操作
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#%e9%85%8d%e7%bd%ae" class="nav-配置">
+									配置
+								</a>
+							</li>
+						
+						
+					
+				
+			
+		</ul>
+	</div>
+
+</div>
+        
+    </div>
+    <div class="pagination">
+        <a id="globalBackToTop" class="pagination-action animated-visibility" href="#top"
+            :class="{ invisible: scrollY == 0 }">
+            <i class="material-icons pagination-action-icon">
+                keyboard_arrow_up
+            </i>
+        </a>
+        
+        <a type="button" class="pagination-action" id="darkModeToggleButton">
+            <span class="material-icons pagination-action-icon" id="darkModeToggleIcon">
+                dark_mode
+            </span>
+        </a>
+        
+        
+    </div>
+</div>
+
+<div id="single-column-footer">
+Hugo Theme <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> by <a href="https://risehere.net/">Rise</a>
+<br>
+Ported from <a href="https://mak1t0.cc/" target="_blank" rel="noreferrer noopener">Makito</a>'s <a href="https://github.com/SumiMakito/hexo-theme-journal/" target="_blank" rel="noreferrer noopener">Journal.</a> <br>
+<br>
+
+&copy;
+	
+	This is a customized copyright.
+	
+</div>
+            </div>
+    
+    <script src="/js/journal.js"></script></body>
+</html>

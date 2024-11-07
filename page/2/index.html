@@ -1,0 +1,1504 @@
+<!DOCTYPE html>
+<html><head>
+	<meta name="generator" content="Hugo 0.136.5">
+<title>小宋小宋?</title>
+
+
+
+  
+
+
+<meta charset="utf-8">
+<meta name="X-UA-Compatible" content="IE=edge">
+<meta name="google-site-verification" content="G-XXXXXXXXXX">
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+<meta content="telephone=no" name="format-detection">
+<meta name="description" content="My HomePage Description">
+<meta name="renderer" content="webkit">
+<meta name="theme-color" content="#ffffff">
+
+
+
+<meta property="og:url" content="http://example.org/">
+  <meta property="og:site_name" content="小宋小宋?">
+  <meta property="og:title" content="小宋小宋?">
+  <meta property="og:description" content="My HomePage Description">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="website">
+
+
+
+
+
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="小宋小宋?">
+  <meta name="twitter:description" content="My HomePage Description">
+
+
+
+
+
+
+
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+      <script>
+        var doNotTrack = false;
+        if ( false ) {
+          var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+          var doNotTrack = (dnt == "1" || dnt == "yes");
+        }
+        if (!doNotTrack) {
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-XXXXXXXXXX');
+        }
+      </script>
+
+
+
+
+<script type="text/javascript">
+  (function(c,l,a,r,i,t,y){
+      c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+      t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+      y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+  })(window, document, "clarity", "script", "abcdefghzd");
+</script>
+
+
+
+  
+
+
+
+
+
+
+    <link type="text/css" rel="stylesheet" href="/vendor/css/bootstrap.min.css">
+
+<link rel="stylesheet" href="/scss/dark-mode.min.cb53f1bee2b8900cb4f082afbf00175d6618f281cf9a2fe8619e3b52d20b5721.css" integrity="sha256-y1PxvuK4kAy08IKvvwAXXWYY8oHPmi/oYZ47UtILVyE=" media="screen">
+
+
+<link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Material+Icons">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+<body>
+    	<div id="app"><div class="single-column-drawer-container" id="drawer"
+     v-bind:class="{ 'single-column-drawer-container-active': isDrawerOpen }">
+    <div class="drawer-content">
+        <div class="drawer-menu">
+            
+            
+            
+                
+                
+                
+                
+                
+                <a class="a-block drawer-menu-item false" href="/posts">
+                    文章
+                </a>
+                
+            
+                
+                
+                
+                
+                
+                <a class="a-block drawer-menu-item false" href="/categories">
+                    分类
+                </a>
+                
+            
+                
+                
+                
+                
+                
+                <a class="a-block drawer-menu-item false" href="/tags">
+                    快速查找
+                </a>
+                
+            
+                
+                
+                
+                
+                
+                <a class="a-block drawer-menu-item false" href="/database">
+                    MySQL
+                </a>
+                
+            
+                
+                
+                
+                
+                
+                <a class="a-block drawer-menu-item false" href="/spring">
+                    Spring
+                </a>
+                
+            
+            
+        </div>
+    </div>
+</div>
+<transition name="fade">
+    <div id="drawer-mask" v-bind:class="{ 'single-column-drawer-mask': mounted }" v-if="isDrawerOpen" v-on:click="toggleDrawer"></div>
+</transition>
+<nav id="navBar" class="navbar sticky-top navbar-light single-column-nav-container">
+    <div id="navBackground" class="nav-background"></div>
+    <div class="container container-narrow nav-content">
+        <button id="nav_dropdown_btn" class="nav-dropdown-toggle" type="button" v-on:click="toggleDrawer">
+            <i class="material-icons">
+                menu
+            </i>
+        </button>
+        <a id="navTitle" class="navbar-brand" href="http://example.org/">
+            小宋小宋?
+        </a>
+        
+        <button type="button" class="nav-darkmode-toggle" id="darkModeToggleButton2">
+            <i class="material-icons" id="darkModeToggleIcon2">
+                dark_mode
+            </i>
+        </button>
+        
+    </div>
+</nav>
+<div class="single-column-header-container" id="pageHead"
+     v-bind:style="{ transform: 'translateZ(0px) translateY('+.3*scrollY+'px)', opacity: 1-navOpacity }">
+    <a href="http://example.org/">
+        <div class="single-column-header-title">小宋小宋?</div>
+        
+        <div class="single-column-header-subtitle">在呢！</div>
+        
+
+    </a>
+</div>
+
+            <div id="content">
+                <div id="streamContainer" class="stream-container">
+
+    <div class="post-list-container post-list-container-no-background">
+        
+        
+            <a href="/database/config/" class="a-block">
+                <div class="post-item-wrapper">
+                    <div class="post-item post-item-no-divider">
+                        <div class="post-item-info-wrapper">
+                            <div class="post-item-title">
+                                相关配置
+                            </div>
+                            <div class="post-item-summary">
+                                
+                                    <h2 id="限制登录次数">限制登录次数</h2>
+<p>需求：当使用账号登录mysql时，如果登录失败超过一定次数，将会延迟响应时间</p>
+<p>参数：</p>
+<ul>
+<li>connection_control_failed_connections_threshold：假设值为5，即客户端连续失败登录5次后，后续的登录请求将被延迟</li>
+<li>connection_control_min_connection_delay：设置超过失败次数阈值后，客户端下次登录请求的最小延迟时间（以毫秒为单位）</li>
+</ul>
+<p>配置文件中，
+[mysqld]
+plugin-load-add=connection_control.so
+connection_control_failed_connections_threshold=5
+connection_control_min_connection_delay=2000
+connection_control_max_connection_delay=10000</p>
+<p>测试流程：</p>
+<ol>
+<li>配置好限制次数和延迟时间，假设：5次、10秒</li>
+<li>准备好一个用户：test/p123</li>
+<li>sql：SELECT * FROM information_schema.connection_control_failed_login_attempts;</li>
+<li>先测试登录失败5次</li>
+<li>执行sql，应该是5次</li>
+<li>再测试登录失败1次</li>
+<li>执行sql，应该是6次，并且效果会有10秒延迟</li>
+<li>再正确登录</li>
+<li>会有10秒延迟</li>
+<li>执行sql，会查不到了</li>
+<li>然后再正确登录一次，不会有延迟</li>
+</ol>
+<p>清除登录失败的次数</p>
+<ol>
+<li>重启mysql服务</li>
+<li>重新设置限制次数：set global connection_control_failed_connections_threshold=2;</li>
+</ol>
+                                
+                            </div>
+                            <div class="post-item-meta">
+    2024-10-21
+    &emsp;
+    
+    
+    
+    &emsp;
+    
+</div>
+
+                        </div>
+                        
+                        
+                    </div>
+                </div>
+        
+            <a href="/devframe/spring/aop/" class="a-block">
+                <div class="post-item-wrapper">
+                    <div class="post-item post-item-no-divider">
+                        <div class="post-item-info-wrapper">
+                            <div class="post-item-title">
+                                AOP
+                            </div>
+                            <div class="post-item-summary">
+                                
+                                    <h2 id="代理模式">代理模式</h2>
+<ul>
+<li>思想：找个中间商，在自己能干的事情基础上干自己不能干的事情，可以用来保护自己</li>
+<li><code>进行代码易维护、进行功能增强</code></li>
+<li>结构
+<ul>
+<li>目标对象</li>
+<li>代理对象</li>
+<li>目标对象和代理对象的公共接口或者继承</li>
+</ul>
+</li>
+<li>静态代理：has-a关系      关联关系</li>
+<li><code>动态代理</code>
+<ul>
+<li>JDK内置的java.lang.reflect.Proxy	只能代理接口</li>
+<li>cglib    底层采用继承，可以代理接口或者类     底层使用ASM字节码处理框架优化</li>
+<li>javassist（千叶滋yyds）</li>
+</ul>
+</li>
+</ul>
+<h2 id="aop一个思想面向切面编程">AOP(一个思想，面向切面编程)</h2>
+<ul>
+<li>Aspect Oriented Programming</li>
+<li>思想：切面是一个和业务逻辑毫无关系的东西；采用代理模式，把这些切面当做功能增强的东西单独提取出来，形成一个单独的组件，以横向交叉的方式应用到业务流程。</li>
+<li>作用：代码复用、可读性高</li>
+<li>交叉业务</li>
+</ul>
+<h2 id="spring-aop">Spring AOP</h2>
+<ul>
+<li>采用 <code>JDK代理+cglib代理</code></li>
+</ul>
+<h3 id="术语">术语</h3>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: center">名称</th>
+          <th style="text-align: center">意义</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: center">JoinPoint   连接点</td>
+          <td style="text-align: center">切面可以切入的位置</td>
+      </tr>
+      <tr>
+          <td style="text-align: center">CutPoint  切点</td>
+          <td style="text-align: center">方法，被切的东西</td>
+      </tr>
+      <tr>
+          <td style="text-align: center">Adivce    通知</td>
+          <td style="text-align: center">具体增强的代码，切东西的工具</td>
+      </tr>
+      <tr>
+          <td style="text-align: center">Aspect    切面</td>
+          <td style="text-align: center">切点+通知</td>
+      </tr>
+      <tr>
+          <td style="text-align: center">Weaving   织入</td>
+          <td style="text-align: center">具体的动作</td>
+      </tr>
+      <tr>
+          <td style="text-align: center">Target    目标对象</td>
+          <td style="text-align: center"></td>
+      </tr>
+      <tr>
+          <td style="text-align: center">Proxy     代理对象</td>
+          <td style="text-align: center"></td>
+      </tr>
+  </tbody>
+</table>
+<h3 id="通知的类型和顺序">通知的类型和顺序</h3>
+<ul>
+<li>前置通知</li>
+<li>环绕通知</li>
+<li>后置通知</li>
+<li>异常通知(当调用此通知，后续通知不再执行，若异常目标方法自己处理了，后续通知会继续执行)</li>
+<li>返回通知</li>
+</ul>
+<pre tabindex="0"><code>try{
+	·前置通知
+	·前环绕通知
+	·目标方法
+	·后环绕通知
+	·后置通知
+	·返回通知
+}catch(Exception e){
+	·异常通知
+}
+</code></pre><h3 id="切点表达式">切点表达式</h3>
+<h3 id="实例">实例</h3>
+<ul>
+<li>
+<div class="highlight"><pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#8b008b;font-weight:bold">public</span><span style="color:#bbb"> </span><span style="color:#8b008b;font-weight:bold">class</span> <span style="color:#008b45;font-weight:bold">Student</span><span style="color:#bbb"> </span>{<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#8b008b;font-weight:bold">private</span><span style="color:#bbb"> </span>String<span style="color:#bbb"> </span>name;<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#8b008b;font-weight:bold">public</span><span style="color:#bbb"> </span>Object<span style="color:#bbb"> </span><span style="color:#008b45">exam</span>(){<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>System.<span style="color:#658b00">out</span>.<span style="color:#658b00">println</span>(<span style="color:#cd5555">&#34;目标方法  切点....&#34;</span><span style="color:#bbb"> </span>+<span style="color:#bbb"> </span>name<span style="color:#bbb"> </span>+<span style="color:#bbb"> </span><span style="color:#cd5555">&#34;学生正在考试！&#34;</span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#00688b;font-weight:bold">int</span><span style="color:#bbb"> </span>a=1/0;<span style="color:#228b22">//自己捕获异常，处理的话，切面不处理了</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#8b008b;font-weight:bold">return</span><span style="color:#bbb"> </span>name;<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>}<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#8b008b;font-weight:bold">public</span><span style="color:#bbb"> </span><span style="color:#00688b;font-weight:bold">void</span><span style="color:#bbb"> </span><span style="color:#008b45">end</span>(){<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>System.<span style="color:#658b00">out</span>.<span style="color:#658b00">println</span>(<span style="color:#cd5555">&#34;目标方法  切点....&#34;</span>+name+<span style="color:#cd5555">&#34;学生陆续交试卷走人！&#34;</span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>}<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#8b008b;font-weight:bold">public</span><span style="color:#bbb"> </span><span style="color:#00688b;font-weight:bold">void</span><span style="color:#bbb"> </span><span style="color:#008b45">setName</span>(String<span style="color:#bbb"> </span>name)<span style="color:#bbb"> </span>{<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#8b008b;font-weight:bold">this</span>.<span style="color:#658b00">name</span><span style="color:#bbb"> </span>=<span style="color:#bbb"> </span>name;<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>}<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span>}<span style="color:#bbb">
+</span></span></span></code></pre></div></li>
+<li>
+<div class="highlight"><pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#8b008b;font-weight:bold">public</span><span style="color:#bbb"> </span><span style="color:#8b008b;font-weight:bold">class</span> <span style="color:#008b45;font-weight:bold">ProctorAspect</span><span style="color:#bbb"> </span>{<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#8b008b;font-weight:bold">public</span><span style="color:#bbb"> </span><span style="color:#00688b;font-weight:bold">void</span><span style="color:#bbb"> </span><span style="color:#008b45">tellStartTime</span>(){<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>System.<span style="color:#658b00">out</span>.<span style="color:#658b00">println</span>(<span style="color:#cd5555">&#34;监考官提醒时间开始！&#34;</span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>}<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#8b008b;font-weight:bold">public</span><span style="color:#bbb"> </span><span style="color:#00688b;font-weight:bold">void</span><span style="color:#bbb"> </span><span style="color:#008b45">tellStart</span>(){<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>System.<span style="color:#658b00">out</span>.<span style="color:#658b00">println</span>(<span style="color:#cd5555">&#34;监考官提醒开始考试！&#34;</span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>}<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#8b008b;font-weight:bold">public</span><span style="color:#bbb"> </span><span style="color:#00688b;font-weight:bold">void</span><span style="color:#bbb"> </span><span style="color:#008b45">invigilate</span>(ProceedingJoinPoint<span style="color:#bbb"> </span>proceedingJoinPoint)<span style="color:#bbb"> </span><span style="color:#8b008b;font-weight:bold">throws</span><span style="color:#bbb"> </span>Throwable<span style="color:#bbb"> </span>{<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>System.<span style="color:#658b00">out</span>.<span style="color:#658b00">println</span>(<span style="color:#cd5555">&#34;前环绕....监考官正在监考！&#34;</span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>proceedingJoinPoint.<span style="color:#658b00">proceed</span>();<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>System.<span style="color:#658b00">out</span>.<span style="color:#658b00">println</span>(<span style="color:#cd5555">&#34;后环绕....监考官正在监考！&#34;</span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>}<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#8b008b;font-weight:bold">public</span><span style="color:#bbb"> </span><span style="color:#00688b;font-weight:bold">void</span><span style="color:#bbb"> </span><span style="color:#008b45">tellEndTime</span>(){<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>System.<span style="color:#658b00">out</span>.<span style="color:#658b00">println</span>(<span style="color:#cd5555">&#34;监考官提醒时间还有五分钟！&#34;</span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>}<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#8b008b;font-weight:bold">public</span><span style="color:#bbb"> </span><span style="color:#00688b;font-weight:bold">void</span><span style="color:#bbb"> </span><span style="color:#008b45">tellEnd</span>(){<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>System.<span style="color:#658b00">out</span>.<span style="color:#658b00">println</span>(<span style="color:#cd5555">&#34;监考官开始收卷！&#34;</span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>}<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#8b008b;font-weight:bold">public</span><span style="color:#bbb"> </span><span style="color:#00688b;font-weight:bold">void</span><span style="color:#bbb"> </span><span style="color:#008b45">exceptionHHH</span>(Exception<span style="color:#bbb"> </span>e<span style="color:#bbb"> </span>){<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>System.<span style="color:#658b00">out</span>.<span style="color:#658b00">println</span>(<span style="color:#cd5555">&#34;停电！&#34;</span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>}<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#8b008b;font-weight:bold">public</span><span style="color:#bbb"> </span><span style="color:#00688b;font-weight:bold">void</span><span style="color:#bbb"> </span><span style="color:#008b45">after_return</span>(){<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>System.<span style="color:#658b00">out</span>.<span style="color:#658b00">println</span>(<span style="color:#cd5555">&#34;考试方法....你return了？&#34;</span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>}<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span>}<span style="color:#bbb">
+</span></span></span></code></pre></div></li>
+</ul>
+<h3 id="注解方式">注解方式</h3>
+<h4 id="aopaspectj-autoproxy最为重要若基于类则使用enableaspectjautoproxy"><code>&lt;aop:aspectj-autoproxy/&gt;</code>最为重要（若基于类则使用	<code>@EnableAspectJAutoProxy</code>）</h4>
+<ul>
+<li>声明切面的注解</li>
+</ul>
+<p>@Aspect</p>
+                                
+                            </div>
+                            <div class="post-item-meta">
+    2024-05-24
+    &emsp;
+    
+    
+    
+    &emsp;
+    
+</div>
+
+                        </div>
+                        
+                        
+                    </div>
+                </div>
+        
+            <a href="/spring/aop/" class="a-block">
+                <div class="post-item-wrapper">
+                    <div class="post-item post-item-no-divider">
+                        <div class="post-item-info-wrapper">
+                            <div class="post-item-title">
+                                AOP
+                            </div>
+                            <div class="post-item-summary">
+                                
+                                    <h2 id="代理模式">代理模式</h2>
+<ul>
+<li>思想：找个中间商，在自己能干的事情基础上干自己不能干的事情，可以用来保护自己</li>
+<li><code>进行代码易维护、进行功能增强</code></li>
+<li>结构
+<ul>
+<li>目标对象</li>
+<li>代理对象</li>
+<li>目标对象和代理对象的公共接口或者继承</li>
+</ul>
+</li>
+<li>静态代理：has-a关系      关联关系</li>
+<li><code>动态代理</code>
+<ul>
+<li>JDK内置的java.lang.reflect.Proxy	只能代理接口</li>
+<li>cglib    底层采用继承，可以代理接口或者类     底层使用ASM字节码处理框架优化</li>
+<li>javassist（千叶滋yyds）</li>
+</ul>
+</li>
+</ul>
+<h2 id="aop一个思想面向切面编程">AOP(一个思想，面向切面编程)</h2>
+<ul>
+<li>Aspect Oriented Programming</li>
+<li>思想：切面是一个和业务逻辑毫无关系的东西；采用代理模式，把这些切面当做功能增强的东西单独提取出来，形成一个单独的组件，以横向交叉的方式应用到业务流程。</li>
+<li>作用：代码复用、可读性高</li>
+<li>交叉业务</li>
+</ul>
+<h2 id="spring-aop">Spring AOP</h2>
+<ul>
+<li>采用 <code>JDK代理+cglib代理</code></li>
+</ul>
+<h3 id="术语">术语</h3>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: center">名称</th>
+          <th style="text-align: center">意义</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: center">JoinPoint   连接点</td>
+          <td style="text-align: center">切面可以切入的位置</td>
+      </tr>
+      <tr>
+          <td style="text-align: center">CutPoint  切点</td>
+          <td style="text-align: center">方法，被切的东西</td>
+      </tr>
+      <tr>
+          <td style="text-align: center">Adivce    通知</td>
+          <td style="text-align: center">具体增强的代码，切东西的工具</td>
+      </tr>
+      <tr>
+          <td style="text-align: center">Aspect    切面</td>
+          <td style="text-align: center">切点+通知</td>
+      </tr>
+      <tr>
+          <td style="text-align: center">Weaving   织入</td>
+          <td style="text-align: center">具体的动作</td>
+      </tr>
+      <tr>
+          <td style="text-align: center">Target    目标对象</td>
+          <td style="text-align: center"></td>
+      </tr>
+      <tr>
+          <td style="text-align: center">Proxy     代理对象</td>
+          <td style="text-align: center"></td>
+      </tr>
+  </tbody>
+</table>
+<h3 id="通知的类型和顺序">通知的类型和顺序</h3>
+<ul>
+<li>前置通知</li>
+<li>环绕通知</li>
+<li>后置通知</li>
+<li>异常通知(当调用此通知，后续通知不再执行，若异常目标方法自己处理了，后续通知会继续执行)</li>
+<li>返回通知</li>
+</ul>
+<pre tabindex="0"><code>try{
+	·前置通知
+	·前环绕通知
+	·目标方法
+	·后环绕通知
+	·后置通知
+	·返回通知
+}catch(Exception e){
+	·异常通知
+}
+</code></pre><h3 id="切点表达式">切点表达式</h3>
+<h3 id="实例">实例</h3>
+<ul>
+<li>
+<div class="highlight"><pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#8b008b;font-weight:bold">public</span><span style="color:#bbb"> </span><span style="color:#8b008b;font-weight:bold">class</span> <span style="color:#008b45;font-weight:bold">Student</span><span style="color:#bbb"> </span>{<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#8b008b;font-weight:bold">private</span><span style="color:#bbb"> </span>String<span style="color:#bbb"> </span>name;<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#8b008b;font-weight:bold">public</span><span style="color:#bbb"> </span>Object<span style="color:#bbb"> </span><span style="color:#008b45">exam</span>(){<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>System.<span style="color:#658b00">out</span>.<span style="color:#658b00">println</span>(<span style="color:#cd5555">&#34;目标方法  切点....&#34;</span><span style="color:#bbb"> </span>+<span style="color:#bbb"> </span>name<span style="color:#bbb"> </span>+<span style="color:#bbb"> </span><span style="color:#cd5555">&#34;学生正在考试！&#34;</span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#00688b;font-weight:bold">int</span><span style="color:#bbb"> </span>a=1/0;<span style="color:#228b22">//自己捕获异常，处理的话，切面不处理了</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#8b008b;font-weight:bold">return</span><span style="color:#bbb"> </span>name;<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>}<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#8b008b;font-weight:bold">public</span><span style="color:#bbb"> </span><span style="color:#00688b;font-weight:bold">void</span><span style="color:#bbb"> </span><span style="color:#008b45">end</span>(){<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>System.<span style="color:#658b00">out</span>.<span style="color:#658b00">println</span>(<span style="color:#cd5555">&#34;目标方法  切点....&#34;</span>+name+<span style="color:#cd5555">&#34;学生陆续交试卷走人！&#34;</span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>}<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#8b008b;font-weight:bold">public</span><span style="color:#bbb"> </span><span style="color:#00688b;font-weight:bold">void</span><span style="color:#bbb"> </span><span style="color:#008b45">setName</span>(String<span style="color:#bbb"> </span>name)<span style="color:#bbb"> </span>{<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#8b008b;font-weight:bold">this</span>.<span style="color:#658b00">name</span><span style="color:#bbb"> </span>=<span style="color:#bbb"> </span>name;<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>}<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span>}<span style="color:#bbb">
+</span></span></span></code></pre></div></li>
+<li>
+<div class="highlight"><pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#8b008b;font-weight:bold">public</span><span style="color:#bbb"> </span><span style="color:#8b008b;font-weight:bold">class</span> <span style="color:#008b45;font-weight:bold">ProctorAspect</span><span style="color:#bbb"> </span>{<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#8b008b;font-weight:bold">public</span><span style="color:#bbb"> </span><span style="color:#00688b;font-weight:bold">void</span><span style="color:#bbb"> </span><span style="color:#008b45">tellStartTime</span>(){<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>System.<span style="color:#658b00">out</span>.<span style="color:#658b00">println</span>(<span style="color:#cd5555">&#34;监考官提醒时间开始！&#34;</span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>}<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#8b008b;font-weight:bold">public</span><span style="color:#bbb"> </span><span style="color:#00688b;font-weight:bold">void</span><span style="color:#bbb"> </span><span style="color:#008b45">tellStart</span>(){<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>System.<span style="color:#658b00">out</span>.<span style="color:#658b00">println</span>(<span style="color:#cd5555">&#34;监考官提醒开始考试！&#34;</span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>}<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#8b008b;font-weight:bold">public</span><span style="color:#bbb"> </span><span style="color:#00688b;font-weight:bold">void</span><span style="color:#bbb"> </span><span style="color:#008b45">invigilate</span>(ProceedingJoinPoint<span style="color:#bbb"> </span>proceedingJoinPoint)<span style="color:#bbb"> </span><span style="color:#8b008b;font-weight:bold">throws</span><span style="color:#bbb"> </span>Throwable<span style="color:#bbb"> </span>{<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>System.<span style="color:#658b00">out</span>.<span style="color:#658b00">println</span>(<span style="color:#cd5555">&#34;前环绕....监考官正在监考！&#34;</span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>proceedingJoinPoint.<span style="color:#658b00">proceed</span>();<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>System.<span style="color:#658b00">out</span>.<span style="color:#658b00">println</span>(<span style="color:#cd5555">&#34;后环绕....监考官正在监考！&#34;</span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>}<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#8b008b;font-weight:bold">public</span><span style="color:#bbb"> </span><span style="color:#00688b;font-weight:bold">void</span><span style="color:#bbb"> </span><span style="color:#008b45">tellEndTime</span>(){<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>System.<span style="color:#658b00">out</span>.<span style="color:#658b00">println</span>(<span style="color:#cd5555">&#34;监考官提醒时间还有五分钟！&#34;</span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>}<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#8b008b;font-weight:bold">public</span><span style="color:#bbb"> </span><span style="color:#00688b;font-weight:bold">void</span><span style="color:#bbb"> </span><span style="color:#008b45">tellEnd</span>(){<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>System.<span style="color:#658b00">out</span>.<span style="color:#658b00">println</span>(<span style="color:#cd5555">&#34;监考官开始收卷！&#34;</span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>}<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#8b008b;font-weight:bold">public</span><span style="color:#bbb"> </span><span style="color:#00688b;font-weight:bold">void</span><span style="color:#bbb"> </span><span style="color:#008b45">exceptionHHH</span>(Exception<span style="color:#bbb"> </span>e<span style="color:#bbb"> </span>){<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>System.<span style="color:#658b00">out</span>.<span style="color:#658b00">println</span>(<span style="color:#cd5555">&#34;停电！&#34;</span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>}<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#8b008b;font-weight:bold">public</span><span style="color:#bbb"> </span><span style="color:#00688b;font-weight:bold">void</span><span style="color:#bbb"> </span><span style="color:#008b45">after_return</span>(){<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>System.<span style="color:#658b00">out</span>.<span style="color:#658b00">println</span>(<span style="color:#cd5555">&#34;考试方法....你return了？&#34;</span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>}<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span>}<span style="color:#bbb">
+</span></span></span></code></pre></div></li>
+</ul>
+<h3 id="注解方式">注解方式</h3>
+<h4 id="aopaspectj-autoproxy最为重要若基于类则使用enableaspectjautoproxy"><code>&lt;aop:aspectj-autoproxy/&gt;</code>最为重要（若基于类则使用	<code>@EnableAspectJAutoProxy</code>）</h4>
+<ul>
+<li>声明切面的注解</li>
+</ul>
+<p>@Aspect</p>
+                                
+                            </div>
+                            <div class="post-item-meta">
+    2024-05-24
+    &emsp;
+    
+    
+    
+    &emsp;
+    
+</div>
+
+                        </div>
+                        
+                        
+                    </div>
+                </div>
+        
+            <a href="/java/jvm/class/class/" class="a-block">
+                <div class="post-item-wrapper">
+                    <div class="post-item post-item-no-divider">
+                        <div class="post-item-info-wrapper">
+                            <div class="post-item-title">
+                                Class文件
+                            </div>
+                            <div class="post-item-summary">
+                                
+                                    <h1 id="字节码">字节码</h1>
+<p>字节码即java跨平台的重要支撑点，它是一个<code>.class</code>文件，通过一个编译器生成的。平常的<code>.java</code>文件，还有Kotlin的<code>.kt</code>文件，它们如果都遵循编译规则，生成字节码文件，都是可以运行在JVM上的。<!-- raw HTML omitted -->
+字节码的生成：在java中，它可以通过javac编译器生成，javac是一个全量式编译。<!-- raw HTML omitted -->
+javac的使用</p>
+<ul>
+<li>javac Main.java</li>
+<li>javac -d /opt Main.java   ，文件编译到/opt目录下面，并且生成包结构，即package语法。</li>
+</ul>
+<h1 id="class文件">Class文件</h1>
+<ol>
+<li>魔数：每个字节码文件的前4个字节都是固定的魔数0xCAFEBABE，用于标识这是一个Java字节码文件。</li>
+<li>版本信息：紧接着魔数的是版本信息，包括次版本号和主版本号，表示编译该字节码的Java编译器版本。</li>
+<li>常量池：常量池是字节码文件中资源的集合，包括文字字符串、类或接口名、字段名和其他常量。</li>
+<li>访问标志：这部分包含类的访问权限等信息。</li>
+<li>此类索引、父类索引和接口索引集合：这些索引指向常量池中相应的类和接口。</li>
+<li>字段表：包含了类中声明的变量信息。</li>
+<li>方法表：包含了类中定义的方法信息。</li>
+<li>属性表：包含了类的其他属性信息，如注解</li>
+</ol>
+<h1 id="类加载">类加载</h1>
+<p>为什么？<!-- raw HTML omitted --></p>
+<p><code>速度快</code>、<code>安全性</code></p>
+<ul>
+<li>面向对象，要通过类文件创建实例对象，在编写代码时，会使用到各种各样的类，多种类之间又会互联关联、依赖。</li>
+<li>jvm要读取class文件的信息，创建对应的实例对象，如果类文件放在磁盘上，jvm读取会产生磁盘I/O，性能比较低，再加上class文件可能会被修改，安全性得不到保证。</li>
+<li>所以，在需要时，将类文件加载到虚拟机的内存中，可以更快的得到类信息，而且安全性可以得到保障。</li>
+</ul>
+<p>步骤：</p>
+<p><img src="classload.png" alt="classload.png"></p>
+<ol>
+<li>加载</li>
+<li>验证</li>
+<li>准备</li>
+<li>解析</li>
+<li>初始化</li>
+</ol>
+<h2 id="加载">加载</h2>
+<ol>
+<li>通过类的全限定名（包名+类名），找到<code>.class</code>文件，然后将类的信息转为<code>字节流</code></li>
+<li>将字节流<code>加载到内存的方法区</code>，映射为jvm识别的数据结构</li>
+<li>在内存中生成一个代表该类的<code> java.lang.Class 对象</code>，作为方法区这些数据的访问入口</li>
+</ol>
+<h2 id="连接">连接</h2>
+<h3 id="验证">验证</h3>
+<p>验证是连接阶段的第一步，这一阶段的目的是确保 <code>Class 文件的字节流</code>中包含的信息符合《Java 虚拟机规范》的全部<code>约束要求</code>，保证这些信息被当作代码运行后<code>不会危害虚拟机</code>自身的安全。</p>
+<ul>
+<li>字节码文件格式验证：验证文件是否能够正确的加载到方法区中，</li>
+<li>元数据验证：进行语义分析，确保类的元数据（如类名、父类、接口等）正确</li>
+<li>字节码验证：针对程序，验证程序的语义是否符合逻辑</li>
+<li>符号引用验证：验证符号引用指向方法区中的对象是否存在</li>
+</ul>
+<h3 id="准备">准备</h3>
+<p><strong>该阶段是为类变量（static变量）分配内存，并设置初始值</strong></p>
+<ul>
+<li>这个阶段仅仅分配类变量</li>
+<li>分配到 <code>方法区</code></li>
+<li>jdk1.7以前，是在方法区中（永久代），内存还是jvm内存</li>
+<li>jdk1.7及以后，是在方法区中（元空间），但是此时将字符串常量池、类变量都移动到<code>堆区</code>中了，类变量跟随<code>加载阶段</code>创建的Class对象，放在堆中</li>
+</ul>
+<table>
+  <thead>
+      <tr>
+          <th>类型</th>
+          <th>默认值</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>int</td>
+          <td>0</td>
+      </tr>
+      <tr>
+          <td>long</td>
+          <td>0L</td>
+      </tr>
+      <tr>
+          <td>short</td>
+          <td>0</td>
+      </tr>
+      <tr>
+          <td>char</td>
+          <td>&lsquo;\u0000&rsquo;</td>
+      </tr>
+      <tr>
+          <td>byte</td>
+          <td>0</td>
+      </tr>
+      <tr>
+          <td>boolean</td>
+          <td>flase</td>
+      </tr>
+      <tr>
+          <td>float</td>
+          <td>0.0f</td>
+      </tr>
+      <tr>
+          <td>double</td>
+          <td>0.0d</td>
+      </tr>
+      <tr>
+          <td>refrence引用类型</td>
+          <td>null</td>
+      </tr>
+  </tbody>
+</table>
+<h3 id="解析">解析</h3>
+<p><strong>这阶段主要是将常量池中的符号引用转为直接引用</strong></p>
+                                
+                            </div>
+                            <div class="post-item-meta">
+    2024-05-24
+    &emsp;
+    
+    
+    
+    &emsp;
+    
+</div>
+
+                        </div>
+                        
+                        
+                    </div>
+                </div>
+        
+            <a href="/database/engines/" class="a-block">
+                <div class="post-item-wrapper">
+                    <div class="post-item post-item-no-divider">
+                        <div class="post-item-info-wrapper">
+                            <div class="post-item-title">
+                                存储引擎
+                            </div>
+                            <div class="post-item-summary">
+                                
+                                    <h2 id="存储引擎">存储引擎</h2>
+<p>一些命令：</p>
+<ul>
+<li>show engines;</li>
+<li>select version();</li>
+<li>select variables like &lsquo;%storage_engine%&rsquo;</li>
+</ul>
+<h2 id="存储引擎是什么">存储引擎是什么？</h2>
+<ul>
+<li>数据需要存储，但按照什么方式进行存储，这是多种多样的。这些方式就是各种各样的存储引擎，它可以定义自己的方式，进行存储数据、检索数据、管理数据。MySQL提供了一个存储引擎的抽象概念，市面上有各种各样的存储引擎，innodb、myisam。</li>
+<li>存储引擎是作用在表上的，每个表的存储引擎可以不相同。</li>
+</ul>
+<h2 id="区别">区别：</h2>
+<ul>
+<li>索引：InnoDB和MyISAM都支持索引，都采用B+树作为索引的数据结构。但是
+<ul>
+<li>InnoDB 索引文件和数据文件在一起的，每个节点都存储。</li>
+<li>MyISAM 是分开的，非聚簇索引，节点指向数据文件的位置。</li>
+</ul>
+</li>
+<li>行锁：InnoDB支持行锁，MyISAM支持表锁。粒度不一样。</li>
+<li>事务：InnoDB支持事务，提供隔离级别；MyISAM不支持事务。</li>
+<li>外键：InnoDB支持外键；MyISAM不支持。但是当更新操作时，外键会触发级联更新，性能会慢，而且可能会出错。</li>
+<li>InnoDB是以页为单位存储数据的</li>
+</ul>
+                                
+                            </div>
+                            <div class="post-item-meta">
+    2024-05-24
+    &emsp;
+    
+    
+    
+    &emsp;
+    
+</div>
+
+                        </div>
+                        
+                        
+                    </div>
+                </div>
+        
+            <a href="/spring/springmvc/" class="a-block">
+                <div class="post-item-wrapper">
+                    <div class="post-item post-item-no-divider">
+                        <div class="post-item-info-wrapper">
+                            <div class="post-item-title">
+                                mvc流程
+                            </div>
+                            <div class="post-item-summary">
+                                
+                                    <h2 id="mvc">MVC</h2>
+<p>MVC是一种软件架构模式，Model-View-Controller。作为一个服务端，要接收若干请求，然后进行相应处理，还要返还给客户端数据，所以这一套流程，如果都糅合在一个代码块里，对于系统的维护是非常复杂的。所以采用MVC模式</p>
+<ul>
+<li>Model：模型，代表着业务逻辑和数据部分，如客户端发送的数据，服务端处理好的数据</li>
+<li>View：视图，代表着和客户端展示结果的部分，比如可以返回一个页面</li>
+<li>Controller：控制，代表着和客户端交互的部分，接收客户端的输入，处理模型数据，返回试图</li>
+</ul>
+<p><img src="mvc.png" alt="image.png"></p>
+<h1 id="spring-web-mvc-流程">Spring Web MVC 流程</h1>
+<ul>
+<li>就是Servlet的封装，建立在Servlet API上的原始Web框架</li>
+</ul>
+<p>大致的流程就是</p>
+<ol>
+<li>由一个调度器接收请求uri</li>
+<li>通过map&lt;uri,handler&gt;，查找获得一个处理器</li>
+<li>再将这个处理器交给执行器</li>
+<li>执行器执行的结果返回给调度器</li>
+<li>调度器将结果给视图部分，返回给调度器</li>
+<li>调度器返回给客户端</li>
+</ol>
+<p>网上具体的</p>
+<ol>
+<li>用户发送出请求被前端控制器<code>DispatcherServlet</code>拦截进行处理。</li>
+<li>DispatcherServlet收到请求调用<code>HandlerMapping</code>（处理器映射器）。</li>
+<li>HandlerMapping找到具体的处理器(查找xml配置或注解配置)，生成处理器对象及处理器拦截器(如果有，也就是执行器链)，再一起返回给DispatcherServlet。</li>
+<li>DispatcherServlet调用<code>HandlerAdapter</code>（处理器适配器）。</li>
+<li>HandlerAdapter经过适配调用具体的处理器（Handler/Controller）。</li>
+<li>Controller执行完成返回<code>ModelAndView</code>对象。</li>
+<li>HandlerAdapter将Controller执行结果ModelAndView返回给DispatcherServlet。</li>
+<li>DispatcherServlet将ModelAndView传给ViewReslover（视图解析器）。</li>
+<li><code>ViewReslover</code>解析ModelAndView后返回具体View（视图）给DispatcherServlet。</li>
+<li>DispatcherServlet根据View进行渲染视图（即将模型数据填充至视图中）。</li>
+<li>DispatcherServlet响应View给用户。</li>
+</ol>
+                                
+                            </div>
+                            <div class="post-item-meta">
+    2024-05-24
+    &emsp;
+    
+    
+    
+    &emsp;
+    
+</div>
+
+                        </div>
+                        
+                        
+                    </div>
+                </div>
+        
+            <a href="/java/jvm/object/jvm_object/" class="a-block">
+                <div class="post-item-wrapper">
+                    <div class="post-item post-item-no-divider">
+                        <div class="post-item-info-wrapper">
+                            <div class="post-item-title">
+                                对象
+                            </div>
+                            <div class="post-item-summary">
+                                
+                                    <h2 id="对象">对象</h2>
+<ul>
+<li>对象，在java中有很多很多对象，在代码中，此对象调用另一个对象，这个对象又执行了它的方法。这时候就要了解，此对象长什么样，以及它又如何调用方法，使用属性的。</li>
+</ul>
+<h3 id="对象的创建流程">对象的创建流程</h3>
+<ol>
+<li>类加载检查
+<ol>
+<li>对象是类的实例，类是对象的模板。</li>
+<li>创建对象，首先要检查对应的<strong>类是否加载完成并且初始化</strong>。</li>
+<li>如果没有，就要进行类的加载过程。</li>
+</ol>
+</li>
+<li>分配内存空间
+<ol>
+<li>在类加载检查通过后，就可以分配内存空间了</li>
+<li>空间的大小由类加载完成后确定</li>
+<li>分配方式：<code>指针碰撞</code>、<code>空闲列表</code></li>
+</ol>
+</li>
+<li>初始化零值
+<ol>
+<li>在类中，实例属性可以不初始化，在创建对象后就会有默认值可以使用，就是这一步的原因</li>
+<li>这一步进行初始化对象布局里的<code>实例数据</code>，不包括<code>对象头</code></li>
+</ol>
+</li>
+<li>设置对象头
+<ol>
+<li>由虚拟机设置该对象的信息。</li>
+<li>如对象的哈希码、GC状态、锁信息、分代年龄、线程ID等重要信息</li>
+</ol>
+</li>
+<li>执行init方法
+<ol>
+<li>当创建对象是通过构造器的话，会执行这一步骤，用来进行自定义的初始化工作</li>
+</ol>
+</li>
+</ol>
+<h3 id="分配空间方式及问题">分配空间方式及问题</h3>
+<p>采用那种方式取决于 <code>Java 堆是否规整</code>，而<code> Java 堆是否规整</code>又取决于采用的<code>垃圾收集器是否带有压缩整理功能</code></p>
+<p>指针碰撞：</p>
+<ul>
+<li>适用于堆规整，将<code>已使用的内存</code>和<code>未使用的内存</code>分成两部分，当一个对象需要分配空间时，通过它的大小，将指针移动到<code>未使用的内存</code>那边</li>
+<li>使用该分配方式的 GC 收集器：Serial, ParNew</li>
+</ul>
+<p>空闲列表</p>
+<ul>
+<li>适用于堆不规整，此时就要维护一个列表，记录内存的空间状态</li>
+<li>通过对象的大小，找一块区域分配即可</li>
+<li>使用该分配方式的 GC 收集器：CMS</li>
+<li>内存碎片的问题，是有垃圾收集器的算法处理</li>
+</ul>
+<hr>
+<p>问题</p>
+<ul>
+<li>一个类可以有多个实例，但是当一个实例遇见多个线程同时创建，会遇见并发问题</li>
+</ul>
+<p>解决</p>
+<ul>
+<li>CAS：比较和交换，这是一种乐观锁的方法，假设当前没有问题，等处理完毕，比较一下，不相等了，就重试了</li>
+<li>TLAB：（Thread Local Allocation Buffer），是线程专有的一块区域，它使线程不共享公共区域，减少竞争。
+<ul>
+<li>它是在堆区中Eden区域的一小部分，适合在线程上分配较小的对象，当遇见较大的对象，空间不够时，还会在堆区上分配对象空间，继续采用CAS操作分配。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="对象的内存布局">对象的内存布局</h3>
+<ul>
+<li>对象头：第一部分用于存储<code>对象自身的运行时数据</code>（哈希码、GC 分代年龄、锁状态标志等等）；另一部分是<code>类型指针</code>，即<code>对象指向它的类元数据的指针</code>，虚拟机通过这个指针来确定这个对象是哪个类的实例。</li>
+<li>实例数据：对象的数据，包括父类的属性、本身的属性</li>
+<li>对齐填充：jvm要求对象的大小是8的倍数，当对象的实例数据不够8的倍数，就需要填充占位符对齐了</li>
+</ul>
+<h4 id="对象头">对象头</h4>
+<p><strong>Markword</strong></p>
+<ul>
+<li>记录对象的信息，如哈希值、线程ID、分代年龄、锁的状态</li>
+<li>在32位系统占4字节，在64位系统中占8字节</li>
+</ul>
+<p><img src="markword.png" alt="image.png"></p>
+<p><strong>32位jvm</strong>：</p>
+<ul>
+<li>无锁时（正常对象）：hashcode占据 25bit，分代年龄4bit，偏向锁标识 1bit，锁的状态 2bit</li>
+<li>偏向锁对象：线程ID 23bit，epoch 2bit，分代年龄4bit，偏向锁标识 1bit，锁的状态 2bit。
+<ul>
+<li>此时当对象持有对象的偏向锁时，无需使用原子操作</li>
+</ul>
+</li>
+<li>CMS（concurrent mark sweep）：是一个垃圾回收器</li>
+<li>轻量级锁状态：前30bit，指向栈中锁记录的指针</li>
+<li>重量级锁状态：锁膨胀，前30bit，指向对象的监视器</li>
+</ul>
+<p><strong>64位jvm</strong></p>
+                                
+                            </div>
+                            <div class="post-item-meta">
+    2024-05-24
+    &emsp;
+    
+    
+    
+    &emsp;
+    
+</div>
+
+                        </div>
+                        
+                        
+                    </div>
+                </div>
+        
+            <a href="/database/index/" class="a-block">
+                <div class="post-item-wrapper">
+                    <div class="post-item post-item-no-divider">
+                        <div class="post-item-info-wrapper">
+                            <div class="post-item-title">
+                                索引
+                            </div>
+                            <div class="post-item-summary">
+                                
+                                    <h2 id="数据结构类型">数据结构类型</h2>
+<p>Hash：查找速度O(1)，但是会出现Hash冲突，解决冲突可以使用拉链法。但是查询一个范围时，需要多次hash映射，才能得到全部数据。O(N)</p>
+<p>二叉搜索树 ：理想速度O(logN)。但是非递减数据会退化成链表。</p>
+<p>平衡二叉树 ：解决二叉搜索树的问题。各种操作最坏情况复杂度O(logN)。但是：</p>
+<ul>
+<li>元素多，高度还是会高</li>
+<li>维护平衡，代价高，通过各种旋转，O(logN)。</li>
+<li>每个节点存储的数据少，也就是节点上每次加载的数据太少，即便找到了数据，也需要多次磁盘IO去取数据。</li>
+<li>可以范围查询，中序遍历就是有序的数据。</li>
+<li>因为数据量比较大，一次性不一定能把数据全部加载到内存中。</li>
+</ul>
+<p>红黑树 ：解决平衡二叉树的<code>维护平衡</code>的问题。通过<code>颜色的改变</code>，可以在O(1)的复杂度下维护平衡。但是，缺点还是平衡二叉树大差不差。</p>
+<h2 id="b树">B树</h2>
+<p>每个节点都存储数据,每一个节点都会存储指针
+概念</p>
+<ul>
+<li>阶：一个数的最大子节点的个数，同时也控制每一个节点的键的数量的上下限</li>
+<li>根节点，中间节点：非根、非叶子结点，叶子结点</li>
+<li>键值对：是每个节点所存储的数据，每个节点有一个最小键、一个最大键，键的值是按照非递减的规则排序</li>
+</ul>
+<p>重点
+B数的结构控制，假设B树的阶数为 m</p>
+<ol>
+<li>根结点至少有两个子女。</li>
+<li>中间节点：k-1个键和k个孩子(指针)，其中k的范围[m/2,m]</li>
+<li>叶子节点：k-1个元素，其中k的范围[m/2,m]</li>
+<li>叶子节点都在一层</li>
+</ol>
+<p>通过这些规则，B树可以达到自平衡
+插入：键的非递减顺序、超过范围进行父节点的选举
+删除：不足范围进行合并</p>
+<h2 id="b树-1">B+树</h2>
+<p>只有叶子结点存储完整数据，并且每个叶子节点可以链接
+m阶的B+树每个节点的键的范围：[m/2-1,m-1]；向上取整</p>
+<ol>
+<li>叶子节点中存储全部的数据</li>
+<li>每个<code>叶子节点采用双向链表</code>进行关联</li>
+<li>中间节点：一个键对应一个子节点，共k个键；</li>
+</ol>
+<h2 id="采用b树b树在mysql的好处">采用B树、B+树在mysql的好处</h2>
+<ul>
+<li>速度：多路索引，树的高度能够降低，然后一次磁盘IO可以取出更多的数据</li>
+<li>顺序查询：B+树，叶子节点采用双向链表关联，可以进行范围查询</li>
+<li>如果需要高效的查询和插入操作，那么红黑树可能是更好的选择；</li>
+<li>如果要进行大量的数据读写操作，那么B+树可能更适合。</li>
+</ul>
+<h2 id="聚簇索引非聚簇索引">聚簇索引、非聚簇索引</h2>
+<p>聚簇索引</p>
+<ul>
+<li>叶子结点的data包含记录的全部数据记录</li>
+<li>整条树是根据主索引建立，这就是为什么数据库表中只能有一个primary key</li>
+<li>其他是辅助索引，在根据辅助索引查询时，需要先辅助索引的data确定其主索引，再走主索引树</li>
+</ul>
+<p>非聚簇索引</p>
+<ul>
+<li>叶子结点的data包含指向记录数据的指针</li>
+<li>回表查询：当查询结果正是需要的索引关键字，不需要回表取数据</li>
+</ul>
+<h2 id="类型">类型</h2>
+<h3 id="辅助索引">辅助索引</h3>
+<ul>
+<li>也叫二级索引，存储的是主索引的值</li>
+<li>唯一索引，普通索引，前缀索引，全文索引都是的</li>
+</ul>
+<p>sql语句</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#8b008b;font-weight:bold">alter</span><span style="color:#bbb"> </span><span style="color:#8b008b;font-weight:bold">table</span><span style="color:#bbb"> </span><span style="color:#8b008b;font-weight:bold">table_name</span><span style="color:#bbb"> </span><span style="color:#8b008b;font-weight:bold">add</span><span style="color:#bbb"> </span><span style="color:#8b008b;font-weight:bold">index</span>/fulltext<span style="color:#bbb"> </span><span style="color:#8b008b;font-weight:bold">index</span>/<span style="color:#8b008b;font-weight:bold">unique</span><span style="color:#bbb"> </span><span style="color:#8b008b;font-weight:bold">index</span><span style="color:#bbb">  </span><span style="color:#8b008b;font-weight:bold">column</span>(index_name);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#228b22">--前缀索引
+</span></span></span><span style="display:flex;"><span><span style="color:#228b22"></span><span style="color:#8b008b;font-weight:bold">create</span><span style="color:#bbb"> </span><span style="color:#8b008b;font-weight:bold">table</span><span style="color:#bbb"> </span><span style="color:#8b008b;font-weight:bold">table_name</span>(<span style="color:#bbb"> </span><span style="color:#8b008b;font-weight:bold">index</span>(<span style="color:#8b008b;font-weight:bold">column_name</span>(<span style="color:#8b008b;font-weight:bold">length</span>))<span style="color:#bbb"> </span>);<span style="color:#bbb"> 
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#8b008b;font-weight:bold">create</span><span style="color:#bbb"> </span><span style="color:#8b008b;font-weight:bold">index</span><span style="color:#bbb"> </span>index_name<span style="color:#bbb"> </span><span style="color:#8b008b;font-weight:bold">on</span><span style="color:#bbb"> </span><span style="color:#8b008b;font-weight:bold">table_name</span>(<span style="color:#bbb"> </span><span style="color:#8b008b;font-weight:bold">column_name</span>(<span style="color:#8b008b;font-weight:bold">length</span>)<span style="color:#bbb"> </span>);<span style="color:#bbb"> 
+</span></span></span></code></pre></div><h3 id="覆盖索引">覆盖索引</h3>
+<p>在简单查询的时候，解决回表查询。
+意思就是：如果查询的数据，正是索引关键字的属性，就直接返回，不用通过主键查询一次了</p>
+                                
+                            </div>
+                            <div class="post-item-meta">
+    2024-05-24
+    &emsp;
+    
+    
+    
+    &emsp;
+    
+</div>
+
+                        </div>
+                        
+                        
+                    </div>
+                </div>
+        
+            <a href="/database/log/" class="a-block">
+                <div class="post-item-wrapper">
+                    <div class="post-item post-item-no-divider">
+                        <div class="post-item-info-wrapper">
+                            <div class="post-item-title">
+                                日志
+                            </div>
+                            <div class="post-item-summary">
+                                
+                                    <h2 id="redo-log">redo log</h2>
+<ul>
+<li>重做日志</li>
+<li>主要是记录更新操作的细节，然后记录到文件中，为了mysql崩溃时能够恢复</li>
+<li>可以保证事务的持久性</li>
+</ul>
+<p>为什么需要这个redo log</p>
+<ol>
+<li>数据是存放在磁盘上，用户是通过cpu来操作的，两者之间速度是非常慢的，通常是需要缓冲池（是内存中的一个页面）作中间缓冲，<strong>缓存表数据与索引数据</strong>，避免多次磁盘IO。</li>
+<li>但是一个更新操作完成后，代表这有数据变了，磁盘上的数据要更改。先更新了缓冲池，但是mysql进程挂了，后续无法操作，导致磁盘中没有更新，造成数据丢失。</li>
+<li>有一个暴力解决：
+<ol>
+<li>可以在事务提交之前，将数据刷新到磁盘中</li>
+<li>但会出现多次随机IO，导致速度会非常慢</li>
+</ol>
+</li>
+<li>所以<code>redo log file</code>就出现了，它可以记录每次更新操作，只要将更新详细细节追加到这个文件中，就代表着事务提交成功。</li>
+</ol>
+<p>其中细节：</p>
+<ol>
+<li><code>redo log file</code>出现了，但是这个文件还是在磁盘上的，如果每次事务都进行刷盘，还是会有多次磁盘IO</li>
+<li>所以还可以在内存中申请一个缓冲池<code>redo log buffer</code>，记录redo log信息</li>
+<li>所以会有一个概念“何时将缓冲池<code>redo log buffer</code>的数据写入到磁盘<code>redo log file</code>文件中？”</li>
+</ol>
+<h3 id="刷盘策略">刷盘策略</h3>
+<p>重要的概念，刷盘不是直接写入到磁盘的<code>redo log file</code>，而是写入到文件系统的Page Cache。</p>
+<ul>
+<li>参数：innodb_flush_log_at_trx_commit控制</li>
+<li>缓冲池大小快满的时候</li>
+<li>后台线程控制</li>
+<li>mysql实例关闭时</li>
+</ul>
+<h3 id="innodb_flush_log_at_trx_commit">innodb_flush_log_at_trx_commit</h3>
+<ul>
+<li>0：每次事务提交不操作，而是由后台线程来控制，每隔1秒进行刷盘，最多丢失1秒的数据</li>
+<li>1：默认的，也是保证持久化必须的，每次事务提交就刷盘，通过<code>fsync</code>从页缓存写入到磁盘中</li>
+<li>2：文件系统的页缓存，事务提交，刷新到页缓存，再由页缓存刷新到磁盘</li>
+</ul>
+<h3 id="后台线程">后台线程</h3>
+<ul>
+<li>innodb有一个后台线程<code>Page Cleaner Thread</code>，会每隔一秒将<code>redo log buffer</code>的数据写入到<code>page cache</code>，然后调用<code>fsync</code>从页缓存中写入到磁盘，但是刷新的是<code>脏页</code>，未修改的数据页是不会刷新的</li>
+</ul>
+<h3 id="日志文件组">日志文件组</h3>
+<ul>
+<li>mysql里不止一个redo文件，在mysql8中默认32个文件，采用环形数组存储。</li>
+<li>write pos：代表当前写入的位置，后移操作。</li>
+<li>check point：检查点，代表擦除的位置，后移操作。</li>
+<li>write pos之后和check point之前，这两个之间代表是可以写入数据的部分。</li>
+</ul>
+<h2 id="bin-log">bin log</h2>
+<ul>
+<li>redo log是保证事务的持久性，是属于InnoDB的</li>
+<li>bin log二进制日志，是记录更新语句的原始逻辑，类似于Redis的AOF机制，可以保证<code>一致性</code></li>
+</ul>
+<h3 id="作用">作用</h3>
+<ul>
+<li>主从复制
+<ul>
+<li>主节点将操作写入到<code>bin log</code>文件中</li>
+<li>从节点从<code>bin log</code>文件中获取详细信息，实现数据同步</li>
+</ul>
+</li>
+<li>审计、监控</li>
+<li>数据恢复
+<ul>
+<li>可以恢复指定时间点的数据</li>
+<li>重新执行sql语句</li>
+</ul>
+</li>
+</ul>
+<h3 id="记录格式">记录格式</h3>
+<ul>
+<li>statement
+<ul>
+<li>记录语句的原始状态，可以理解成一模一样</li>
+<li>会出现数据不一致的问题，如插入语句中有now()，date()函数之类的。</li>
+</ul>
+</li>
+<li>row
+<ul>
+<li>记录语句的更新的具体数据</li>
+<li>但是会导致文件比较大</li>
+</ul>
+</li>
+<li>mixed
+<ul>
+<li>会先判断语句是否会导致不一致的问题</li>
+<li>再去决定用什么存储</li>
+</ul>
+</li>
+</ul>
+<h3 id="具体细节">具体细节</h3>
+<ol>
+<li>和redo log一样，还是在内存有一个缓存，<code>binlog cache</code>，在磁盘中还有一个<code>binlog file</code></li>
+<li>binlog的是以事务为单位的，只有在事务提交后，才会记录，写入文件。</li>
+<li>刷新<code>binlog cache</code>时机，由变量<code>sync_binlog</code>决定
+<ol>
+<li>0，事务提交后，不刷新，由系统决定</li>
+<li>N，累积N个事务后，刷新缓冲区，执行<code>fsync</code>命令，刷入磁盘</li>
+</ol>
+</li>
+</ol>
+<h2 id="undo-log">undo log</h2>
+<ul>
+<li>重做日志</li>
+<li>实现回滚，当一个事务异常后，可以根据这个文件进行回滚操作。</li>
+</ul>
+<h2 id="问题">问题</h2>
+<ol>
+<li>脏页
+<ol>
+<li>内存区和磁盘区的数据不一致，此时内存区的数据页称为”脏页“</li>
+<li>即便不一致，但是有redo log，也无妨</li>
+</ol>
+</li>
+</ol>
+<p>“脏页”变成“干净页”</p>
+                                
+                            </div>
+                            <div class="post-item-meta">
+    2024-05-24
+    &emsp;
+    
+    
+    
+    &emsp;
+    
+</div>
+
+                        </div>
+                        
+                        
+                    </div>
+                </div>
+        
+            <a href="/database/transaction/" class="a-block">
+                <div class="post-item-wrapper">
+                    <div class="post-item post-item-no-divider">
+                        <div class="post-item-info-wrapper">
+                            <div class="post-item-title">
+                                事务
+                            </div>
+                            <div class="post-item-summary">
+                                
+                                    <h2 id="概念">概念</h2>
+<ul>
+<li>是指一组逻辑操作，看成一个实体，这些操作要么全部正确执行，若出错一个在全部不执行，不造成修改操作。</li>
+</ul>
+<h2 id="事务使用">事务使用</h2>
+<ul>
+<li>设置隔离级别：set session transaction isolation level read uncommited;</li>
+<li>开启事务：start transcation</li>
+<li>设置保存点：savepoint</li>
+<li>提交事务：commit</li>
+<li>回滚事务：rollback</li>
+<li>回滚到保存点：rollback to</li>
+</ul>
+<h2 id="acid">ACID</h2>
+<p>利用 AID来保证最终的C</p>
+<ul>
+<li>原子性 atomic：事务的所有操作要么全部执行成功，要么全部执行失败。</li>
+<li>一致性 consistency：事务执行之后，数据应该保持一致，如修改前后资源的平衡。</li>
+<li>隔离性 isolation：事务与事务之间应该相互隔离，互不影响。</li>
+<li>持久性 durable：事务执行后的操作结果应该是持久的。</li>
+</ul>
+<h2 id="问题">问题</h2>
+<p>假设两个事务：T1，T2</p>
+<ul>
+<li>脏读：T1查询到了T2修改的数据，但是T2没有提交，这时T2可以随时回滚，抛弃它自己修改的数据；然后T1若是对自己查询的数据进行操作，就会出现最终数据错误。</li>
+<li>不可重复读：T1在一直读取数据的时候，这时T2对这一个数据进行了修改，导致T1读取的数据变了。</li>
+<li>幻读：T1在查询一个区间时，突然T2向这一个区间插入了一个新数据，导致T1再次查询时，出现了不认识的新数据，就像出现了幻觉一样。</li>
+<li>修改丢失：T1和T2读取同一个数据然后进行修改，会出现T1的修改被T2的修改替换了</li>
+</ul>
+<h2 id="隔离级别">隔离级别</h2>
+<ul>
+<li>代表的是多个事务之间占用相同的资源是如何隔离的</li>
+<li>解决事务之间的问题</li>
+</ul>
+<h3 id="read-uncommitted">READ-UNCOMMITTED</h3>
+<ul>
+<li>读未提交</li>
+<li>允许一个事务读取另一个事务未提交的修改数据</li>
+<li>都不能解决</li>
+</ul>
+<h3 id="read-committed">READ-COMMITTED</h3>
+<ul>
+<li>读已提交</li>
+<li>允许一个事务读取另一事务已提交的数据</li>
+<li>脏读能解决，因为此隔离可以防止读取未提交的数据</li>
+<li>不可重复读、幻读不能解决</li>
+</ul>
+<h3 id="repeatable-read">REPEATABLE-READ</h3>
+<ul>
+<li>可重复读</li>
+<li>对同一字段多次读取结果都是一致的</li>
+<li>脏读能解决</li>
+<li>不可重复读能解决，共享锁</li>
+<li>幻读不能解决，也可以解决，如记录锁和间隙锁</li>
+</ul>
+<h3 id="serializable">SERIALIZABLE</h3>
+<ul>
+<li>串行</li>
+<li>事务一个一个执行，不存在并行，也就不存在并行事务带来的问题</li>
+<li>都能解决；通过加<code>锁</code></li>
+</ul>
+<h2 id="锁">锁</h2>
+<p>按照模式上分类：</p>
+<ul>
+<li>乐观锁</li>
+<li>悲观锁</li>
+</ul>
+<p>按照粒度上分类：</p>
+<ul>
+<li>全局锁</li>
+<li>表级锁</li>
+<li>页级锁</li>
+<li>行级锁：在存储引擎之上的，利用索引机制来进行加锁</li>
+</ul>
+<p>按照属性上分类：</p>
+<ul>
+<li>
+<p>共享锁 S锁：读锁，在多个事务中可以多次获取这个锁进行操作，同一时刻可以多个线程拥有</p>
+</li>
+<li>
+<p>排它锁 X锁：写锁，独占的，其他事务对其不能再加锁，同一时刻只能有一个线程拥有</p>
+                                
+                            </div>
+                            <div class="post-item-meta">
+    2024-05-24
+    &emsp;
+    
+    
+    
+    &emsp;
+    
+</div>
+
+                        </div>
+                        
+                        
+                    </div>
+                </div>
+        
+        </a>
+    </div>
+
+
+                    </div>
+            </div><div id="sideContainer" class="side-container">
+    
+    <a class="a-block nav-head active" href="http://example.org/">
+    
+        <div class="nav-title">
+            小宋小宋?
+        </div>
+        
+        <div class="nav-subtitle">
+            在呢！
+        </div>
+        
+    </a>
+
+    <div class="nav-link-list">
+        
+        
+            
+            
+            
+            
+            
+            <a class="a-block nav-link-item false" href="/posts">
+                文章
+            </a>
+            
+        
+            
+            
+            
+            
+            
+            <a class="a-block nav-link-item false" href="/categories">
+                分类
+            </a>
+            
+        
+            
+            
+            
+            
+            
+            <a class="a-block nav-link-item false" href="/tags">
+                快速查找
+            </a>
+            
+        
+            
+            
+            
+            
+            
+            <a class="a-block nav-link-item false" href="/database">
+                MySQL
+            </a>
+            
+        
+            
+            
+            
+            
+            
+            <a class="a-block nav-link-item false" href="/spring">
+                Spring
+            </a>
+            
+        
+    </div>
+
+    
+
+    <div class="nav-footer">
+        
+Hugo Theme <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> by <a href="https://risehere.net/">Rise</a>
+<br>
+Ported from <a href="https://mak1t0.cc/" target="_blank" rel="noreferrer noopener">Makito</a>'s <a href="https://github.com/SumiMakito/hexo-theme-journal/" target="_blank" rel="noreferrer noopener">Journal.</a> <br>
+<br>
+
+&copy;
+	
+	This is a customized copyright.
+	
+
+    </div>
+    
+</div><div id="extraContainer" class="extra-container">
+    <div class="toc-wrapper">
+        
+
+        
+    </div>
+    <div class="pagination">
+        <a id="globalBackToTop" class="pagination-action animated-visibility" href="#top"
+            :class="{ invisible: scrollY == 0 }">
+            <i class="material-icons pagination-action-icon">
+                keyboard_arrow_up
+            </i>
+        </a>
+        
+        <a type="button" class="pagination-action" id="darkModeToggleButton">
+            <span class="material-icons pagination-action-icon" id="darkModeToggleIcon">
+                dark_mode
+            </span>
+        </a>
+        
+        
+        
+
+        <a class="pagination-action"  href="/">
+            
+            <i class="material-icons pagination-action-icon">
+                chevron_left
+            </i>
+        </a>
+
+        <div class="pagination-indicator">
+            <span style="text-align: center">
+                2<br>
+                <div style="display: inline-block; transform: rotate(-28deg)">-</div><br>4
+            </span>
+        </div>
+
+
+        <a class="pagination-action"  href="/page/3/">
+            
+            <i class="material-icons pagination-action-icon">
+                chevron_right
+            </i>
+        </a>
+        
+        
+    </div>
+</div>
+
+
+<div class="pagination">
+    
+    <a class="pagination-action" href="/" style="opacity:1">
+    
+        <i class="material-icons pagination-action-icon">
+            chevron_left
+        </i>
+    </a>
+
+        <div class="pagination-indicator">
+            <span>2/4</span>
+        </div>
+
+        
+        <a class="pagination-action" href="/page/3/"
+           style="opacity:1">
+        
+                <i class="material-icons pagination-action-icon">
+                    chevron_right
+                </i>
+            </a>
+</div>
+
+
+
+<div id="single-column-footer">
+Hugo Theme <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> by <a href="https://risehere.net/">Rise</a>
+<br>
+Ported from <a href="https://mak1t0.cc/" target="_blank" rel="noreferrer noopener">Makito</a>'s <a href="https://github.com/SumiMakito/hexo-theme-journal/" target="_blank" rel="noreferrer noopener">Journal.</a> <br>
+<br>
+
+&copy;
+	
+	This is a customized copyright.
+	
+</div>
+            </div>
+    
+    <script src="/js/journal.js"></script></body>
+</html>

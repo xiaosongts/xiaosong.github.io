@@ -1,0 +1,1067 @@
+<!DOCTYPE html>
+<html><head>
+	<meta name="generator" content="Hugo 0.136.5">
+<title>小宋小宋?</title>
+
+
+
+  
+
+
+<meta charset="utf-8">
+<meta name="X-UA-Compatible" content="IE=edge">
+<meta name="google-site-verification" content="G-XXXXXXXXXX">
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+<meta content="telephone=no" name="format-detection">
+<meta name="description" content="My HomePage Description">
+<meta name="renderer" content="webkit">
+<meta name="theme-color" content="#ffffff">
+
+
+
+<meta property="og:url" content="http://example.org/">
+  <meta property="og:site_name" content="小宋小宋?">
+  <meta property="og:title" content="小宋小宋?">
+  <meta property="og:description" content="My HomePage Description">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="website">
+
+
+
+
+
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="小宋小宋?">
+  <meta name="twitter:description" content="My HomePage Description">
+
+
+
+
+
+
+
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+      <script>
+        var doNotTrack = false;
+        if ( false ) {
+          var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+          var doNotTrack = (dnt == "1" || dnt == "yes");
+        }
+        if (!doNotTrack) {
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-XXXXXXXXXX');
+        }
+      </script>
+
+
+
+
+<script type="text/javascript">
+  (function(c,l,a,r,i,t,y){
+      c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+      t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+      y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+  })(window, document, "clarity", "script", "abcdefghzd");
+</script>
+
+
+
+  
+
+
+
+
+
+
+    <link type="text/css" rel="stylesheet" href="/vendor/css/bootstrap.min.css">
+
+<link rel="stylesheet" href="/scss/dark-mode.min.cb53f1bee2b8900cb4f082afbf00175d6618f281cf9a2fe8619e3b52d20b5721.css" integrity="sha256-y1PxvuK4kAy08IKvvwAXXWYY8oHPmi/oYZ47UtILVyE=" media="screen">
+
+
+<link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Material+Icons">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+<body>
+    	<div id="app"><div class="single-column-drawer-container" id="drawer"
+     v-bind:class="{ 'single-column-drawer-container-active': isDrawerOpen }">
+    <div class="drawer-content">
+        <div class="drawer-menu">
+            
+            
+            
+                
+                
+                
+                
+                
+                <a class="a-block drawer-menu-item false" href="/posts">
+                    文章
+                </a>
+                
+            
+                
+                
+                
+                
+                
+                <a class="a-block drawer-menu-item false" href="/categories">
+                    分类
+                </a>
+                
+            
+                
+                
+                
+                
+                
+                <a class="a-block drawer-menu-item false" href="/tags">
+                    快速查找
+                </a>
+                
+            
+                
+                
+                
+                
+                
+                <a class="a-block drawer-menu-item false" href="/database">
+                    MySQL
+                </a>
+                
+            
+                
+                
+                
+                
+                
+                <a class="a-block drawer-menu-item false" href="/spring">
+                    Spring
+                </a>
+                
+            
+            
+        </div>
+    </div>
+</div>
+<transition name="fade">
+    <div id="drawer-mask" v-bind:class="{ 'single-column-drawer-mask': mounted }" v-if="isDrawerOpen" v-on:click="toggleDrawer"></div>
+</transition>
+<nav id="navBar" class="navbar sticky-top navbar-light single-column-nav-container">
+    <div id="navBackground" class="nav-background"></div>
+    <div class="container container-narrow nav-content">
+        <button id="nav_dropdown_btn" class="nav-dropdown-toggle" type="button" v-on:click="toggleDrawer">
+            <i class="material-icons">
+                menu
+            </i>
+        </button>
+        <a id="navTitle" class="navbar-brand" href="http://example.org/">
+            小宋小宋?
+        </a>
+        
+        <button type="button" class="nav-darkmode-toggle" id="darkModeToggleButton2">
+            <i class="material-icons" id="darkModeToggleIcon2">
+                dark_mode
+            </i>
+        </button>
+        
+    </div>
+</nav>
+<div class="single-column-header-container" id="pageHead"
+     v-bind:style="{ transform: 'translateZ(0px) translateY('+.3*scrollY+'px)', opacity: 1-navOpacity }">
+    <a href="http://example.org/">
+        <div class="single-column-header-title">小宋小宋?</div>
+        
+        <div class="single-column-header-subtitle">在呢！</div>
+        
+
+    </a>
+</div>
+
+            <div id="content">
+                <div id="streamContainer" class="stream-container">
+
+    <div class="post-list-container post-list-container-no-background">
+        
+        
+            <a href="/database/master_slave/" class="a-block">
+                <div class="post-item-wrapper">
+                    <div class="post-item post-item-no-divider">
+                        <div class="post-item-info-wrapper">
+                            <div class="post-item-title">
+                                主从复制
+                            </div>
+                            <div class="post-item-summary">
+                                
+                                    <h2 id="概念">概念</h2>
+<p>主从复制是 MySQL 数据库管理系统（MySQL Database Management System，MySQL DBMS）中一个非常常用的功能，它允许一个数据库服务器作为主服务器，另一个数据库服务器作为从服务器，主服务器的数据会被复制到从服务器，从而实现数据的备份和容灾。</p>
+<p>主从交接的数据：二进制日志文件（Binary Log），主服务器的所有修改操作都会记录在这个日志文件中，通过将日志文件传送给从服务器，从服务器用来执行这个日志文件，就可以实现数据的同步功能。</p>
+<p>这点和Redis的主从相似，其中都会涉及到日志文件的当前位置，记录主从数据的差异点，进行数据同步，因为不可能每次都进行全量同步。</p>
+<h2 id="先上手使用">先上手使用</h2>
+                                
+                            </div>
+                            <div class="post-item-meta">
+    2024-10-25
+    &emsp;
+    
+    
+    
+    &emsp;
+    
+</div>
+
+                        </div>
+                        
+                        
+                    </div>
+                </div>
+        
+            <a href="/posts/she/" class="a-block">
+                <div class="post-item-wrapper">
+                    <div class="post-item post-item-no-divider">
+                        <div class="post-item-info-wrapper">
+                            <div class="post-item-title">
+                                事项
+                            </div>
+                            <div class="post-item-summary">
+                                
+                                    描述
+                                
+                            </div>
+                            <div class="post-item-meta">
+    2024-10-01
+    &emsp;
+    
+    
+    
+    &emsp;
+    
+</div>
+
+                        </div>
+                        
+                        
+                            
+                            <div class="post-item-image-wrapper">
+                            <div class="post-item-image"
+                            
+                            
+                                style="background-image: url('http://example.org/images/')"
+                            
+                            ></div>
+                            </div>
+                        
+                    </div>
+                </div>
+        
+            <a href="/posts/jasypt/" class="a-block">
+                <div class="post-item-wrapper">
+                    <div class="post-item post-item-no-divider">
+                        <div class="post-item-info-wrapper">
+                            <div class="post-item-title">
+                                jasypt
+                            </div>
+                            <div class="post-item-summary">
+                                
+                                    <h2 id="spring中使用">Spring中使用</h2>
+<p>在 Spring 中注册 jasypt bean 没有什么特别的，因为 jasypt 中的所有加密工具(digester 和加密器)都有足够的设计，可以从 Spring 应用程序上下文正确地实例化和依赖注入。</p>
+<p>1、依赖：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#8b008b;font-weight:bold">&lt;dependency&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#8b008b;font-weight:bold">&lt;groupId&gt;</span>org.jasypt<span style="color:#8b008b;font-weight:bold">&lt;/groupId&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#8b008b;font-weight:bold">&lt;artifactId&gt;</span>jasypt-spring4<span style="color:#8b008b;font-weight:bold">&lt;/artifactId&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#8b008b;font-weight:bold">&lt;version&gt;</span>1.9.3<span style="color:#8b008b;font-weight:bold">&lt;/version&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#8b008b;font-weight:bold">&lt;/dependency&gt;</span>
+</span></span></code></pre></div><p>2、在spring配置文件中配置：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span>	<span style="color:#8b008b;font-weight:bold">&lt;bean</span> <span style="color:#658b00">id=</span><span style="color:#cd5555">&#34;environmentVariablesConfiguration&#34;</span>
+</span></span><span style="display:flex;"><span>		  <span style="color:#658b00">class=</span><span style="color:#cd5555">&#34;org.jasypt.encryption.pbe.config.EnvironmentStringPBEConfig&#34;</span><span style="color:#8b008b;font-weight:bold">&gt;</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#8b008b;font-weight:bold">&lt;property</span> <span style="color:#658b00">name=</span><span style="color:#cd5555">&#34;algorithm&#34;</span> <span style="color:#658b00">value=</span><span style="color:#cd5555">&#34;PBEWithMD5AndDES&#34;</span> <span style="color:#8b008b;font-weight:bold">/&gt;</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#8b008b;font-weight:bold">&lt;property</span> <span style="color:#658b00">name=</span><span style="color:#cd5555">&#34;password&#34;</span> <span style="color:#658b00">value=</span><span style="color:#cd5555">&#34;cdf_So@2024&#34;</span> <span style="color:#8b008b;font-weight:bold">/&gt;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#8b008b;font-weight:bold">&lt;/bean&gt;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#8b008b;font-weight:bold">&lt;bean</span> <span style="color:#658b00">id=</span><span style="color:#cd5555">&#34;configurationEncryptor&#34;</span>
+</span></span><span style="display:flex;"><span>		  <span style="color:#658b00">class=</span><span style="color:#cd5555">&#34;org.jasypt.encryption.pbe.StandardPBEStringEncryptor&#34;</span><span style="color:#8b008b;font-weight:bold">&gt;</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#8b008b;font-weight:bold">&lt;property</span> <span style="color:#658b00">name=</span><span style="color:#cd5555">&#34;config&#34;</span> <span style="color:#658b00">ref=</span><span style="color:#cd5555">&#34;environmentVariablesConfiguration&#34;</span> <span style="color:#8b008b;font-weight:bold">/&gt;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#8b008b;font-weight:bold">&lt;/bean&gt;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#8b008b;font-weight:bold">&lt;bean</span> <span style="color:#658b00">id=</span><span style="color:#cd5555">&#34;propertyConfigurer&#34;</span>
+</span></span><span style="display:flex;"><span>		  <span style="color:#658b00">class=</span><span style="color:#cd5555">&#34;org.jasypt.spring4.properties.EncryptablePropertyPlaceholderConfigurer&#34;</span><span style="color:#8b008b;font-weight:bold">&gt;</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#8b008b;font-weight:bold">&lt;constructor-arg</span> <span style="color:#658b00">ref=</span><span style="color:#cd5555">&#34;configurationEncryptor&#34;</span> <span style="color:#8b008b;font-weight:bold">/&gt;</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#8b008b;font-weight:bold">&lt;property</span> <span style="color:#658b00">name=</span><span style="color:#cd5555">&#34;locations&#34;</span><span style="color:#8b008b;font-weight:bold">&gt;</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#8b008b;font-weight:bold">&lt;list&gt;</span>
+</span></span><span style="display:flex;"><span>				<span style="color:#8b008b;font-weight:bold">&lt;value&gt;</span>classpath:jdbc.properties<span style="color:#8b008b;font-weight:bold">&lt;/value&gt;</span>
+</span></span><span style="display:flex;"><span>				<span style="color:#8b008b;font-weight:bold">&lt;value&gt;</span>classpath:redis.properties<span style="color:#8b008b;font-weight:bold">&lt;/value&gt;</span>
+</span></span><span style="display:flex;"><span>				<span style="color:#8b008b;font-weight:bold">&lt;value&gt;</span>classpath:config.properties<span style="color:#8b008b;font-weight:bold">&lt;/value&gt;</span>
+</span></span><span style="display:flex;"><span>				<span style="color:#8b008b;font-weight:bold">&lt;value&gt;</span>classpath:xxl-job-executor.properties<span style="color:#8b008b;font-weight:bold">&lt;/value&gt;</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#8b008b;font-weight:bold">&lt;/list&gt;</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#8b008b;font-weight:bold">&lt;/property&gt;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#8b008b;font-weight:bold">&lt;/bean&gt;</span>
+</span></span></code></pre></div>
+                                
+                            </div>
+                            <div class="post-item-meta">
+    2024-09-18
+    &emsp;
+    
+    
+    
+    &emsp;
+    
+</div>
+
+                        </div>
+                        
+                        
+                    </div>
+                </div>
+        
+            <a href="/java/infos/info/" class="a-block">
+                <div class="post-item-wrapper">
+                    <div class="post-item post-item-no-divider">
+                        <div class="post-item-info-wrapper">
+                            <div class="post-item-title">
+                                相关信息
+                            </div>
+                            <div class="post-item-summary">
+                                
+                                    <h2 id="基本信息">基本信息</h2>
+<p>查看电脑上Java的配置信息</p>
+<pre tabindex="0"><code>java -XshowSettings:properties -version
+Property settings:
+    file.encoding = UTF-8
+    file.separator = /
+    java.class.path =
+    java.class.version = 61.0
+    java.home = /usr/lib/jvm/java-17-openjdk-amd64
+    java.io.tmpdir = /tmp
+    java.library.path = /usr/java/packages/lib
+        /usr/lib/x86_64-linux-gnu/jni
+        /lib/x86_64-linux-gnu
+        /usr/lib/x86_64-linux-gnu
+        /usr/lib/jni
+        /lib
+        /usr/lib
+    java.runtime.name = OpenJDK Runtime Environment
+    java.runtime.version = 17.0.12+7-Debian-2deb12u1
+    java.specification.name = Java Platform API Specification
+    java.specification.vendor = Oracle Corporation
+    java.specification.version = 17
+    java.vendor = Debian
+    java.vendor.url = https://tracker.debian.org/openjdk-17
+    java.vendor.url.bug = https://bugs.debian.org/openjdk-17
+    java.version = 17.0.12
+    java.version.date = 2024-07-16
+    java.vm.compressedOopsMode = Zero based
+    java.vm.info = mixed mode, sharing
+    java.vm.name = OpenJDK 64-Bit Server VM
+    java.vm.specification.name = Java Virtual Machine Specification
+    java.vm.specification.vendor = Oracle Corporation
+    java.vm.specification.version = 17
+    java.vm.vendor = Debian
+    java.vm.version = 17.0.12+7-Debian-2deb12u1
+    jdk.debug = release
+    line.separator = \n
+    native.encoding = UTF-8
+    os.arch = amd64
+    os.name = Linux
+    os.version = 4.4.0-19041-Microsoft
+    path.separator = :
+    sun.arch.data.model = 64
+    sun.boot.library.path = /usr/lib/jvm/java-17-openjdk-amd64/lib
+    sun.cpu.endian = little
+    sun.io.unicode.encoding = UnicodeLittle
+    sun.java.launcher = SUN_STANDARD
+    sun.jnu.encoding = UTF-8
+    sun.management.compiler = HotSpot 64-Bit Tiered Compilers
+    sun.stderr.encoding = UTF-8
+    sun.stdout.encoding = UTF-8
+    user.country = US
+    user.dir = /home/yushan
+    user.home = /home/yushan
+    user.language = en
+    user.name = yushan
+
+openjdk version &#34;17.0.12&#34; 2024-07-16
+OpenJDK Runtime Environment (build 17.0.12+7-Debian-2deb12u1)
+OpenJDK 64-Bit Server VM (build 17.0.12+7-Debian-2deb12u1, mixed mode, sharing)
+</code></pre>
+                                
+                            </div>
+                            <div class="post-item-meta">
+    2024-09-14
+    &emsp;
+    
+    
+    
+    &emsp;
+    
+</div>
+
+                        </div>
+                        
+                        
+                    </div>
+                </div>
+        
+            <a href="/posts/setup/" class="a-block">
+                <div class="post-item-wrapper">
+                    <div class="post-item post-item-no-divider">
+                        <div class="post-item-info-wrapper">
+                            <div class="post-item-title">
+                                安装与配置
+                            </div>
+                            <div class="post-item-summary">
+                                
+                                    <h2 id="jdk">JDK</h2>
+<p>linux下：</p>
+<ol>
+<li>从Oracle官网下载jdk</li>
+<li>上传至指定目录中，如<code>/usr/local</code></li>
+<li>解压压缩包<code>tar -zxvf jdk-8u202-linux-x64.tar.gz</code></li>
+<li>配置环境变量<code>vim /etc/profile</code>
+<div class="highlight"><pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#658b00">export</span> <span style="color:#00688b">JAVA_HOME</span>=/usr/local/jdk1.8.0_202
+</span></span><span style="display:flex;"><span><span style="color:#658b00">export</span> <span style="color:#00688b">JRE_HOME</span>=<span style="color:#cd5555">${</span><span style="color:#00688b">JAVA_HOME</span><span style="color:#cd5555">}</span>/jre
+</span></span><span style="display:flex;"><span><span style="color:#658b00">export</span> <span style="color:#00688b">CLASSPATH</span>=.:<span style="color:#cd5555">${</span><span style="color:#00688b">JAVA_HOME</span><span style="color:#cd5555">}</span>/lib/dt.jar:<span style="color:#cd5555">${</span><span style="color:#00688b">JAVA_HOME</span><span style="color:#cd5555">}</span>/lib/tools.jar
+</span></span><span style="display:flex;"><span><span style="color:#658b00">export</span> <span style="color:#00688b">PATH</span>=<span style="color:#cd5555">${</span><span style="color:#00688b">JAVA_HOME</span><span style="color:#cd5555">}</span>/bin:<span style="color:#00688b">$PATH</span>
+</span></span></code></pre></div></li>
+<li>执行<code>source /etc/profile</code></li>
+<li>检查JDK是否安装成功<code>java -version</code></li>
+</ol>
+<h2 id="maven">Maven</h2>
+<p>linux下：</p>
+<ol>
+<li>从官网<a href="https://archive.apache.org/dist/maven/maven-3/3.6.3/binaries/">Maven</a>下载压缩包</li>
+<li>上传到指定目录中，如<code>/usr/local</code></li>
+<li>解压压缩包<code>tar -zxvf maven-3.6.3-bin.tar.gz</code></li>
+<li>配置环境变量<code>vim /etc/profile</code>
+<div class="highlight"><pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#658b00">export</span> <span style="color:#00688b">MAVEN_HOME</span>=/usr/local/maven-3.6.3
+</span></span><span style="display:flex;"><span><span style="color:#658b00">export</span> <span style="color:#00688b">PATH</span>=<span style="color:#cd5555">${</span><span style="color:#00688b">MAVEN_HOME</span><span style="color:#cd5555">}</span>/bin:<span style="color:#00688b">$PATH</span>
+</span></span></code></pre></div></li>
+<li>配置settings.xml
+<div class="highlight"><pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#8b008b;font-weight:bold">&lt;settings&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#228b22">&lt;!-- 修改本地仓库地址 --&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#8b008b;font-weight:bold">&lt;localRepository&gt;</span>/usr/local/maven-repository<span style="color:#8b008b;font-weight:bold">&lt;/localRepository&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#8b008b;font-weight:bold">&lt;mirrors&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#228b22">&lt;!-- 配置阿里云仓库 --&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#8b008b;font-weight:bold">&lt;mirror&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#8b008b;font-weight:bold">&lt;id&gt;</span>aliyunmaven<span style="color:#8b008b;font-weight:bold">&lt;/id&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#8b008b;font-weight:bold">&lt;mirrorOf&gt;</span>*<span style="color:#8b008b;font-weight:bold">&lt;/mirrorOf&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#8b008b;font-weight:bold">&lt;name&gt;</span>aliyun nexus<span style="color:#8b008b;font-weight:bold">&lt;/name&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#8b008b;font-weight:bold">&lt;url&gt;</span>https://maven.aliyun.com/repository/public<span style="color:#8b008b;font-weight:bold">&lt;/url&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#8b008b;font-weight:bold">&lt;/mirror&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#8b008b;font-weight:bold">&lt;/mirrors&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#8b008b;font-weight:bold">&lt;/settings&gt;</span>
+</span></span></code></pre></div></li>
+<li>执行<code>source /etc/profile</code></li>
+<li>检查Maven是否安装成功<code>mvn -v</code></li>
+</ol>
+                                
+                            </div>
+                            <div class="post-item-meta">
+    2024-07-29
+    &emsp;
+    
+    
+    
+    &emsp;
+    
+</div>
+
+                        </div>
+                        
+                        
+                    </div>
+                </div>
+        
+            <a href="/posts/windows/" class="a-block">
+                <div class="post-item-wrapper">
+                    <div class="post-item post-item-no-divider">
+                        <div class="post-item-info-wrapper">
+                            <div class="post-item-title">
+                                windows下操作
+                            </div>
+                            <div class="post-item-summary">
+                                
+                                    <h2 id="端口和进程">端口和进程</h2>
+<p>查看端口的占用和进程，并且kill进程</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>netstat -ano | findstr <span style="color:#b452cd">6379</span>
+</span></span><span style="display:flex;"><span>tasklist | findstr redis-server
+</span></span><span style="display:flex;"><span>taskkill /F /PID <span style="color:#b452cd">1234</span>
+</span></span><span style="display:flex;"><span>taskkill /F /IM redis-server.exe
+</span></span></code></pre></div><h2 id="wsl">wsl</h2>
+<p>wsl是windows下的linux子系统，可以安装各种linux系统，比如ubuntu，centos，debian等等。
+wsl的安装和卸载，可以参考<a href="https://docs.microsoft.com/zh-cn/windows/wsl/install">wsl</a>。
+wsl的配置，可以参考<a href="https://docs.microsoft.com/zh-cn/windows/wsl/wsl-config">wsl配置</a>。</p>
+                                
+                            </div>
+                            <div class="post-item-meta">
+    2024-07-26
+    &emsp;
+    
+    
+    
+    &emsp;
+    
+</div>
+
+                        </div>
+                        
+                        
+                    </div>
+                </div>
+        
+            <a href="/posts/java-standard/" class="a-block">
+                <div class="post-item-wrapper">
+                    <div class="post-item post-item-no-divider">
+                        <div class="post-item-info-wrapper">
+                            <div class="post-item-title">
+                                Java开发规范
+                            </div>
+                            <div class="post-item-summary">
+                                
+                                    <h2 id="规范">规范</h2>
+<p>通过学习阿里巴巴开源的Java开发规范，学习到一些编程规范，通过编程规范，让开发小组提高开发效率，减少bug，提高代码质量。</p>
+<h2 id="名称">名称</h2>
+<ul>
+<li>类名大驼峰：<code>UserInfo</code></li>
+<li>变量名小驼峰：<code>user</code></li>
+<li>常量名全大写：<code>USER_INFO_DICT</code></li>
+<li>布尔型不要写is：<code>isDeleted</code> -&gt; <code>deleted</code></li>
+</ul>
+<p>对于MVC中</p>
+<ul>
+<li>Service层命名：<code>UserInfoService</code>，且在应用中暴露的都是Service接口</li>
+<li>Service实现类命名：<code>UserInfoServiceImpl</code>，以<code>impl</code>结尾</li>
+</ul>
+<p>Service/DAO 层方法命名规约</p>
+<ol>
+<li>获取单个对象的方法用 get 做前缀。</li>
+<li>获取多个对象的方法用 list 做前缀。</li>
+<li>获取统计值的方法用 count 做前缀。</li>
+<li>插入的方法用 save/insert 做前缀。</li>
+<li>删除的方法用 remove/delete 做前缀。</li>
+<li>修改的方法用 update 做前缀。</li>
+</ol>
+<p>领域模型命名规约</p>
+<ol>
+<li>数据对象：xxxDO，xxx 即为数据表名。</li>
+<li>数据传输对象：xxxDTO，xxx 为业务领域相关的名称。</li>
+<li>展示对象：xxxVO，xxx 一般为网页名称。</li>
+<li>POJO 是 DO/DTO/BO/VO 的统称，禁止命名成 xxxPOJO。</li>
+</ol>
+                                
+                            </div>
+                            <div class="post-item-meta">
+    2024-07-26
+    &emsp;
+    
+    
+    
+    &emsp;
+    
+</div>
+
+                        </div>
+                        
+                        
+                    </div>
+                </div>
+        
+            <a href="/posts/git/" class="a-block">
+                <div class="post-item-wrapper">
+                    <div class="post-item post-item-no-divider">
+                        <div class="post-item-info-wrapper">
+                            <div class="post-item-title">
+                                Git
+                            </div>
+                            <div class="post-item-summary">
+                                
+                                    <h2 id="简介">简介</h2>
+<blockquote>
+<p>需求：若是编辑一个文件时，想去保留每次修改的版本，以便当想去回滚版本的时候，也就是这次修改的不行，想要去使用以前的版本，所以，最常见的就是每次修改都另存为一个新文件，这种方法简单，但是繁琐</p>
+</blockquote>
+<p>发展历史</p>
+<ol>
+<li>本地化版本控制系统</li>
+<li>集中式版本控制系统：多个主机使用一个中央服务器的版本数据库，容易单点故障，出现故障的时候，多个主机无法工作</li>
+<li>分布式版本控制系统</li>
+</ol>
+<h2 id="git">Git</h2>
+<p>（分布式版本控制系统）</p>
+<p>Git由Linus Torvalds开发，用于在linux系统项目中使用。Git是建立一个仓库，这个仓库可以存储好多文件并进行管理，而且是直接存储<code>文件快照</code>，也就是每个主机都有文件的备份，可以解决集中式版本控制系统的单点故障问题。</p>
+<p>也就是说，当文件被更改的时候，新的版本记录的是最新的全量文件，而不是记录修改的差异，而且没有修改的文件则是链接，链接到上个版本文件。</p>
+<p><img src="snapshots.png" alt="快照"></p>
+<h2 id="仓库中文件状态">仓库中文件状态</h2>
+<p>仓库中有很多文件，每种文件都有不同的状态，有新建的、修改的、完成的，在Git中，可以理解为仓库中有箱子将这些不同状态的文件区分出来，需要人工手动地将文件移动到其他箱子，从而改变文件的状态。</p>
+<p>状态：</p>
+<ul>
+<li><code>已修改</code>：是指目前文件内容和仓库记录该文件的内容不一样</li>
+<li><code>已暂存</code>：是指记录了文件可以更新了，以便更新到仓库中记录的最新内容</li>
+<li><code>已提交</code>：是指文件在仓库中已经是最新内容，安全的保存成功</li>
+</ul>
+<p>总的来分，所有的文件都是两个状态<code>未跟踪</code>和<code>已跟踪</code>，未跟踪的文件是不属于仓库管理的文件，比如你新建一个文件的时候，这个文件就属于未跟踪状态，只有在使用命令<code>git add</code>将文件移动到暂存区，才会变成已跟踪状态。已跟踪状态则是已经提交和已经修改，已提交的文件是安全的保存在仓库中，已修改的文件是修改了，但是还没有提交（commit）到仓库中。</p>
+<p>所以，根据文件的状态可以将仓库划分三个区域，<code>工作区</code>、<code>暂存区</code>、<code>git仓库</code>；</p>
+<ul>
+<li>工作区：是Git仓库压缩出来的一部分，以便用户可以修改这些文件</li>
+<li>暂存区：是一个文件，记录需要提交的修改后的文件</li>
+<li>Git仓库：是最终的数据库，保存的都是最新的内容</li>
+</ul>
+<p><img src="areas.png" alt="区域"></p>
+<h2 id="安装和配置">安装和配置</h2>
+<p>官网：<a href="https://git-scm.com/downloads">Git下载</a></p>
+<p>配置</p>
+<ol>
+<li>配置用户名和邮箱，因为在提交代码的时候，需要记录提交者的信息</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>git config --global user.name <span style="color:#cd5555">&#34;yushan song&#34;</span>
+</span></span><span style="display:flex;"><span>git config --global user.email <span style="color:#cd5555">&#34;yushan.song@gmail.com&#34;</span>
+</span></span></code></pre></div><p><code>--global</code>，这个是全局配置，如果只对当前仓库生效，则不需要加</p>
+<h2 id="基础">基础</h2>
+<p>仓库：将整个文件夹变为一个仓库进行管理文件</p>
+<ul>
+<li>本地仓库：如果仅仅个人使用，利用Git的优点管理自己的文件，可以将文件夹变为一个仓库，然后自己进行操作
+<ul>
+<li><code>git init</code></li>
+</ul>
+</li>
+<li>远程仓库：一般用于多人协作开发一个工程，或者自己推送到软件项目托管平台，以供别人访问及使用
+<ul>
+<li><code>git push origin master</code></li>
+<li><code>git clone &lt;url&gt;</code></li>
+</ul>
+</li>
+</ul>
+<p>本地仓库内文件操作：</p>
+<p>状态：</p>
+<ol>
+<li><code>git status</code></li>
+<li>可以查看当前仓库的文件状态，比如你修改了什么，新增了什么，删除了什么</li>
+</ol>
+<p>添加至暂存区(stage)：</p>
+<ol>
+<li><code>git add &lt;file&gt;/&lt;path&gt;</code></li>
+<li>将未跟踪的文件进行跟踪，将已跟踪且修改的文件添加到暂存区</li>
+<li>将文件添加到暂存区，精确的说：“是将文件添加到下一个版本中”，每次add都是创建一个新版本，但是暂存区中只有一个版本，所以每次add都是覆盖之前的版本。</li>
+<li>比如，当出现<code>Untracked files</code>这个信息，就表示有未跟踪文件（新增的），就可以使用这个命令将其添加到暂存区，交由git管理。</li>
+</ol>
+<p>提交到仓库：</p>
+<ol>
+<li><code>git commit -m &quot;message&quot;</code></li>
+<li>将暂存区的文件提交到仓库中，提交之后，这个文件就变成了<code>已提交状态</code>，可以理解为这个文件是安全的保存在仓库中，可以提交到远程仓库中。</li>
+</ol>
+<h2 id="分支">分支</h2>
+<p>主分支和其他分支</p>
+                                
+                            </div>
+                            <div class="post-item-meta">
+    2024-07-10
+    &emsp;
+    
+    
+    
+    &emsp;
+    
+</div>
+
+                        </div>
+                        
+                        
+                    </div>
+                </div>
+        
+            <a href="/posts/bash/" class="a-block">
+                <div class="post-item-wrapper">
+                    <div class="post-item post-item-no-divider">
+                        <div class="post-item-info-wrapper">
+                            <div class="post-item-title">
+                                终端
+                            </div>
+                            <div class="post-item-summary">
+                                
+                                    <h2 id="概念">概念</h2>
+<p>简单的概念就是linux是一个内核，然后需要一个shell来和linux内核打交道，bash就是shell的一种，其他的还有ksh,zsh,sh，和用户打交道的就是终端，它来接收用户输入的信息，传递到使用的bash里，终端比如konsole,zutty,terminator，很多……</p>
+<ul>
+<li>终端：人机接口的工具，输入shell命令的工具，如konsole，zutty</li>
+<li>bash：是shell的一种类型，其他的还有zsh ，sh ，dash</li>
+<li>shell：是“壳”的意思，是在计算机内核之上套了一层，用来接收用户指令的界面</li>
+</ul>
+<h2 id="shell">shell</h2>
+<p>分类：</p>
+<ul>
+<li>图形界面shell：如linux的ghome， kde，</li>
+<li>命令式shell：如sh/bash/zsh/ksh</li>
+</ul>
+<h3 id="交互式和非交互式">交互式和非交互式</h3>
+<ul>
+<li>交互式shell：是与用户交互的，等待用户输入的命令的shell，</li>
+<li>非交互式shell：是以脚本运行的，比如编写一个<code>start.sh</code>，就可以用bash工具运行它</li>
+</ul>
+<h3 id="登录式和非登录式">登录式和非登录式</h3>
+<ul>
+<li>这个是根据两种shell所读取的配置文件不同而区分的</li>
+<li>登录式shell：当第一次登录linux系统时，分配的shell就是登录shell，还有在终端使用<code>su</code>命令登录后，只能使用<code>logout</code>命令退出的就是登录式shell，比如使用虚拟机时没有安装GUI，那个使用root提示的就是登录shell，还有ssh远程连接时，那个也是登录shell，读取文件：
+<ol>
+<li>/etc/profile</li>
+<li>/etc/profile.d/*.sh</li>
+<li>~/.bash_profile</li>
+<li>~/.bashrc</li>
+<li>/etc/bashrc</li>
+</ol>
+</li>
+<li>非登录式shell：和用户无关的shell，比如在linux系统里，使用终端打开的shell，那是非登录的，它读取的文件是不一样的。
+<ol>
+<li>~/.bashrc</li>
+<li>/etc/bashrc</li>
+<li>/etc/profile.d/*.sh</li>
+</ol>
+</li>
+</ul>
+<h3 id="判断">判断</h3>
+<ul>
+<li>要进行测试的话，在每个文件内添加<code>echo</code>命令就可</li>
+<li>判断是哪个shell，-bash是登录式shell</li>
+</ul>
+<p><img src="shell.png" alt="shell.png"></p>
+<h2 id="使用">使用</h2>
+                                
+                            </div>
+                            <div class="post-item-meta">
+    2024-05-24
+    &emsp;
+    
+    
+    
+    &emsp;
+    
+</div>
+
+                        </div>
+                        
+                        
+                    </div>
+                </div>
+        
+            <a href="/java/basic/basicknowledge/java_basic/" class="a-block">
+                <div class="post-item-wrapper">
+                    <div class="post-item post-item-no-divider">
+                        <div class="post-item-info-wrapper">
+                            <div class="post-item-title">
+                                Java基础知识
+                            </div>
+                            <div class="post-item-summary">
+                                
+                                    <h2 id="面向对象和面向过程">面向对象和面向过程</h2>
+<p>面向对象 OOP：</p>
+<ol>
+<li>将现实世界的实体所拥有的状态和行为封装成一个类，以面向这个实体的方式进行程序构建，在实体的主观感受操作。</li>
+<li>通过对象来描述现实世界中的实体以及它们之间的交互关系。</li>
+<li>状态-&gt;属性</li>
+<li>行为-&gt;方法</li>
+</ol>
+<p>面向过程 PP：</p>
+<ol>
+<li>主要强调的是程序执行的流程，以函数和数据结构为基础进行编程</li>
+<li>程序量比较大时程序难以维护</li>
+</ol>
+<h2 id="面向对象三大特性">面向对象三大特性</h2>
+<h3 id="继承">继承</h3>
+<ul>
+<li>如果多个实体有共同的状态和行为，可以将这些共同的状态和行为提取出来，然后形成一个单独的实体，那些实体可以继承这个新的实体，达到复用的目的，而且容易维护。</li>
+<li>阻止继承：类使用final关键字声明，之后这个类不能被继承，然后方法也自动是final方法。</li>
+<li>继承：是实现了类之间的 is-a 关系</li>
+</ul>
+<h3 id="封装">封装</h3>
+<ul>
+<li>信息隐藏，形式上是将对象的数据和行为组合在一个类中，并且对使用者隐藏具体的实现细节</li>
+<li>重要：程序只能通过对象的方法才能和对象的数据进行交互，使用者是看不见数据的</li>
+</ul>
+<h3 id="多态">多态</h3>
+<ul>
+<li>指一个对象有多种状态，主要分为编译时多态，运行时多态</li>
+<li>编译时多态：方法的重载</li>
+<li>运行时多态：程序中定义的<code>对象</code>引用所指向的<code>具体类型</code>在运行期间才确定</li>
+</ul>
+<p>对象的方法调用：</p>
+<ol>
+<li>确定对象的实际类型</li>
+<li>匹配方法</li>
+<li>采用动态绑定/静态绑定
+<ol>
+<li>静态绑定：构造器、private、static和final方法，这些方法编译器能够明确，称为静态绑定</li>
+<li>动态绑定：除了以上，必须采用动态绑定， 虚拟机必须调用与 a对象引用的实际类型对应的方法，如果在实际类型没有找到，必须在超类中调用，但是这个过程慢，所以虚拟机生成方法表，列出所有方法的签名和要调用的实际方法。</li>
+</ol>
+</li>
+<li>调用方法，从方法表（虚拟机加载一个类时创建）中</li>
+</ol>
+<p>如下：
+Manager  继承 Employee
+当一个 manager 对象调用getName方法时，直接查表就知道该调用哪个方法</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#8b008b;font-weight:bold">public</span><span style="color:#bbb"> </span><span style="color:#8b008b;font-weight:bold">class</span> <span style="color:#008b45;font-weight:bold">Employee</span>{<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">	</span><span style="color:#8b008b;font-weight:bold">private</span><span style="color:#bbb"> </span>String<span style="color:#bbb"> </span>name;<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">	</span><span style="color:#8b008b;font-weight:bold">private</span><span style="color:#bbb"> </span><span style="color:#00688b;font-weight:bold">int</span><span style="color:#bbb"> </span>salary;<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">	</span><span style="color:#8b008b;font-weight:bold">public</span><span style="color:#bbb"> </span>String<span style="color:#bbb"> </span><span style="color:#008b45">getName</span>(){<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">		</span><span style="color:#8b008b;font-weight:bold">return</span><span style="color:#bbb"> </span>name;<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">	</span>}<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">	</span><span style="color:#8b008b;font-weight:bold">public</span><span style="color:#bbb"> </span>String<span style="color:#bbb"> </span><span style="color:#008b45">getSalary</span>(){<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">		</span><span style="color:#8b008b;font-weight:bold">return</span><span style="color:#bbb"> </span>salary;<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">	</span>}<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span>}<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span>方法表大概为<span style="color:#a61717;background-color:#e3d2d2">：</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span>Employee<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">	</span>getName<span style="color:#bbb">	  	</span>-&gt;<span style="color:#bbb"> </span>Employee.<span style="color:#658b00">getName</span>()<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">	</span>getSalary<span style="color:#bbb"> 	</span>-&gt;<span style="color:#bbb"> </span>Employee.<span style="color:#658b00">getSalary</span>()<span style="color:#bbb">
+</span></span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#8b008b;font-weight:bold">public</span><span style="color:#bbb"> </span><span style="color:#8b008b;font-weight:bold">class</span> <span style="color:#008b45;font-weight:bold">Manager</span><span style="color:#bbb"> </span><span style="color:#8b008b;font-weight:bold">extends</span><span style="color:#bbb"> </span>Employee{<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">	</span><span style="color:#8b008b;font-weight:bold">private</span><span style="color:#bbb"> </span>String<span style="color:#bbb"> </span>id;<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">	</span><span style="color:#8b008b;font-weight:bold">public</span><span style="color:#bbb"> </span>String<span style="color:#bbb"> </span><span style="color:#008b45">getName</span>(){<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">		</span><span style="color:#8b008b;font-weight:bold">return</span><span style="color:#bbb"> </span>name;<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">	</span>}<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">	</span><span style="color:#8b008b;font-weight:bold">public</span><span style="color:#bbb"> </span>String<span style="color:#bbb"> </span><span style="color:#008b45">getId</span>(){<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">		</span><span style="color:#8b008b;font-weight:bold">return</span><span style="color:#bbb"> </span>name;<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">	</span>}<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span>}<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span>方法表大概为<span style="color:#a61717;background-color:#e3d2d2">：</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span>Manager<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">	</span>getName<span style="color:#bbb">		</span>-&gt;<span style="color:#bbb"> </span>Manager.<span style="color:#658b00">getName</span>()<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">	</span>getId<span style="color:#bbb">		</span>-&gt;<span style="color:#bbb"> </span>Manager.<span style="color:#658b00">getId</span>()<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">	</span>getSalary<span style="color:#bbb"> 	</span>-&gt;<span style="color:#bbb"> </span>Employee.<span style="color:#658b00">getSalary</span>()<span style="color:#bbb">
+</span></span></span></code></pre></div><h2 id="接口和抽象类">接口和抽象类</h2>
+<ul>
+<li>概念上
+<ul>
+<li>接口：强调的是对象的行为，强调类应该做什么，比如一个接口里有一个跑步的行为，然后一个类实现了这个接口，那么就代表这个类具有的跑步的行为。</li>
+<li>抽象类：强调代码复用，定义一种通用的模板，提供一些共性的状态和行为。</li>
+</ul>
+</li>
+<li>使用上
+<ul>
+<li>接口：interface关键字，方法都是 public abstract，常量都是public static final且必须有默认值</li>
+<li>抽象类：abstract关键字，可以有实例方法和抽象方法，抽象方法必须无实现</li>
+</ul>
+</li>
+<li>共同
+<ul>
+<li>都不能被实例化</li>
+<li>都可以有default方法</li>
+<li>都可以有抽象方法</li>
+</ul>
+</li>
+</ul>
+<h2 id="数据类型">数据类型</h2>
+<p>byte、short、int、long、float、double 、char<!-- raw HTML omitted -->
+1、2、4、8、4、8 、2</p>
+                                
+                            </div>
+                            <div class="post-item-meta">
+    2024-05-24
+    &emsp;
+    
+    
+    
+    &emsp;
+    
+</div>
+
+                        </div>
+                        
+                        
+                    </div>
+                </div>
+        
+        </a>
+    </div>
+
+
+                    </div>
+            </div><div id="sideContainer" class="side-container">
+    
+    <a class="a-block nav-head active" href="http://example.org/">
+    
+        <div class="nav-title">
+            小宋小宋?
+        </div>
+        
+        <div class="nav-subtitle">
+            在呢！
+        </div>
+        
+    </a>
+
+    <div class="nav-link-list">
+        
+        
+            
+            
+            
+            
+            
+            <a class="a-block nav-link-item false" href="/posts">
+                文章
+            </a>
+            
+        
+            
+            
+            
+            
+            
+            <a class="a-block nav-link-item false" href="/categories">
+                分类
+            </a>
+            
+        
+            
+            
+            
+            
+            
+            <a class="a-block nav-link-item false" href="/tags">
+                快速查找
+            </a>
+            
+        
+            
+            
+            
+            
+            
+            <a class="a-block nav-link-item false" href="/database">
+                MySQL
+            </a>
+            
+        
+            
+            
+            
+            
+            
+            <a class="a-block nav-link-item false" href="/spring">
+                Spring
+            </a>
+            
+        
+    </div>
+
+    
+
+    <div class="nav-footer">
+        
+Hugo Theme <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> by <a href="https://risehere.net/">Rise</a>
+<br>
+Ported from <a href="https://mak1t0.cc/" target="_blank" rel="noreferrer noopener">Makito</a>'s <a href="https://github.com/SumiMakito/hexo-theme-journal/" target="_blank" rel="noreferrer noopener">Journal.</a> <br>
+<br>
+
+&copy;
+	
+	This is a customized copyright.
+	
+
+    </div>
+    
+</div><div id="extraContainer" class="extra-container">
+    <div class="toc-wrapper">
+        
+
+        
+    </div>
+    <div class="pagination">
+        <a id="globalBackToTop" class="pagination-action animated-visibility" href="#top"
+            :class="{ invisible: scrollY == 0 }">
+            <i class="material-icons pagination-action-icon">
+                keyboard_arrow_up
+            </i>
+        </a>
+        
+        <a type="button" class="pagination-action" id="darkModeToggleButton">
+            <span class="material-icons pagination-action-icon" id="darkModeToggleIcon">
+                dark_mode
+            </span>
+        </a>
+        
+        
+        
+
+        <a class="pagination-action"  href="/page/2/">
+            
+            <i class="material-icons pagination-action-icon">
+                chevron_left
+            </i>
+        </a>
+
+        <div class="pagination-indicator">
+            <span style="text-align: center">
+                3<br>
+                <div style="display: inline-block; transform: rotate(-28deg)">-</div><br>4
+            </span>
+        </div>
+
+
+        <a class="pagination-action"  href="/page/4/">
+            
+            <i class="material-icons pagination-action-icon">
+                chevron_right
+            </i>
+        </a>
+        
+        
+    </div>
+</div>
+
+
+<div class="pagination">
+    
+    <a class="pagination-action" href="/page/2/" style="opacity:1">
+    
+        <i class="material-icons pagination-action-icon">
+            chevron_left
+        </i>
+    </a>
+
+        <div class="pagination-indicator">
+            <span>3/4</span>
+        </div>
+
+        
+        <a class="pagination-action" href="/page/4/"
+           style="opacity:1">
+        
+                <i class="material-icons pagination-action-icon">
+                    chevron_right
+                </i>
+            </a>
+</div>
+
+
+
+<div id="single-column-footer">
+Hugo Theme <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> by <a href="https://risehere.net/">Rise</a>
+<br>
+Ported from <a href="https://mak1t0.cc/" target="_blank" rel="noreferrer noopener">Makito</a>'s <a href="https://github.com/SumiMakito/hexo-theme-journal/" target="_blank" rel="noreferrer noopener">Journal.</a> <br>
+<br>
+
+&copy;
+	
+	This is a customized copyright.
+	
+</div>
+            </div>
+    
+    <script src="/js/journal.js"></script></body>
+</html>
