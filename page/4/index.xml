@@ -2,24 +2,24 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>小宋小宋?</title>
-    <link>http://example.org/</link>
+    <link>https://github.com/yushan-blog/xiaosong.github.io.git/</link>
     <description>Recent content on 小宋小宋?</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>This is a customized copyright.</copyright>
     <lastBuildDate>Fri, 25 Oct 2024 12:00:00 +0800</lastBuildDate>
     
-        <atom:link href="http://example.org/index.xml" rel="self" type="application/rss+xml" />
+        <atom:link href="https://github.com/yushan-blog/xiaosong.github.io.git/index.xml" rel="self" type="application/rss+xml" />
     
     
     
         <item>
         <title>基础概念</title>
-        <link>http://example.org/java/thread/basic/thread_basic/</link>
+        <link>https://github.com/yushan-blog/xiaosong.github.io.git/java/thread/basic/thread_basic/</link>
         <pubDate>Fri, 24 May 2024 15:14:01 +0800</pubDate>
         
-        <guid>http://example.org/java/thread/basic/thread_basic/</guid>
-        <description>小宋小宋? http://example.org/java/thread/basic/thread_basic/ -&lt;h1 id=&#34;进程线程&#34;&gt;进程/线程&lt;/h1&gt;
+        <guid>https://github.com/yushan-blog/xiaosong.github.io.git/java/thread/basic/thread_basic/</guid>
+        <description>小宋小宋? https://github.com/yushan-blog/xiaosong.github.io.git/java/thread/basic/thread_basic/ -&lt;h1 id=&#34;进程线程&#34;&gt;进程/线程&lt;/h1&gt;
 &lt;p&gt;cpu:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;中央处理器&lt;/li&gt;
@@ -567,18 +567,18 @@ synchronized 方法或语句的使用提供了对与每个对象相关的隐式�
 所以，在synchronized使用时，一个monitorenter可以看作成是P操作，一个monitorexit可以看作成V操作，通过操作监视器的值，保护这个对象的同步访问。&lt;/p&gt;
 &lt;h2 id=&#34;condition&#34;&gt;Condition&lt;/h2&gt;
 &lt;h1 id=&#34;java内存模型&#34;&gt;Java内存模型&lt;/h1&gt;
-- http://example.org/java/thread/basic/thread_basic/ - This is a customized copyright.</description>
+- https://github.com/yushan-blog/xiaosong.github.io.git/java/thread/basic/thread_basic/ - This is a customized copyright.</description>
         </item>
     
     
     
         <item>
         <title>线程池</title>
-        <link>http://example.org/java/thread/pool/thread_pool/</link>
+        <link>https://github.com/yushan-blog/xiaosong.github.io.git/java/thread/pool/thread_pool/</link>
         <pubDate>Fri, 24 May 2024 15:14:01 +0800</pubDate>
         
-        <guid>http://example.org/java/thread/pool/thread_pool/</guid>
-        <description>小宋小宋? http://example.org/java/thread/pool/thread_pool/ -&lt;h1 id=&#34;线程池&#34;&gt;线程池&lt;/h1&gt;
+        <guid>https://github.com/yushan-blog/xiaosong.github.io.git/java/thread/pool/thread_pool/</guid>
+        <description>小宋小宋? https://github.com/yushan-blog/xiaosong.github.io.git/java/thread/pool/thread_pool/ -&lt;h1 id=&#34;线程池&#34;&gt;线程池&lt;/h1&gt;
 &lt;ul&gt;
 &lt;li&gt;池化技术，对于线程来说，在一个池中存放许多&lt;code&gt;线程对象&lt;/code&gt;，当来一个任务的时候，不需要创建新的线程对象，而是直接从池中拿一个线程对象来使用，进行处理任务&lt;/li&gt;
 &lt;/ul&gt;
@@ -782,18 +782,18 @@ synchronized 方法或语句的使用提供了对与每个对象相关的隐式�
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#bbb&#34;&gt;&lt;/span&gt;}&lt;span style=&#34;color:#bbb&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id=&#34;executors&#34;&gt;Executors&lt;/h1&gt;
 &lt;h1 id=&#34;辅助接口和类&#34;&gt;辅助接口和类&lt;/h1&gt;
-- http://example.org/java/thread/pool/thread_pool/ - This is a customized copyright.</description>
+- https://github.com/yushan-blog/xiaosong.github.io.git/java/thread/pool/thread_pool/ - This is a customized copyright.</description>
         </item>
     
     
     
         <item>
         <title>集合</title>
-        <link>http://example.org/java/basic/collection/collection/</link>
+        <link>https://github.com/yushan-blog/xiaosong.github.io.git/java/basic/collection/collection/</link>
         <pubDate>Fri, 24 May 2024 15:14:01 +0800</pubDate>
         
-        <guid>http://example.org/java/basic/collection/collection/</guid>
-        <description>小宋小宋? http://example.org/java/basic/collection/collection/ -&lt;ul&gt;
+        <guid>https://github.com/yushan-blog/xiaosong.github.io.git/java/basic/collection/collection/</guid>
+        <description>小宋小宋? https://github.com/yushan-blog/xiaosong.github.io.git/java/basic/collection/collection/ -&lt;ul&gt;
 &lt;li&gt;集合是存放对象的容器，用来存放&lt;code&gt;对象的引用&lt;/code&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;线程安全的集合类&lt;/p&gt;
@@ -1032,18 +1032,18 @@ a. 如果小于64 ，则先进行数组扩容&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
-- http://example.org/java/basic/collection/collection/ - This is a customized copyright.</description>
+- https://github.com/yushan-blog/xiaosong.github.io.git/java/basic/collection/collection/ - This is a customized copyright.</description>
         </item>
     
     
     
         <item>
         <title>Vim</title>
-        <link>http://example.org/posts/vim/</link>
+        <link>https://github.com/yushan-blog/xiaosong.github.io.git/posts/vim/</link>
         <pubDate>Tue, 14 May 2024 00:00:00 +0000</pubDate>
         
-        <guid>http://example.org/posts/vim/</guid>
-        <description>小宋小宋? http://example.org/posts/vim/ -&lt;h1 id=&#34;伟人&#34;&gt;伟人&lt;/h1&gt;
+        <guid>https://github.com/yushan-blog/xiaosong.github.io.git/posts/vim/</guid>
+        <description>小宋小宋? https://github.com/yushan-blog/xiaosong.github.io.git/posts/vim/ -&lt;h1 id=&#34;伟人&#34;&gt;伟人&lt;/h1&gt;
 &lt;p&gt;Bram Moolenaar （1961—2023.8.3），编辑器之神Vim之父&lt;/p&gt;
 &lt;p&gt;1961年——出生在荷兰莱斯镇 &lt;!-- raw HTML omitted --&gt;
 1985年——代尔夫特理工大学毕业，获得电气工程学士学位&lt;!-- raw HTML omitted --&gt;
@@ -1099,7 +1099,7 @@ a. 如果小于64 ，则先进行数组扩容&lt;/li&gt;
 &lt;li&gt;在github中，有很多vimrc，可以一键安装&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;R.I.P&lt;/p&gt;
-- http://example.org/posts/vim/ - This is a customized copyright.</description>
+- https://github.com/yushan-blog/xiaosong.github.io.git/posts/vim/ - This is a customized copyright.</description>
         </item>
     
     

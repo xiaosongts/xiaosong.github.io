@@ -2,12 +2,12 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>开发框架 on 小宋小宋?</title>
-    <link>http://example.org/devframe/</link>
+    <link>https://github.com/yushan-blog/xiaosong.github.io.git/devframe/</link>
     <description>Recent content in 开发框架 on 小宋小宋?</description>
     <generator>Hugo</generator>
     <language>en-us</language>
     <copyright>This is a customized copyright.</copyright>
     <lastBuildDate></lastBuildDate>
-    <atom:link href="http://example.org/devframe/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://github.com/yushan-blog/xiaosong.github.io.git/devframe/index.xml" rel="self" type="application/rss+xml" />
   </channel>
 </rss>

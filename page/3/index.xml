@@ -2,40 +2,40 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>小宋小宋?</title>
-    <link>http://example.org/</link>
+    <link>https://github.com/yushan-blog/xiaosong.github.io.git/</link>
     <description>Recent content on 小宋小宋?</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>This is a customized copyright.</copyright>
     <lastBuildDate>Fri, 25 Oct 2024 12:00:00 +0800</lastBuildDate>
     
-        <atom:link href="http://example.org/index.xml" rel="self" type="application/rss+xml" />
+        <atom:link href="https://github.com/yushan-blog/xiaosong.github.io.git/index.xml" rel="self" type="application/rss+xml" />
     
     
     
         <item>
         <title>主从复制</title>
-        <link>http://example.org/database/master_slave/</link>
+        <link>https://github.com/yushan-blog/xiaosong.github.io.git/database/master_slave/</link>
         <pubDate>Fri, 25 Oct 2024 12:00:00 +0800</pubDate>
         
-        <guid>http://example.org/database/master_slave/</guid>
-        <description>小宋小宋? http://example.org/database/master_slave/ -&lt;h2 id=&#34;概念&#34;&gt;概念&lt;/h2&gt;
+        <guid>https://github.com/yushan-blog/xiaosong.github.io.git/database/master_slave/</guid>
+        <description>小宋小宋? https://github.com/yushan-blog/xiaosong.github.io.git/database/master_slave/ -&lt;h2 id=&#34;概念&#34;&gt;概念&lt;/h2&gt;
 &lt;p&gt;主从复制是 MySQL 数据库管理系统（MySQL Database Management System，MySQL DBMS）中一个非常常用的功能，它允许一个数据库服务器作为主服务器，另一个数据库服务器作为从服务器，主服务器的数据会被复制到从服务器，从而实现数据的备份和容灾。&lt;/p&gt;
 &lt;p&gt;主从交接的数据：二进制日志文件（Binary Log），主服务器的所有修改操作都会记录在这个日志文件中，通过将日志文件传送给从服务器，从服务器用来执行这个日志文件，就可以实现数据的同步功能。&lt;/p&gt;
 &lt;p&gt;这点和Redis的主从相似，其中都会涉及到日志文件的当前位置，记录主从数据的差异点，进行数据同步，因为不可能每次都进行全量同步。&lt;/p&gt;
 &lt;h2 id=&#34;先上手使用&#34;&gt;先上手使用&lt;/h2&gt;
-- http://example.org/database/master_slave/ - This is a customized copyright.</description>
+- https://github.com/yushan-blog/xiaosong.github.io.git/database/master_slave/ - This is a customized copyright.</description>
         </item>
     
     
     
         <item>
         <title>事项</title>
-        <link>http://example.org/posts/she/</link>
+        <link>https://github.com/yushan-blog/xiaosong.github.io.git/posts/she/</link>
         <pubDate>Tue, 01 Oct 2024 00:00:00 +0800</pubDate>
         
-        <guid>http://example.org/posts/she/</guid>
-        <description>小宋小宋? http://example.org/posts/she/ -&lt;p&gt;每周一和周五早班，周二周三晚班，周四轮着来(11.7早班)&lt;/p&gt;
+        <guid>https://github.com/yushan-blog/xiaosong.github.io.git/posts/she/</guid>
+        <description>小宋小宋? https://github.com/yushan-blog/xiaosong.github.io.git/posts/she/ -&lt;p&gt;每周一和周五早班，周二周三晚班，周四轮着来(11.7早班)&lt;/p&gt;
 &lt;p&gt;3.18
 4.30
 5.30
@@ -58,18 +58,18 @@
 6.辣炒年糕
 7.番茄疙瘩汤
 8.老妈蹄花&lt;/p&gt;
-- http://example.org/posts/she/ - This is a customized copyright.</description>
+- https://github.com/yushan-blog/xiaosong.github.io.git/posts/she/ - This is a customized copyright.</description>
         </item>
     
     
     
         <item>
         <title>jasypt</title>
-        <link>http://example.org/posts/jasypt/</link>
+        <link>https://github.com/yushan-blog/xiaosong.github.io.git/posts/jasypt/</link>
         <pubDate>Wed, 18 Sep 2024 09:00:00 +0800</pubDate>
         
-        <guid>http://example.org/posts/jasypt/</guid>
-        <description>小宋小宋? http://example.org/posts/jasypt/ -&lt;h2 id=&#34;spring中使用&#34;&gt;Spring中使用&lt;/h2&gt;
+        <guid>https://github.com/yushan-blog/xiaosong.github.io.git/posts/jasypt/</guid>
+        <description>小宋小宋? https://github.com/yushan-blog/xiaosong.github.io.git/posts/jasypt/ -&lt;h2 id=&#34;spring中使用&#34;&gt;Spring中使用&lt;/h2&gt;
 &lt;p&gt;在 Spring 中注册 jasypt bean 没有什么特别的，因为 jasypt 中的所有加密工具(digester 和加密器)都有足够的设计，可以从 Spring 应用程序上下文正确地实例化和依赖注入。&lt;/p&gt;
 &lt;p&gt;1、依赖：&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-xml&#34; data-lang=&#34;xml&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;dependency&amp;gt;&lt;/span&gt;
@@ -99,18 +99,18 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;			&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;/list&amp;gt;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;		&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;/property&amp;gt;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;	&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;&amp;lt;/bean&amp;gt;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;- http://example.org/posts/jasypt/ - This is a customized copyright.</description>
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;- https://github.com/yushan-blog/xiaosong.github.io.git/posts/jasypt/ - This is a customized copyright.</description>
         </item>
     
     
     
         <item>
         <title>相关信息</title>
-        <link>http://example.org/java/infos/info/</link>
+        <link>https://github.com/yushan-blog/xiaosong.github.io.git/java/infos/info/</link>
         <pubDate>Sat, 14 Sep 2024 12:00:00 +0800</pubDate>
         
-        <guid>http://example.org/java/infos/info/</guid>
-        <description>小宋小宋? http://example.org/java/infos/info/ -&lt;h2 id=&#34;基本信息&#34;&gt;基本信息&lt;/h2&gt;
+        <guid>https://github.com/yushan-blog/xiaosong.github.io.git/java/infos/info/</guid>
+        <description>小宋小宋? https://github.com/yushan-blog/xiaosong.github.io.git/java/infos/info/ -&lt;h2 id=&#34;基本信息&#34;&gt;基本信息&lt;/h2&gt;
 &lt;p&gt;查看电脑上Java的配置信息&lt;/p&gt;
 &lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;java -XshowSettings:properties -version
 Property settings:
@@ -170,18 +170,18 @@ Property settings:
 openjdk version &amp;#34;17.0.12&amp;#34; 2024-07-16
 OpenJDK Runtime Environment (build 17.0.12+7-Debian-2deb12u1)
 OpenJDK 64-Bit Server VM (build 17.0.12+7-Debian-2deb12u1, mixed mode, sharing)
-&lt;/code&gt;&lt;/pre&gt;- http://example.org/java/infos/info/ - This is a customized copyright.</description>
+&lt;/code&gt;&lt;/pre&gt;- https://github.com/yushan-blog/xiaosong.github.io.git/java/infos/info/ - This is a customized copyright.</description>
         </item>
     
     
     
         <item>
         <title>安装与配置</title>
-        <link>http://example.org/posts/setup/</link>
+        <link>https://github.com/yushan-blog/xiaosong.github.io.git/posts/setup/</link>
         <pubDate>Mon, 29 Jul 2024 12:00:00 +0800</pubDate>
         
-        <guid>http://example.org/posts/setup/</guid>
-        <description>小宋小宋? http://example.org/posts/setup/ -&lt;h2 id=&#34;jdk&#34;&gt;JDK&lt;/h2&gt;
+        <guid>https://github.com/yushan-blog/xiaosong.github.io.git/posts/setup/</guid>
+        <description>小宋小宋? https://github.com/yushan-blog/xiaosong.github.io.git/posts/setup/ -&lt;h2 id=&#34;jdk&#34;&gt;JDK&lt;/h2&gt;
 &lt;p&gt;linux下：&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;从Oracle官网下载jdk&lt;/li&gt;
@@ -224,18 +224,18 @@ OpenJDK 64-Bit Server VM (build 17.0.12+7-Debian-2deb12u1, mixed mode, sharing)
 &lt;li&gt;执行&lt;code&gt;source /etc/profile&lt;/code&gt;&lt;/li&gt;
 &lt;li&gt;检查Maven是否安装成功&lt;code&gt;mvn -v&lt;/code&gt;&lt;/li&gt;
 &lt;/ol&gt;
-- http://example.org/posts/setup/ - This is a customized copyright.</description>
+- https://github.com/yushan-blog/xiaosong.github.io.git/posts/setup/ - This is a customized copyright.</description>
         </item>
     
     
     
         <item>
         <title>windows下操作</title>
-        <link>http://example.org/posts/windows/</link>
+        <link>https://github.com/yushan-blog/xiaosong.github.io.git/posts/windows/</link>
         <pubDate>Fri, 26 Jul 2024 16:00:00 +0800</pubDate>
         
-        <guid>http://example.org/posts/windows/</guid>
-        <description>小宋小宋? http://example.org/posts/windows/ -&lt;h2 id=&#34;端口和进程&#34;&gt;端口和进程&lt;/h2&gt;
+        <guid>https://github.com/yushan-blog/xiaosong.github.io.git/posts/windows/</guid>
+        <description>小宋小宋? https://github.com/yushan-blog/xiaosong.github.io.git/posts/windows/ -&lt;h2 id=&#34;端口和进程&#34;&gt;端口和进程&lt;/h2&gt;
 &lt;p&gt;查看端口的占用和进程，并且kill进程&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;netstat -ano | findstr &lt;span style=&#34;color:#b452cd&#34;&gt;6379&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;tasklist | findstr redis-server
@@ -245,18 +245,18 @@ OpenJDK 64-Bit Server VM (build 17.0.12+7-Debian-2deb12u1, mixed mode, sharing)
 &lt;p&gt;wsl是windows下的linux子系统，可以安装各种linux系统，比如ubuntu，centos，debian等等。
 wsl的安装和卸载，可以参考&lt;a href=&#34;https://docs.microsoft.com/zh-cn/windows/wsl/install&#34;&gt;wsl&lt;/a&gt;。
 wsl的配置，可以参考&lt;a href=&#34;https://docs.microsoft.com/zh-cn/windows/wsl/wsl-config&#34;&gt;wsl配置&lt;/a&gt;。&lt;/p&gt;
-- http://example.org/posts/windows/ - This is a customized copyright.</description>
+- https://github.com/yushan-blog/xiaosong.github.io.git/posts/windows/ - This is a customized copyright.</description>
         </item>
     
     
     
         <item>
         <title>Java开发规范</title>
-        <link>http://example.org/posts/java-standard/</link>
+        <link>https://github.com/yushan-blog/xiaosong.github.io.git/posts/java-standard/</link>
         <pubDate>Fri, 26 Jul 2024 09:00:00 +0800</pubDate>
         
-        <guid>http://example.org/posts/java-standard/</guid>
-        <description>小宋小宋? http://example.org/posts/java-standard/ -&lt;h2 id=&#34;规范&#34;&gt;规范&lt;/h2&gt;
+        <guid>https://github.com/yushan-blog/xiaosong.github.io.git/posts/java-standard/</guid>
+        <description>小宋小宋? https://github.com/yushan-blog/xiaosong.github.io.git/posts/java-standard/ -&lt;h2 id=&#34;规范&#34;&gt;规范&lt;/h2&gt;
 &lt;p&gt;通过学习阿里巴巴开源的Java开发规范，学习到一些编程规范，通过编程规范，让开发小组提高开发效率，减少bug，提高代码质量。&lt;/p&gt;
 &lt;h2 id=&#34;名称&#34;&gt;名称&lt;/h2&gt;
 &lt;ul&gt;
@@ -286,18 +286,18 @@ wsl的配置，可以参考&lt;a href=&#34;https://docs.microsoft.com/zh-cn/wind
 &lt;li&gt;展示对象：xxxVO，xxx 一般为网页名称。&lt;/li&gt;
 &lt;li&gt;POJO 是 DO/DTO/BO/VO 的统称，禁止命名成 xxxPOJO。&lt;/li&gt;
 &lt;/ol&gt;
-- http://example.org/posts/java-standard/ - This is a customized copyright.</description>
+- https://github.com/yushan-blog/xiaosong.github.io.git/posts/java-standard/ - This is a customized copyright.</description>
         </item>
     
     
     
         <item>
         <title>Git</title>
-        <link>http://example.org/posts/git/</link>
+        <link>https://github.com/yushan-blog/xiaosong.github.io.git/posts/git/</link>
         <pubDate>Wed, 10 Jul 2024 00:00:00 +0000</pubDate>
         
-        <guid>http://example.org/posts/git/</guid>
-        <description>小宋小宋? http://example.org/posts/git/ -&lt;h2 id=&#34;简介&#34;&gt;简介&lt;/h2&gt;
+        <guid>https://github.com/yushan-blog/xiaosong.github.io.git/posts/git/</guid>
+        <description>小宋小宋? https://github.com/yushan-blog/xiaosong.github.io.git/posts/git/ -&lt;h2 id=&#34;简介&#34;&gt;简介&lt;/h2&gt;
 &lt;blockquote&gt;
 &lt;p&gt;需求：若是编辑一个文件时，想去保留每次修改的版本，以便当想去回滚版本的时候，也就是这次修改的不行，想要去使用以前的版本，所以，最常见的就是每次修改都另存为一个新文件，这种方法简单，但是繁琐&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -372,18 +372,18 @@ wsl的配置，可以参考&lt;a href=&#34;https://docs.microsoft.com/zh-cn/wind
 &lt;/ol&gt;
 &lt;h2 id=&#34;分支&#34;&gt;分支&lt;/h2&gt;
 &lt;p&gt;主分支和其他分支&lt;/p&gt;
-- http://example.org/posts/git/ - This is a customized copyright.</description>
+- https://github.com/yushan-blog/xiaosong.github.io.git/posts/git/ - This is a customized copyright.</description>
         </item>
     
     
     
         <item>
         <title>终端</title>
-        <link>http://example.org/posts/bash/</link>
+        <link>https://github.com/yushan-blog/xiaosong.github.io.git/posts/bash/</link>
         <pubDate>Fri, 24 May 2024 15:14:11 +0800</pubDate>
         
-        <guid>http://example.org/posts/bash/</guid>
-        <description>小宋小宋? http://example.org/posts/bash/ -&lt;h2 id=&#34;概念&#34;&gt;概念&lt;/h2&gt;
+        <guid>https://github.com/yushan-blog/xiaosong.github.io.git/posts/bash/</guid>
+        <description>小宋小宋? https://github.com/yushan-blog/xiaosong.github.io.git/posts/bash/ -&lt;h2 id=&#34;概念&#34;&gt;概念&lt;/h2&gt;
 &lt;p&gt;简单的概念就是linux是一个内核，然后需要一个shell来和linux内核打交道，bash就是shell的一种，其他的还有ksh,zsh,sh，和用户打交道的就是终端，它来接收用户输入的信息，传递到使用的bash里，终端比如konsole,zutty,terminator，很多……&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;终端：人机接口的工具，输入shell命令的工具，如konsole，zutty&lt;/li&gt;
@@ -428,18 +428,18 @@ wsl的配置，可以参考&lt;a href=&#34;https://docs.microsoft.com/zh-cn/wind
 &lt;/ul&gt;
 &lt;p&gt;&lt;img src=&#34;shell.png&#34; alt=&#34;shell.png&#34;&gt;&lt;/p&gt;
 &lt;h2 id=&#34;使用&#34;&gt;使用&lt;/h2&gt;
-- http://example.org/posts/bash/ - This is a customized copyright.</description>
+- https://github.com/yushan-blog/xiaosong.github.io.git/posts/bash/ - This is a customized copyright.</description>
         </item>
     
     
     
         <item>
         <title>Java基础知识</title>
-        <link>http://example.org/java/basic/basicknowledge/java_basic/</link>
+        <link>https://github.com/yushan-blog/xiaosong.github.io.git/java/basic/basicknowledge/java_basic/</link>
         <pubDate>Fri, 24 May 2024 15:14:01 +0800</pubDate>
         
-        <guid>http://example.org/java/basic/basicknowledge/java_basic/</guid>
-        <description>小宋小宋? http://example.org/java/basic/basicknowledge/java_basic/ -&lt;h2 id=&#34;面向对象和面向过程&#34;&gt;面向对象和面向过程&lt;/h2&gt;
+        <guid>https://github.com/yushan-blog/xiaosong.github.io.git/java/basic/basicknowledge/java_basic/</guid>
+        <description>小宋小宋? https://github.com/yushan-blog/xiaosong.github.io.git/java/basic/basicknowledge/java_basic/ -&lt;h2 id=&#34;面向对象和面向过程&#34;&gt;面向对象和面向过程&lt;/h2&gt;
 &lt;p&gt;面向对象 OOP：&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;将现实世界的实体所拥有的状态和行为封装成一个类，以面向这个实体的方式进行程序构建，在实体的主观感受操作。&lt;/li&gt;
@@ -626,7 +626,7 @@ Manager  继承 Employee
 &lt;li&gt;+操作，每次都会创建一个StringBuilder对象操作append，然后返回一个String&lt;/li&gt;
 &lt;li&gt;StringBuilder不会&lt;/li&gt;
 &lt;/ul&gt;
-- http://example.org/java/basic/basicknowledge/java_basic/ - This is a customized copyright.</description>
+- https://github.com/yushan-blog/xiaosong.github.io.git/java/basic/basicknowledge/java_basic/ - This is a customized copyright.</description>
         </item>
     
     

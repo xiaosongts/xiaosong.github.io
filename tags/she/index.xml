@@ -2,18 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>She on 小宋小宋?</title>
-    <link>http://example.org/tags/she/</link>
+    <link>https://github.com/yushan-blog/xiaosong.github.io.git/tags/she/</link>
     <description>Recent content in She on 小宋小宋?</description>
     <generator>Hugo</generator>
     <language>en-us</language>
     <copyright>This is a customized copyright.</copyright>
     <lastBuildDate>Tue, 01 Oct 2024 00:00:00 +0800</lastBuildDate>
-    <atom:link href="http://example.org/tags/she/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://github.com/yushan-blog/xiaosong.github.io.git/tags/she/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>事项</title>
-      <link>http://example.org/posts/she/</link>
+      <link>https://github.com/yushan-blog/xiaosong.github.io.git/posts/she/</link>
       <pubDate>Tue, 01 Oct 2024 00:00:00 +0800</pubDate>
-      <guid>http://example.org/posts/she/</guid>
+      <guid>https://github.com/yushan-blog/xiaosong.github.io.git/posts/she/</guid>
       <description>&lt;p&gt;每周一和周五早班，周二周三晚班，周四轮着来(11.7早班)&lt;/p&gt;&#xA;&lt;p&gt;3.18&#xA;4.30&#xA;5.30&#xA;7.10&#xA;8.12&#xA;9.1&#xA;9.29&#xA;11.2&lt;/p&gt;&#xA;&lt;p&gt;1.香辣鸡爪&#xA;2.可乐鸡翅&#xA;3.黑黑糖醋排骨&#xA;4.青椒炒肉&#xA;5.炒包菜&#xA;6.回锅肉&lt;/p&gt;&#xA;&lt;p&gt;1.小笼包&#xA;2.蒜蓉虾&#xA;3.虎皮鸡爪&#xA;4.年糕排骨&#xA;5.炸酱面&#xA;6.辣炒年糕&#xA;7.番茄疙瘩汤&#xA;8.老妈蹄花&lt;/p&gt;</description>
     </item>
   </channel>

@@ -2,24 +2,24 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>小宋小宋?</title>
-    <link>http://example.org/</link>
+    <link>https://github.com/yushan-blog/xiaosong.github.io.git/</link>
     <description>Recent content on 小宋小宋?</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>This is a customized copyright.</copyright>
     <lastBuildDate>Fri, 25 Oct 2024 12:00:00 +0800</lastBuildDate>
     
-        <atom:link href="http://example.org/index.xml" rel="self" type="application/rss+xml" />
+        <atom:link href="https://github.com/yushan-blog/xiaosong.github.io.git/index.xml" rel="self" type="application/rss+xml" />
     
     
     
         <item>
         <title>相关配置</title>
-        <link>http://example.org/database/config/</link>
+        <link>https://github.com/yushan-blog/xiaosong.github.io.git/database/config/</link>
         <pubDate>Mon, 21 Oct 2024 15:14:01 +0800</pubDate>
         
-        <guid>http://example.org/database/config/</guid>
-        <description>小宋小宋? http://example.org/database/config/ -&lt;h2 id=&#34;限制登录次数&#34;&gt;限制登录次数&lt;/h2&gt;
+        <guid>https://github.com/yushan-blog/xiaosong.github.io.git/database/config/</guid>
+        <description>小宋小宋? https://github.com/yushan-blog/xiaosong.github.io.git/database/config/ -&lt;h2 id=&#34;限制登录次数&#34;&gt;限制登录次数&lt;/h2&gt;
 &lt;p&gt;需求：当使用账号登录mysql时，如果登录失败超过一定次数，将会延迟响应时间&lt;/p&gt;
 &lt;p&gt;参数：&lt;/p&gt;
 &lt;ul&gt;
@@ -51,18 +51,18 @@ connection_control_max_connection_delay=10000&lt;/p&gt;
 &lt;li&gt;重启mysql服务&lt;/li&gt;
 &lt;li&gt;重新设置限制次数：set global connection_control_failed_connections_threshold=2;&lt;/li&gt;
 &lt;/ol&gt;
-- http://example.org/database/config/ - This is a customized copyright.</description>
+- https://github.com/yushan-blog/xiaosong.github.io.git/database/config/ - This is a customized copyright.</description>
         </item>
     
     
     
         <item>
         <title>AOP</title>
-        <link>http://example.org/devframe/spring/aop/</link>
+        <link>https://github.com/yushan-blog/xiaosong.github.io.git/devframe/spring/aop/</link>
         <pubDate>Fri, 24 May 2024 15:14:01 +0800</pubDate>
         
-        <guid>http://example.org/devframe/spring/aop/</guid>
-        <description>小宋小宋? http://example.org/devframe/spring/aop/ -&lt;h2 id=&#34;代理模式&#34;&gt;代理模式&lt;/h2&gt;
+        <guid>https://github.com/yushan-blog/xiaosong.github.io.git/devframe/spring/aop/</guid>
+        <description>小宋小宋? https://github.com/yushan-blog/xiaosong.github.io.git/devframe/spring/aop/ -&lt;h2 id=&#34;代理模式&#34;&gt;代理模式&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;思想：找个中间商，在自己能干的事情基础上干自己不能干的事情，可以用来保护自己&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;进行代码易维护、进行功能增强&lt;/code&gt;&lt;/li&gt;
@@ -288,18 +288,18 @@ connection_control_max_connection_delay=10000&lt;/p&gt;
 &lt;/ol&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
-- http://example.org/devframe/spring/aop/ - This is a customized copyright.</description>
+- https://github.com/yushan-blog/xiaosong.github.io.git/devframe/spring/aop/ - This is a customized copyright.</description>
         </item>
     
     
     
         <item>
         <title>AOP</title>
-        <link>http://example.org/spring/aop/</link>
+        <link>https://github.com/yushan-blog/xiaosong.github.io.git/spring/aop/</link>
         <pubDate>Fri, 24 May 2024 15:14:01 +0800</pubDate>
         
-        <guid>http://example.org/spring/aop/</guid>
-        <description>小宋小宋? http://example.org/spring/aop/ -&lt;h2 id=&#34;代理模式&#34;&gt;代理模式&lt;/h2&gt;
+        <guid>https://github.com/yushan-blog/xiaosong.github.io.git/spring/aop/</guid>
+        <description>小宋小宋? https://github.com/yushan-blog/xiaosong.github.io.git/spring/aop/ -&lt;h2 id=&#34;代理模式&#34;&gt;代理模式&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;思想：找个中间商，在自己能干的事情基础上干自己不能干的事情，可以用来保护自己&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;进行代码易维护、进行功能增强&lt;/code&gt;&lt;/li&gt;
@@ -525,18 +525,18 @@ connection_control_max_connection_delay=10000&lt;/p&gt;
 &lt;/ol&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
-- http://example.org/spring/aop/ - This is a customized copyright.</description>
+- https://github.com/yushan-blog/xiaosong.github.io.git/spring/aop/ - This is a customized copyright.</description>
         </item>
     
     
     
         <item>
         <title>Class文件</title>
-        <link>http://example.org/java/jvm/class/class/</link>
+        <link>https://github.com/yushan-blog/xiaosong.github.io.git/java/jvm/class/class/</link>
         <pubDate>Fri, 24 May 2024 15:14:01 +0800</pubDate>
         
-        <guid>http://example.org/java/jvm/class/class/</guid>
-        <description>小宋小宋? http://example.org/java/jvm/class/class/ -&lt;h1 id=&#34;字节码&#34;&gt;字节码&lt;/h1&gt;
+        <guid>https://github.com/yushan-blog/xiaosong.github.io.git/java/jvm/class/class/</guid>
+        <description>小宋小宋? https://github.com/yushan-blog/xiaosong.github.io.git/java/jvm/class/class/ -&lt;h1 id=&#34;字节码&#34;&gt;字节码&lt;/h1&gt;
 &lt;p&gt;字节码即java跨平台的重要支撑点，它是一个&lt;code&gt;.class&lt;/code&gt;文件，通过一个编译器生成的。平常的&lt;code&gt;.java&lt;/code&gt;文件，还有Kotlin的&lt;code&gt;.kt&lt;/code&gt;文件，它们如果都遵循编译规则，生成字节码文件，都是可以运行在JVM上的。&lt;!-- raw HTML omitted --&gt;
 字节码的生成：在java中，它可以通过javac编译器生成，javac是一个全量式编译。&lt;!-- raw HTML omitted --&gt;
 javac的使用&lt;/p&gt;
@@ -663,18 +663,18 @@ javac的使用&lt;/p&gt;
 &lt;li&gt;接下来和创建的对象的时候一样，可以自定义类的信息，也就是按照自己的意愿进行初始化工作，jvm将这一阶段放在最后&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;初始化阶段执行 clint()方法，由编译阶段产生的&lt;/p&gt;
-- http://example.org/java/jvm/class/class/ - This is a customized copyright.</description>
+- https://github.com/yushan-blog/xiaosong.github.io.git/java/jvm/class/class/ - This is a customized copyright.</description>
         </item>
     
     
     
         <item>
         <title>存储引擎</title>
-        <link>http://example.org/database/engines/</link>
+        <link>https://github.com/yushan-blog/xiaosong.github.io.git/database/engines/</link>
         <pubDate>Fri, 24 May 2024 15:14:01 +0800</pubDate>
         
-        <guid>http://example.org/database/engines/</guid>
-        <description>小宋小宋? http://example.org/database/engines/ -&lt;h2 id=&#34;存储引擎&#34;&gt;存储引擎&lt;/h2&gt;
+        <guid>https://github.com/yushan-blog/xiaosong.github.io.git/database/engines/</guid>
+        <description>小宋小宋? https://github.com/yushan-blog/xiaosong.github.io.git/database/engines/ -&lt;h2 id=&#34;存储引擎&#34;&gt;存储引擎&lt;/h2&gt;
 &lt;p&gt;一些命令：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;show engines;&lt;/li&gt;
@@ -699,18 +699,18 @@ javac的使用&lt;/p&gt;
 &lt;li&gt;外键：InnoDB支持外键；MyISAM不支持。但是当更新操作时，外键会触发级联更新，性能会慢，而且可能会出错。&lt;/li&gt;
 &lt;li&gt;InnoDB是以页为单位存储数据的&lt;/li&gt;
 &lt;/ul&gt;
-- http://example.org/database/engines/ - This is a customized copyright.</description>
+- https://github.com/yushan-blog/xiaosong.github.io.git/database/engines/ - This is a customized copyright.</description>
         </item>
     
     
     
         <item>
         <title>mvc流程</title>
-        <link>http://example.org/spring/springmvc/</link>
+        <link>https://github.com/yushan-blog/xiaosong.github.io.git/spring/springmvc/</link>
         <pubDate>Fri, 24 May 2024 15:12:02 +0800</pubDate>
         
-        <guid>http://example.org/spring/springmvc/</guid>
-        <description>小宋小宋? http://example.org/spring/springmvc/ -&lt;h2 id=&#34;mvc&#34;&gt;MVC&lt;/h2&gt;
+        <guid>https://github.com/yushan-blog/xiaosong.github.io.git/spring/springmvc/</guid>
+        <description>小宋小宋? https://github.com/yushan-blog/xiaosong.github.io.git/spring/springmvc/ -&lt;h2 id=&#34;mvc&#34;&gt;MVC&lt;/h2&gt;
 &lt;p&gt;MVC是一种软件架构模式，Model-View-Controller。作为一个服务端，要接收若干请求，然后进行相应处理，还要返还给客户端数据，所以这一套流程，如果都糅合在一个代码块里，对于系统的维护是非常复杂的。所以采用MVC模式&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Model：模型，代表着业务逻辑和数据部分，如客户端发送的数据，服务端处理好的数据&lt;/li&gt;
@@ -745,18 +745,18 @@ javac的使用&lt;/p&gt;
 &lt;li&gt;DispatcherServlet根据View进行渲染视图（即将模型数据填充至视图中）。&lt;/li&gt;
 &lt;li&gt;DispatcherServlet响应View给用户。&lt;/li&gt;
 &lt;/ol&gt;
-- http://example.org/spring/springmvc/ - This is a customized copyright.</description>
+- https://github.com/yushan-blog/xiaosong.github.io.git/spring/springmvc/ - This is a customized copyright.</description>
         </item>
     
     
     
         <item>
         <title>对象</title>
-        <link>http://example.org/java/jvm/object/jvm_object/</link>
+        <link>https://github.com/yushan-blog/xiaosong.github.io.git/java/jvm/object/jvm_object/</link>
         <pubDate>Fri, 24 May 2024 15:14:01 +0800</pubDate>
         
-        <guid>http://example.org/java/jvm/object/jvm_object/</guid>
-        <description>小宋小宋? http://example.org/java/jvm/object/jvm_object/ -&lt;h2 id=&#34;对象&#34;&gt;对象&lt;/h2&gt;
+        <guid>https://github.com/yushan-blog/xiaosong.github.io.git/java/jvm/object/jvm_object/</guid>
+        <description>小宋小宋? https://github.com/yushan-blog/xiaosong.github.io.git/java/jvm/object/jvm_object/ -&lt;h2 id=&#34;对象&#34;&gt;对象&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;对象，在java中有很多很多对象，在代码中，此对象调用另一个对象，这个对象又执行了它的方法。这时候就要了解，此对象长什么样，以及它又如何调用方法，使用属性的。&lt;/li&gt;
 &lt;/ul&gt;
@@ -884,18 +884,18 @@ javac的使用&lt;/p&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
-- http://example.org/java/jvm/object/jvm_object/ - This is a customized copyright.</description>
+- https://github.com/yushan-blog/xiaosong.github.io.git/java/jvm/object/jvm_object/ - This is a customized copyright.</description>
         </item>
     
     
     
         <item>
         <title>索引</title>
-        <link>http://example.org/database/index/</link>
+        <link>https://github.com/yushan-blog/xiaosong.github.io.git/database/index/</link>
         <pubDate>Fri, 24 May 2024 15:14:01 +0800</pubDate>
         
-        <guid>http://example.org/database/index/</guid>
-        <description>小宋小宋? http://example.org/database/index/ -&lt;h2 id=&#34;数据结构类型&#34;&gt;数据结构类型&lt;/h2&gt;
+        <guid>https://github.com/yushan-blog/xiaosong.github.io.git/database/index/</guid>
+        <description>小宋小宋? https://github.com/yushan-blog/xiaosong.github.io.git/database/index/ -&lt;h2 id=&#34;数据结构类型&#34;&gt;数据结构类型&lt;/h2&gt;
 &lt;p&gt;Hash：查找速度O(1)，但是会出现Hash冲突，解决冲突可以使用拉链法。但是查询一个范围时，需要多次hash映射，才能得到全部数据。O(N)&lt;/p&gt;
 &lt;p&gt;二叉搜索树 ：理想速度O(logN)。但是非递减数据会退化成链表。&lt;/p&gt;
 &lt;p&gt;平衡二叉树 ：解决二叉搜索树的问题。各种操作最坏情况复杂度O(logN)。但是：&lt;/p&gt;
@@ -968,18 +968,18 @@ m阶的B+树每个节点的键的范围：[m/2-1,m-1]；向上取整&lt;/p&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;覆盖索引&#34;&gt;覆盖索引&lt;/h3&gt;
 &lt;p&gt;在简单查询的时候，解决回表查询。
 意思就是：如果查询的数据，正是索引关键字的属性，就直接返回，不用通过主键查询一次了&lt;/p&gt;
-- http://example.org/database/index/ - This is a customized copyright.</description>
+- https://github.com/yushan-blog/xiaosong.github.io.git/database/index/ - This is a customized copyright.</description>
         </item>
     
     
     
         <item>
         <title>日志</title>
-        <link>http://example.org/database/log/</link>
+        <link>https://github.com/yushan-blog/xiaosong.github.io.git/database/log/</link>
         <pubDate>Fri, 24 May 2024 15:14:01 +0800</pubDate>
         
-        <guid>http://example.org/database/log/</guid>
-        <description>小宋小宋? http://example.org/database/log/ -&lt;h2 id=&#34;redo-log&#34;&gt;redo log&lt;/h2&gt;
+        <guid>https://github.com/yushan-blog/xiaosong.github.io.git/database/log/</guid>
+        <description>小宋小宋? https://github.com/yushan-blog/xiaosong.github.io.git/database/log/ -&lt;h2 id=&#34;redo-log&#34;&gt;redo log&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;重做日志&lt;/li&gt;
 &lt;li&gt;主要是记录更新操作的细节，然后记录到文件中，为了mysql崩溃时能够恢复&lt;/li&gt;
@@ -1107,18 +1107,18 @@ m阶的B+树每个节点的键的范围：[m/2-1,m-1]；向上取整&lt;/p&gt;
 &lt;li&gt;读数据时：当读取的数据在内存页中，直接返回&lt;/li&gt;
 &lt;li&gt;写数据时：更新的数据块不在内存页时，直接修改文件的数据块；若是在内存页中，先修改内存页，随后之后再修改文件的数据块&lt;/li&gt;
 &lt;/ul&gt;
-- http://example.org/database/log/ - This is a customized copyright.</description>
+- https://github.com/yushan-blog/xiaosong.github.io.git/database/log/ - This is a customized copyright.</description>
         </item>
     
     
     
         <item>
         <title>事务</title>
-        <link>http://example.org/database/transaction/</link>
+        <link>https://github.com/yushan-blog/xiaosong.github.io.git/database/transaction/</link>
         <pubDate>Fri, 24 May 2024 15:14:01 +0800</pubDate>
         
-        <guid>http://example.org/database/transaction/</guid>
-        <description>小宋小宋? http://example.org/database/transaction/ -&lt;h2 id=&#34;概念&#34;&gt;概念&lt;/h2&gt;
+        <guid>https://github.com/yushan-blog/xiaosong.github.io.git/database/transaction/</guid>
+        <description>小宋小宋? https://github.com/yushan-blog/xiaosong.github.io.git/database/transaction/ -&lt;h2 id=&#34;概念&#34;&gt;概念&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;是指一组逻辑操作，看成一个实体，这些操作要么全部正确执行，若出错一个在全部不执行，不造成修改操作。&lt;/li&gt;
 &lt;/ul&gt;
@@ -1207,7 +1207,7 @@ m阶的B+树每个节点的键的范围：[m/2-1,m-1]；向上取整&lt;/p&gt;
 &lt;p&gt;注：这两把读写锁可以实现 读读、不能实现读写、写写&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
-- http://example.org/database/transaction/ - This is a customized copyright.</description>
+- https://github.com/yushan-blog/xiaosong.github.io.git/database/transaction/ - This is a customized copyright.</description>
         </item>
     
     

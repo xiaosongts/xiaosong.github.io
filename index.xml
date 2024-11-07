@@ -2,50 +2,50 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>小宋小宋?</title>
-    <link>http://example.org/</link>
+    <link>https://github.com/yushan-blog/xiaosong.github.io.git/</link>
     <description>Recent content on 小宋小宋?</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>This is a customized copyright.</copyright>
     <lastBuildDate>Fri, 25 Oct 2024 12:00:00 +0800</lastBuildDate>
     
-        <atom:link href="http://example.org/index.xml" rel="self" type="application/rss+xml" />
+        <atom:link href="https://github.com/yushan-blog/xiaosong.github.io.git/index.xml" rel="self" type="application/rss+xml" />
     
     
     
         <item>
         <title>WebScoket</title>
-        <link>http://example.org/posts/websocket/</link>
+        <link>https://github.com/yushan-blog/xiaosong.github.io.git/posts/websocket/</link>
         <pubDate>Sun, 13 Oct 2024 12:00:00 +0800</pubDate>
         
-        <guid>http://example.org/posts/websocket/</guid>
-        <description>小宋小宋? http://example.org/posts/websocket/ -&lt;h2 id=&#34;基础知识&#34;&gt;基础知识&lt;/h2&gt;
-- http://example.org/posts/websocket/ - This is a customized copyright.</description>
+        <guid>https://github.com/yushan-blog/xiaosong.github.io.git/posts/websocket/</guid>
+        <description>小宋小宋? https://github.com/yushan-blog/xiaosong.github.io.git/posts/websocket/ -&lt;h2 id=&#34;基础知识&#34;&gt;基础知识&lt;/h2&gt;
+- https://github.com/yushan-blog/xiaosong.github.io.git/posts/websocket/ - This is a customized copyright.</description>
         </item>
     
     
     
         <item>
         <title>xxl-job</title>
-        <link>http://example.org/devframe/schedule/xxl-job/</link>
+        <link>https://github.com/yushan-blog/xiaosong.github.io.git/devframe/schedule/xxl-job/</link>
         <pubDate>Tue, 30 Jul 2024 12:00:00 +0800</pubDate>
         
-        <guid>http://example.org/devframe/schedule/xxl-job/</guid>
-        <description>小宋小宋? http://example.org/devframe/schedule/xxl-job/ -&lt;p&gt;xxl-job 是一个分布式任务调度平台，可以轻松实现分布式任务调度。
+        <guid>https://github.com/yushan-blog/xiaosong.github.io.git/devframe/schedule/xxl-job/</guid>
+        <description>小宋小宋? https://github.com/yushan-blog/xiaosong.github.io.git/devframe/schedule/xxl-job/ -&lt;p&gt;xxl-job 是一个分布式任务调度平台，可以轻松实现分布式任务调度。
 xxl-job 支持 Linux、Windows、Mac 等操作系统，并且支持 Java、Python、Shell 等语言，并且支持 MySQL、PostgreSQL、SQLServer、Oracle、MongoDB 等数据库。&lt;/p&gt;
 &lt;p&gt;定时任务：是可以 每隔一个时间段就执行一次。&lt;/p&gt;
-- http://example.org/devframe/schedule/xxl-job/ - This is a customized copyright.</description>
+- https://github.com/yushan-blog/xiaosong.github.io.git/devframe/schedule/xxl-job/ - This is a customized copyright.</description>
         </item>
     
     
     
         <item>
         <title>Spring</title>
-        <link>http://example.org/spring/spring/</link>
+        <link>https://github.com/yushan-blog/xiaosong.github.io.git/spring/spring/</link>
         <pubDate>Fri, 24 May 2024 15:14:03 +0800</pubDate>
         
-        <guid>http://example.org/spring/spring/</guid>
-        <description>小宋小宋? http://example.org/spring/spring/ -&lt;h2 id=&#34;基础概念&#34;&gt;基础概念&lt;/h2&gt;
+        <guid>https://github.com/yushan-blog/xiaosong.github.io.git/spring/spring/</guid>
+        <description>小宋小宋? https://github.com/yushan-blog/xiaosong.github.io.git/spring/spring/ -&lt;h2 id=&#34;基础概念&#34;&gt;基础概念&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;Spring使创建Java企业应用程序变得容易。&lt;/li&gt;
 &lt;li&gt;从Spring Framework 6.0开始，Spring需要Java 17+。&lt;/li&gt;
@@ -112,18 +112,18 @@ xxl-job 支持 Linux、Windows、Mac 等操作系统，并且支持 Java、Pytho
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
-- http://example.org/spring/spring/ - This is a customized copyright.</description>
+- https://github.com/yushan-blog/xiaosong.github.io.git/spring/spring/ - This is a customized copyright.</description>
         </item>
     
     
     
         <item>
         <title>IoC</title>
-        <link>http://example.org/spring/ioc/</link>
+        <link>https://github.com/yushan-blog/xiaosong.github.io.git/spring/ioc/</link>
         <pubDate>Fri, 24 May 2024 15:14:02 +0800</pubDate>
         
-        <guid>http://example.org/spring/ioc/</guid>
-        <description>小宋小宋? http://example.org/spring/ioc/ -&lt;h2 id=&#34;控制反转和依赖注入&#34;&gt;控制反转和依赖注入&lt;/h2&gt;
+        <guid>https://github.com/yushan-blog/xiaosong.github.io.git/spring/ioc/</guid>
+        <description>小宋小宋? https://github.com/yushan-blog/xiaosong.github.io.git/spring/ioc/ -&lt;h2 id=&#34;控制反转和依赖注入&#34;&gt;控制反转和依赖注入&lt;/h2&gt;
 &lt;p&gt;&lt;code&gt;Bean&lt;/code&gt;&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;容器管理的对象被称为Bean&lt;/li&gt;
@@ -687,18 +687,18 @@ xxl-job 支持 Linux、Windows、Mac 等操作系统，并且支持 Java、Pytho
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#bbb&#34;&gt;        &lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt;&lt;span style=&#34;color:#bbb&#34;&gt; &lt;/span&gt;urls;&lt;span style=&#34;color:#bbb&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#bbb&#34;&gt;    &lt;/span&gt;}&lt;span style=&#34;color:#bbb&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#bbb&#34;&gt;&lt;/span&gt;}&lt;span style=&#34;color:#bbb&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;- http://example.org/spring/ioc/ - This is a customized copyright.</description>
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;- https://github.com/yushan-blog/xiaosong.github.io.git/spring/ioc/ - This is a customized copyright.</description>
         </item>
     
     
     
         <item>
         <title>IoC</title>
-        <link>http://example.org/devframe/spring/ioc/</link>
+        <link>https://github.com/yushan-blog/xiaosong.github.io.git/devframe/spring/ioc/</link>
         <pubDate>Fri, 24 May 2024 15:14:01 +0800</pubDate>
         
-        <guid>http://example.org/devframe/spring/ioc/</guid>
-        <description>小宋小宋? http://example.org/devframe/spring/ioc/ -&lt;h2 id=&#34;控制反转和依赖注入&#34;&gt;控制反转和依赖注入&lt;/h2&gt;
+        <guid>https://github.com/yushan-blog/xiaosong.github.io.git/devframe/spring/ioc/</guid>
+        <description>小宋小宋? https://github.com/yushan-blog/xiaosong.github.io.git/devframe/spring/ioc/ -&lt;h2 id=&#34;控制反转和依赖注入&#34;&gt;控制反转和依赖注入&lt;/h2&gt;
 &lt;p&gt;&lt;code&gt;Bean&lt;/code&gt;&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;容器管理的对象被称为Bean&lt;/li&gt;
@@ -1262,18 +1262,18 @@ xxl-job 支持 Linux、Windows、Mac 等操作系统，并且支持 Java、Pytho
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#bbb&#34;&gt;        &lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt;&lt;span style=&#34;color:#bbb&#34;&gt; &lt;/span&gt;urls;&lt;span style=&#34;color:#bbb&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#bbb&#34;&gt;    &lt;/span&gt;}&lt;span style=&#34;color:#bbb&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#bbb&#34;&gt;&lt;/span&gt;}&lt;span style=&#34;color:#bbb&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;- http://example.org/devframe/spring/ioc/ - This is a customized copyright.</description>
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;- https://github.com/yushan-blog/xiaosong.github.io.git/devframe/spring/ioc/ - This is a customized copyright.</description>
         </item>
     
     
     
         <item>
         <title>Java 内存区域</title>
-        <link>http://example.org/java/jvm/memory-region/memory_region/</link>
+        <link>https://github.com/yushan-blog/xiaosong.github.io.git/java/jvm/memory-region/memory_region/</link>
         <pubDate>Fri, 24 May 2024 15:14:01 +0800</pubDate>
         
-        <guid>http://example.org/java/jvm/memory-region/memory_region/</guid>
-        <description>小宋小宋? http://example.org/java/jvm/memory-region/memory_region/ -&lt;h2 id=&#34;java内存区域&#34;&gt;Java内存区域&lt;/h2&gt;
+        <guid>https://github.com/yushan-blog/xiaosong.github.io.git/java/jvm/memory-region/memory_region/</guid>
+        <description>小宋小宋? https://github.com/yushan-blog/xiaosong.github.io.git/java/jvm/memory-region/memory_region/ -&lt;h2 id=&#34;java内存区域&#34;&gt;Java内存区域&lt;/h2&gt;
 &lt;h3 id=&#34;内存区域图&#34;&gt;内存区域图&lt;/h3&gt;
 &lt;p&gt;jdk1.8以前：&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;jdk1.7%E5%8F%8A%E4%B9%8B%E5%89%8D.png&#34; alt=&#34;jdk1.7及之前.png&#34;&gt;&lt;/p&gt;
@@ -1397,18 +1397,18 @@ xxl-job 支持 Linux、Windows、Mac 等操作系统，并且支持 Java、Pytho
 &lt;p&gt;符号引用&lt;/p&gt;
 &lt;p&gt;直接引用&lt;/p&gt;
 &lt;hr&gt;
-- http://example.org/java/jvm/memory-region/memory_region/ - This is a customized copyright.</description>
+- https://github.com/yushan-blog/xiaosong.github.io.git/java/jvm/memory-region/memory_region/ - This is a customized copyright.</description>
         </item>
     
     
     
         <item>
         <title>基础知识</title>
-        <link>http://example.org/database/basic/</link>
+        <link>https://github.com/yushan-blog/xiaosong.github.io.git/database/basic/</link>
         <pubDate>Fri, 24 May 2024 15:14:01 +0800</pubDate>
         
-        <guid>http://example.org/database/basic/</guid>
-        <description>小宋小宋? http://example.org/database/basic/ -&lt;h3 id=&#34;数据类型&#34;&gt;数据类型&lt;/h3&gt;
+        <guid>https://github.com/yushan-blog/xiaosong.github.io.git/database/basic/</guid>
+        <description>小宋小宋? https://github.com/yushan-blog/xiaosong.github.io.git/database/basic/ -&lt;h3 id=&#34;数据类型&#34;&gt;数据类型&lt;/h3&gt;
 &lt;p&gt;char和varchar&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;char：定长字符串，当实际的字符串长度小于定义的长度，则会在尾部填充空格，检索时会去掉空格&lt;/li&gt;
@@ -1466,40 +1466,40 @@ xxl-job 支持 Linux、Windows、Mac 等操作系统，并且支持 Java、Pytho
 &lt;li&gt;1:n&lt;/li&gt;
 &lt;li&gt;m:n&lt;/li&gt;
 &lt;/ul&gt;
-- http://example.org/database/basic/ - This is a customized copyright.</description>
+- https://github.com/yushan-blog/xiaosong.github.io.git/database/basic/ - This is a customized copyright.</description>
         </item>
     
     
     
         <item>
         <title>基础知识</title>
-        <link>http://example.org/devframe/mybatis/basic/</link>
+        <link>https://github.com/yushan-blog/xiaosong.github.io.git/devframe/mybatis/basic/</link>
         <pubDate>Fri, 24 May 2024 15:14:01 +0800</pubDate>
         
-        <guid>http://example.org/devframe/mybatis/basic/</guid>
-        <description>小宋小宋? http://example.org/devframe/mybatis/basic/ -- http://example.org/devframe/mybatis/basic/ - This is a customized copyright.</description>
+        <guid>https://github.com/yushan-blog/xiaosong.github.io.git/devframe/mybatis/basic/</guid>
+        <description>小宋小宋? https://github.com/yushan-blog/xiaosong.github.io.git/devframe/mybatis/basic/ -- https://github.com/yushan-blog/xiaosong.github.io.git/devframe/mybatis/basic/ - This is a customized copyright.</description>
         </item>
     
     
     
         <item>
         <title>基础知识</title>
-        <link>http://example.org/devframe/springboot/basic/</link>
+        <link>https://github.com/yushan-blog/xiaosong.github.io.git/devframe/springboot/basic/</link>
         <pubDate>Fri, 24 May 2024 15:14:01 +0800</pubDate>
         
-        <guid>http://example.org/devframe/springboot/basic/</guid>
-        <description>小宋小宋? http://example.org/devframe/springboot/basic/ -- http://example.org/devframe/springboot/basic/ - This is a customized copyright.</description>
+        <guid>https://github.com/yushan-blog/xiaosong.github.io.git/devframe/springboot/basic/</guid>
+        <description>小宋小宋? https://github.com/yushan-blog/xiaosong.github.io.git/devframe/springboot/basic/ -- https://github.com/yushan-blog/xiaosong.github.io.git/devframe/springboot/basic/ - This is a customized copyright.</description>
         </item>
     
     
     
         <item>
         <title>基础知识</title>
-        <link>http://example.org/devframe/springmvc/basic/</link>
+        <link>https://github.com/yushan-blog/xiaosong.github.io.git/devframe/springmvc/basic/</link>
         <pubDate>Fri, 24 May 2024 15:14:01 +0800</pubDate>
         
-        <guid>http://example.org/devframe/springmvc/basic/</guid>
-        <description>小宋小宋? http://example.org/devframe/springmvc/basic/ -- http://example.org/devframe/springmvc/basic/ - This is a customized copyright.</description>
+        <guid>https://github.com/yushan-blog/xiaosong.github.io.git/devframe/springmvc/basic/</guid>
+        <description>小宋小宋? https://github.com/yushan-blog/xiaosong.github.io.git/devframe/springmvc/basic/ -- https://github.com/yushan-blog/xiaosong.github.io.git/devframe/springmvc/basic/ - This is a customized copyright.</description>
         </item>
     
     

@@ -16,7 +16,7 @@
 
 
 
-<meta property="og:url" content="http://example.org/spring/aop/">
+<meta property="og:url" content="https://github.com/yushan-blog/xiaosong.github.io.git/spring/aop/">
   <meta property="og:site_name" content="小宋小宋?">
   <meta property="og:title" content="AOP">
   <meta property="og:description" content="代理模式 思想：找个中间商，在自己能干的事情基础上干自己不能干的事情，可以用来保护自己 进行代码易维护、进行功能增强 结构 目标对象 代理对象 目标对象和代理对象的公共接口或者继承 静态代理：has-a关系 关联关系 动态代理 JDK内置的java.lang.reflect.Proxy	只能代理接口 cglib 底层采用继承，可以代理接口或者类 底层使用ASM字节码处理框架优化 javassist（千叶滋yyds） AOP(一个思想，面向切面编程) Aspect Oriented Programming 思想：切面是一个和业务逻辑毫无关系的东西；采用代理模式，把这些切面当做功能增强的东西单独提取出来，形成一个单独的组件，以横向交叉的方式应用到业务流程。 作用：代码复用、可读性高 交叉业务 Spring AOP 采用 JDK代理&#43;cglib代理 术语 名称 意义 JoinPoint 连接点 切面可以切入的位置 CutPoint 切点 方法，被切的东西 Adivce 通知 具体增强的代码，切东西的工具 Aspect 切面 切点&#43;通知 Weaving 织入 具体的动作 Target 目标对象 Proxy 代理对象 通知的类型和顺序 前置通知 环绕通知 后置通知 异常通知(当调用此通知，后续通知不再执行，若异常目标方法自己处理了，后续通知会继续执行) 返回通知 try{ ·前置通知 ·前环绕通知 ·目标方法 ·后环绕通知 ·后置通知 ·返回通知 }catch(Exception e){ ·异常通知 } 切点表达式 实例 public class Student { private String name; public Object exam(){ System.out.println(&#34;目标方法 切点....&#34; &#43; name &#43; &#34;学生正在考试！&#34;); int a=1/0;//自己捕获异常，处理的话，切面不处理了 return name; } public void end(){ System.out.println(&#34;目标方法 切点....&#34;&#43;name&#43;&#34;学生陆续交试卷走人！&#34;); } public void setName(String name) { this.name = name; } } public class ProctorAspect { public void tellStartTime(){ System.out.println(&#34;监考官提醒时间开始！&#34;); } public void tellStart(){ System.out.println(&#34;监考官提醒开始考试！&#34;); } public void invigilate(ProceedingJoinPoint proceedingJoinPoint) throws Throwable { System.out.println(&#34;前环绕....监考官正在监考！&#34;); proceedingJoinPoint.proceed(); System.out.println(&#34;后环绕....监考官正在监考！&#34;); } public void tellEndTime(){ System.out.println(&#34;监考官提醒时间还有五分钟！&#34;); } public void tellEnd(){ System.out.println(&#34;监考官开始收卷！&#34;); } public void exceptionHHH(Exception e ){ System.out.println(&#34;停电！&#34;); } public void after_return(){ System.out.println(&#34;考试方法....你return了？&#34;); } } 注解方式 &lt;aop:aspectj-autoproxy/&gt;最为重要（若基于类则使用	@EnableAspectJAutoProxy） 声明切面的注解 @Aspect">
@@ -76,11 +76,11 @@
 
 
 
-      <script src="/js/toc.js"></script>
+      <script src="/yushan-blog/xiaosong.github.io.git/js/toc.js"></script>
     
-    <link type="text/css" rel="stylesheet" href="/vendor/css/bootstrap.min.css">
+    <link type="text/css" rel="stylesheet" href="/yushan-blog/xiaosong.github.io.git/vendor/css/bootstrap.min.css">
 
-<link rel="stylesheet" href="/scss/dark-mode.min.cb53f1bee2b8900cb4f082afbf00175d6618f281cf9a2fe8619e3b52d20b5721.css" integrity="sha256-y1PxvuK4kAy08IKvvwAXXWYY8oHPmi/oYZ47UtILVyE=" media="screen">
+<link rel="stylesheet" href="/yushan-blog/xiaosong.github.io.git/scss/dark-mode.min.cb53f1bee2b8900cb4f082afbf00175d6618f281cf9a2fe8619e3b52d20b5721.css" integrity="sha256-y1PxvuK4kAy08IKvvwAXXWYY8oHPmi/oYZ47UtILVyE=" media="screen">
 
 
 <link rel="stylesheet"
@@ -118,7 +118,7 @@
                 
                 
                 
-                <a class="a-block drawer-menu-item false" href="/posts">
+                <a class="a-block drawer-menu-item false" href="/yushan-blog/xiaosong.github.io.git/posts">
                     文章
                 </a>
                 
@@ -128,7 +128,7 @@
                 
                 
                 
-                <a class="a-block drawer-menu-item false" href="/categories">
+                <a class="a-block drawer-menu-item false" href="/yushan-blog/xiaosong.github.io.git/categories">
                     分类
                 </a>
                 
@@ -138,7 +138,7 @@
                 
                 
                 
-                <a class="a-block drawer-menu-item false" href="/tags">
+                <a class="a-block drawer-menu-item false" href="/yushan-blog/xiaosong.github.io.git/tags">
                     标签
                 </a>
                 
@@ -148,7 +148,7 @@
                 
                 
                 
-                <a class="a-block drawer-menu-item false" href="/database">
+                <a class="a-block drawer-menu-item false" href="/yushan-blog/xiaosong.github.io.git/database">
                     MySQL
                 </a>
                 
@@ -160,7 +160,7 @@
                 
                 
                 
-                <a class="a-block drawer-menu-item active" href="/spring">
+                <a class="a-block drawer-menu-item active" href="/yushan-blog/xiaosong.github.io.git/spring">
                     Spring
                 </a>
                 
@@ -418,7 +418,7 @@
                 menu
             </i>
         </button>
-        <a id="navTitle" class="navbar-brand" href="http://example.org/">
+        <a id="navTitle" class="navbar-brand" href="https://github.com/yushan-blog/xiaosong.github.io.git/">
             小宋小宋?
         </a>
         
@@ -432,7 +432,7 @@
 </nav>
 <div class="single-column-header-container" id="pageHead"
      v-bind:style="{ transform: 'translateZ(0px) translateY('+.3*scrollY+'px)', opacity: 1-navOpacity }">
-    <a href="http://example.org/">
+    <a href="https://github.com/yushan-blog/xiaosong.github.io.git/">
         <div class="single-column-header-title">小宋小宋?</div>
         
         <div class="single-column-header-subtitle">在呢！</div>
@@ -713,13 +713,13 @@
             <nav class="post-pagination">
 
                 
-                <a class="newer-posts" href="/devframe/spring/aop/">
+                <a class="newer-posts" href="/yushan-blog/xiaosong.github.io.git/devframe/spring/aop/">
 			Next<br>AOP
                 </a>
                 
                 
                 
-                <a class="older-posts" href="/java/jvm/class/class/">
+                <a class="older-posts" href="/yushan-blog/xiaosong.github.io.git/java/jvm/class/class/">
 			Previous<br>Class文件
                 </a>
                 
@@ -762,7 +762,7 @@
                     </div>
             </div><div id="sideContainer" class="side-container">
     
-    <a class="a-block nav-head false" href="http://example.org/">
+    <a class="a-block nav-head false" href="https://github.com/yushan-blog/xiaosong.github.io.git/">
     
         <div class="nav-title">
             小宋小宋?
@@ -782,7 +782,7 @@
             
             
             
-            <a class="a-block nav-link-item false" href="/posts">
+            <a class="a-block nav-link-item false" href="/yushan-blog/xiaosong.github.io.git/posts">
                 文章
             </a>
             
@@ -792,7 +792,7 @@
             
             
             
-            <a class="a-block nav-link-item false" href="/categories">
+            <a class="a-block nav-link-item false" href="/yushan-blog/xiaosong.github.io.git/categories">
                 分类
             </a>
             
@@ -802,7 +802,7 @@
             
             
             
-            <a class="a-block nav-link-item false" href="/tags">
+            <a class="a-block nav-link-item false" href="/yushan-blog/xiaosong.github.io.git/tags">
                 标签
             </a>
             
@@ -812,7 +812,7 @@
             
             
             
-            <a class="a-block nav-link-item false" href="/database">
+            <a class="a-block nav-link-item false" href="/yushan-blog/xiaosong.github.io.git/database">
                 MySQL
             </a>
             
@@ -824,7 +824,7 @@
             
             
             
-            <a class="a-block nav-link-item active" href="/spring">
+            <a class="a-block nav-link-item active" href="/yushan-blog/xiaosong.github.io.git/spring">
                 Spring
             </a>
             
@@ -1122,5 +1122,5 @@ Ported from <a href="https://mak1t0.cc/" target="_blank" rel="noreferrer noopene
 </div>
             </div>
     
-    <script src="/js/journal.js"></script></body>
+    <script src="/yushan-blog/xiaosong.github.io.git/js/journal.js"></script></body>
 </html>

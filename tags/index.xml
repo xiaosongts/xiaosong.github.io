@@ -2,18 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on 小宋小宋?</title>
-    <link>http://example.org/tags/</link>
+    <link>https://github.com/yushan-blog/xiaosong.github.io.git/tags/</link>
     <description>Recent content in Tags on 小宋小宋?</description>
     <generator>Hugo</generator>
     <language>en-us</language>
     <copyright>This is a customized copyright.</copyright>
     <lastBuildDate>Tue, 01 Oct 2024 00:00:00 +0800</lastBuildDate>
-    <atom:link href="http://example.org/tags/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://github.com/yushan-blog/xiaosong.github.io.git/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>She</title>
-      <link>http://example.org/tags/she/</link>
+      <link>https://github.com/yushan-blog/xiaosong.github.io.git/tags/she/</link>
       <pubDate>Tue, 01 Oct 2024 00:00:00 +0800</pubDate>
-      <guid>http://example.org/tags/she/</guid>
+      <guid>https://github.com/yushan-blog/xiaosong.github.io.git/tags/she/</guid>
       <description></description>
     </item>
   </channel>
